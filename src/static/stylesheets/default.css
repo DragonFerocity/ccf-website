@@ -7,19 +7,6 @@ html {
     min-width: 980px;
 }
 
-div.background-gradient {
-    min-height: 100%;
-    /* for older browsers */
-    background-color: #6B7D85;
-    /* for html5 browsers */
-    background-image: linear-gradient(to bottom left, #6B7D85 10%, #092D35 90%);
-}
-
-div.background-image {
-    min-height: 100%;
-    background-image: url('/images/background.png');
-}
-
 body {
     height: 100%;
     min-height: 100%;
@@ -27,6 +14,13 @@ body {
     min-width: 980px;
     padding: 0;
     margin: 0;
+
+    background-color: rgb(107, 125, 133);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: 100% auto;
+    background-image: url('/images/background.png'), linear-gradient(to bottom left, #6B7D85 10%, #092D35 90%);
 }
 
 img {
@@ -83,16 +77,16 @@ div.content {
     margin-left: auto;
     margin-right: auto;
     background-color: #FFFFFF;
-    padding: 10px 10px 3px 10px;
-    margin-top: 15px;
+    padding: 20px 10px 3px 10px;
+    margin-top: 0px;
     /* temporary workaround of crbug.com/117102
        Currently it does not seem to adversly affect any pages
        but I might have to make it a per page setting if 117102
        isn't fixed soon
     overflow: auto;
     */
-    border-radius: 10px 10px 2px 2px;
-    box-shadow: 1px 1px 20px #888 inset;
+    border-radius: 0px;
+    box-shadow: 1px 1px 20px rgba(160, 160, 160, 0.3) inset, 5px 5px 25px rgba(32, 32, 32, 0.75);
 }
 
 div.footer {
