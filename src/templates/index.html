@@ -23,8 +23,8 @@
 
             $(".slide-bullet").removeClass("slide-bullet-active");
             $("#slide-bullet-" + slideNumber).addClass("slide-bullet-active");
-            $(".slide-image").removeClass("slide-image-active");
-            $("#slide-image-" + slideNumber).addClass("slide-image-active");
+            $(".slide-image").fadeOut("slide-image-active");
+            $("#slide-image-" + slideNumber).fadeIn("slide-image-active");
         }
         function advanceSlide() {
             currentSlideNumber = (currentSlideNumber + 1) % totalNumberOfSlides;
@@ -54,7 +54,7 @@
                 <img width="600" height="450" src="/image/{{ slide.key.urlsafe() }}" alt="{{ slide.Title }}"/>
             </a>
         {% else %}
-            <div style="width:600px; height:450px; background-color:blue;">No Slides</div>
+            <div style="width:600px; height:450px;" class="homepage-slideshow-inner">No Slides</div>
         {% endfor %}
         <div class="homepage-slideshow-nav">
             {% for slide in slides %}

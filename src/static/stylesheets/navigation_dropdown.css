@@ -12,15 +12,16 @@
 .top-level-dropdown {
   display: inline;
   float: left;
-  width: 187px;
+  width: 194px;
   height: 19px;
-  margin-right: 5px;
-  padding: 2px 0 2px 5px;
+  margin-right: 0px;
+  padding: 5px 0px 5px 0px;
   background-color: white;
-  border-top-right-radius: 3px;
-  border-top-left-radius: 3px;
   /* required for firefox 13 */
   line-height: 19px;
+  text-align: center;
+  border: 1px solid transparent;
+  cursor: default;
 }
 
 .top-level-dropdown:last-of-type {
@@ -34,24 +35,26 @@
 
     #navigation-dropdown .nav-menu-list also needs to be decreased by AMOUNT_INCREASED.
   */
-  border: #EB8F00 2px solid;
-  width: 183px;
-  height: 15px;
+  background-color: rgb(255, 176, 0);
+  border-left: rgb(255, 143, 0) 1px solid;
+  border-right: rgb(255, 143, 0) 1px solid;
 }
 
 .top-level-dropdown-selected {
-  background-color: #EB8F00;
+  background-color: rgb(255, 188, 47);
 }
 
 .nav-menu-list {
   position: absolute;
-  width: 185px;
-  left: -999em;
-  padding: 0;
-  margin: 0;
-  background-color: #EB8F00;
-  border-bottom-right-radius: 3px;
-  border-bottom-left-radius: 3px;
+  width: 194px;
+  left: -1000em;
+  padding: 5px 0px;
+  margin-top: 6px;
+  margin-left: -1px;
+  background-color: rgba(255, 143, 0, 0.95);
+  border: 1px solid rgb(255, 143, 0) !important;
+  margin-bottom: 0px;
+  box-shadow: 0px 5px 30px -10px rgba(32, 32, 32, 0.4) inset;
 }
 
 .top-level-dropdown:hover .nav-menu-list  {
@@ -61,8 +64,8 @@
 
 .nav-menu-item  {
   display: block;
-  width: 179px;
-  padding: 3px;
+  width: 194px;
+  padding: 5px 0px 5px 0px;
 }
 
 .nav-menu-item:hover {
