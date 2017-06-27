@@ -12,7 +12,7 @@
 .top-level-dropdown {
   display: inline;
   float: left;
-  width: 187px;
+  width: 236px;
   height: 19px;
   margin-right: 5px;
   padding: 2px 0 2px 5px;
@@ -21,6 +21,7 @@
   border-top-left-radius: 3px;
   /* required for firefox 13 */
   line-height: 19px;
+  text-align: center;
 }
 
 .top-level-dropdown:last-of-type {
@@ -35,7 +36,7 @@
     #navigation-dropdown .nav-menu-list also needs to be decreased by AMOUNT_INCREASED.
   */
   border: #EB8F00 2px solid;
-  width: 183px;
+  width: 232px;
   height: 15px;
 }
 
@@ -45,7 +46,7 @@
 
 .nav-menu-list {
   position: absolute;
-  width: 185px;
+  width: 230px;
   left: -999em;
   padding: 0;
   margin: 0;
@@ -61,7 +62,7 @@
 
 .nav-menu-item  {
   display: block;
-  width: 179px;
+  width: 224px;
   padding: 3px;
 }
 

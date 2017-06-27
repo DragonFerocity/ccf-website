@@ -46,10 +46,10 @@
             var background_image_div = $(".background-image");
             if(background_image_div.height() < $(window).height()) {
                 background_image_div.height($(window).height());
-                console.log("set height");
+                //console.log("set height");
             } else {
                 background_image_div.height("");
-                console.log("removed height");
+                //console.log("removed height");
             }
         }
         $(document).ready(resize_background_image);
@@ -91,7 +91,6 @@
                                         <div class="nav-menu-list">
                                             <a class="nav-menu-item" href="/catalyst/small_groups">Small Groups</a>
                                             <a class="nav-menu-item" href="/catalyst/semester_series">Semester Series</a>
-                                            <a class="nav-menu-item" href="/catalyst/top_ten">Top Ten</a>
                                         </div>
                                     </div>
                                     <div class="top-level-dropdown {{ HousingSelected }}">Housing
@@ -100,17 +99,19 @@
                                             <a class="nav-menu-item" href="/housing/wcch">WCCH (for women)</a>
                                         </div>
                                     </div>
-                                    <div class="top-level-dropdown {{ AlumniSelected }}">Alumni
+                                    <!-- <div class="top-level-dropdown {{ AlumniSelected }}">Alumni
                                         <div class="nav-menu-list">
                                             <a class="nav-menu-item" href="/alumni/ministry_happenings">Ministry
                                                 Happenings</a>
                                             <a class="nav-menu-item" href="/alumni/past_events">Past Events</a>
-                                            <a class="nav-menu-item" href="/alumni/donate">Donate</a>
+
                                         </div>
-                                    </div>
-                                    <div class="top-level-dropdown {{ LinksSelected }}">Freshman
+                                    </div> -->
+                                    <div class="top-level-dropdown {{ LinksSelected }}">Resources
                                         <div class="nav-menu-list">
-                                            <a class="nav-menu-item" href="/resources/resources">Resources</a>
+                                            <a class="nav-menu-item" href="/resources/resources">Freshman Information</a>
+                                            <a class="nav-menu-item" href="/alumni/past_events">Current Events</a>
+                                            <a class="nav-menu-item" href="/alumni/donate">Donate</a>
                                         </div>
                                     </div>
                                 </div>
@@ -127,7 +128,11 @@
         <div class="footer">
             <a target="_blank" style="float:left"
                href="https://facebook.com/pages/Christian-Campus-Fellowship-Rolla/72707359940">
-                <img src="/images/Facebook_icon.png" height="40" width="40" alt="Rolla CCF Facebook page">
+                <img src="/images/Facebook_icon.png" height="40" width="40" alt="Rolla CCF Facebook Page">
+            </a>
+            <a target="_blank" style="float:left"
+               href="https://facebook.com/pages/Christian-Campus-Fellowship-Rolla/72707359940">
+                <img src="/images/Youtube_icon.png" height="40" width="40" alt="Rolla CCF Youtube Channel">
             </a>
             <small>
                 <a class="maskedLink" style="color:white" target="_blank"
