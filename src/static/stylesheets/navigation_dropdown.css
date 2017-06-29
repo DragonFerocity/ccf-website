@@ -1,73 +1,76 @@
 /* http://www.htmldog.com/articles/suckerfish/dropdowns/ */
-#navigation-dropdown {
-  padding: 0;
-  margin: 0;
+
+div#navigation {
+    border-top: 0px solid transparent;
+    background-color: transparent;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    display: block;
+    text-align: center;
+    z-index: 998;
+    position: relative;
+    /*box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.6);*/
 }
 
-#navigation-dropdown a {
-  text-decoration: none;
+div.top-level-dropdown {
+    display: inline-block;
+    border: 1px solid transparent;
+    width: 150px;
+    padding: 5px 10px;
+}
+
+div.top-level-dropdown:hover {
+  background-color: rgb(0, 147, 207);
+  border: 1px solid rgb(0, 116, 163);
+}
+
+div.nav-btn {
+    border: 1px solid transparent;
+    background-color: transparent;
+    height: 20px;
+    width: 100%;
+    color: black;
+    display: inline-block;
+    margin: 0px auto;
+    text-shadow: none;
+    cursor: pointer;
+}
+
+div.top-level-dropdown:hover > div.nav-btn {
   color: black;
 }
 
-.top-level-dropdown {
-  display: inline;
-  float: left;
-  width: 194px;
-  height: 19px;
-  margin-right: 0px;
-  padding: 5px 0px 5px 0px;
-  background-color: white;
-  /* required for firefox 13 */
-  line-height: 19px;
-  text-align: center;
-  border: 1px solid transparent;
-  cursor: default;
+div.nav-dropdown-item {
+    border: 1px solid transparent;
+    background-color: transparent;
+    height: 20px;
+    width: 148px;
+    color: black;
+    padding: 5px 10px;
+    margin: 0px auto;
+    text-shadow: none;
+    text-decoration: none;
+    cursor: pointer;
 }
 
-.top-level-dropdown:last-of-type {
-  margin-right: 0;
+div.nav-dropdown-item:hover {
+  background-color: rgba(255, 255, 255, 0.3);
 }
 
-.top-level-dropdown:hover {
-  /* if the border size increases, the width and height
-     need to be decreased by 2*AMOUNT_INCREASED. Same for
-     decreasing the border size
-
-    #navigation-dropdown .nav-menu-list also needs to be decreased by AMOUNT_INCREASED.
-  */
-  background-color: rgb(255, 176, 0);
-  border-left: rgb(255, 143, 0) 1px solid;
-  border-right: rgb(255, 143, 0) 1px solid;
+div.nav-dropdown-list > a {
+  text-decoration: none;
 }
 
-.top-level-dropdown-selected {
-  background-color: rgb(255, 188, 47);
+div.nav-dropdown-list {
+    display: none;
+    position: absolute;
+    background-color: rgba(0, 116, 163, 0.95);
+    border: 1px solid rgb(0, 147, 207);
+    margin-top: 5px;
+    transform: translateX(-11px)
 }
 
-.nav-menu-list {
-  position: absolute;
-  width: 194px;
-  left: -1000em;
-  padding: 5px 0px;
-  margin-top: 6px;
-  margin-left: -1px;
-  background-color: rgba(255, 143, 0, 0.95);
-  border: 1px solid rgb(255, 143, 0) !important;
-  margin-bottom: 0px;
-  box-shadow: 0px 5px 30px -10px rgba(32, 32, 32, 0.4) inset;
-}
-
-.top-level-dropdown:hover .nav-menu-list  {
-  left: auto;
-  border: none;
-}
-
-.nav-menu-item  {
-  display: block;
-  width: 194px;
-  padding: 5px 0px 5px 0px;
-}
-
-.nav-menu-item:hover {
-  background-color: #FFBA00;
+div.top-level-dropdown:hover div.nav-dropdown-list {
+    display: block;
 }

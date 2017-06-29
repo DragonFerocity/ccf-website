@@ -42,17 +42,17 @@
     </script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script type="text/javascript">
-        function resize_background_image() {
-            var background_image_div = $(".background-image");
-            if(background_image_div.height() < $(window).height()) {
-                background_image_div.height($(window).height());
-                console.log("set height");
-            } else {
-                background_image_div.height("");
-                console.log("removed height");
+        $(function() {
+          $(document).scroll(function() {
+            if ($(this).scrollTop() >= 133) {
+              console.log("A");
+              $("div.header").css({"position": "fixed", "top": "-133px"});
             }
-        }
-        $(document).ready(resize_background_image);
+            else {
+              $("div.header").css({"position": "absolute", "top": "0px"});
+            }
+          });
+        });
     </script>
     {% block scripts %}
     {% endblock %}
@@ -65,61 +65,61 @@
             <div class="header">
                 <table id="headerTable">
                     <tr>
-                        <td>
-                            <div class="logo"><a href="/"><img id="logo" src="/images/ccf_logo.png" alt="CCF Logo" height="117"
-                                                               width="109"/></a></div>
-                        </td>
-                        <td>
-                            <div class="headerText"><img src="/images/banner.png" alt="Christian Campus Fellowship"
-                                                         height="129" width="837"/></div>
+                        <td  style="text-align: center;">
+                            <div class="logo" style="display: inline-block; margin: 0px auto;"><a href="/"><img id="logo" src="/images/ccf_logo.png" alt="CCF Logo" height="117" width="109"/></a></div>
+                            <div class="headerText" style="display: inline-block; margin: 0px auto;"><img src="/images/banner.png" alt="Christian Campus Fellowship" height="129" width="837"/></div>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <div class="navigation">
+                            <!--<div class="navigation"> -->
                                 <!-- http://www.htmldog.com/articles/suckerfish/dropdowns/ -->
-                                <div id="navigation-dropdown">
-                                    <div class="top-level-dropdown {{ AboutUsSelected }}">About Us
-                                        <div class="nav-menu-list">
-                                            <a class="nav-menu-item" href="/aboutus/beliefs">Beliefs</a>
-                                            <a class="nav-menu-item" href="/aboutus/history">History</a>
-                                            <a class="nav-menu-item" href="/aboutus/location">Location</a>
-                                            <a class="nav-menu-item" href="/aboutus/staff">Staff and Officers</a>
+                                <div id="navigation">
+                                    <div class="top-level-dropdown">
+                                        <div class="nav-btn {{ AboutUsSelected }}">About Us</div>
+                                        <div class="nav-dropdown-list">
+                                            <a href="/aboutus/beliefs"><div class="nav-dropdown-item">Beliefs</div></a>
+                                            <a href="/aboutus/history"><div class="nav-dropdown-item">History</div></a>
+                                            <a href="/aboutus/location"><div class="nav-dropdown-item">Location</div></a>
+                                            <a href="/aboutus/staff"><div class="nav-dropdown-item">Staff and Officers</div></a>
                                         </div>
                                     </div>
-                                    <div class="top-level-dropdown {{ CatalystSelected }}">Catalyst
-                                        <div class="nav-menu-list">
-                                            <a class="nav-menu-item" href="/catalyst/small_groups">Small Groups</a>
-                                            <a class="nav-menu-item" href="/catalyst/semester_series">Semester Series</a>
-                                            <a class="nav-menu-item" href="/catalyst/top_ten">Top Ten</a>
+                                    <div class="top-level-dropdown">
+                                        <div class="nav-btn {{ CatalystSelected }}">Catalyst</div>
+                                        <div class="nav-dropdown-list">
+                                            <a href="/catalyst/small_groups"><div class="nav-dropdown-item">Small Groups</div></a>
+                                            <a href="/catalyst/semester_series"><div class="nav-dropdown-item">Semester Series</div></a>
+                                            <a href="/catalyst/top_ten"><div class="nav-dropdown-item">Top Ten</div></a>
                                         </div>
                                     </div>
-                                    <div class="top-level-dropdown {{ HousingSelected }}">Housing
-                                        <div class="nav-menu-list">
-                                            <a class="nav-menu-item" href="/housing/cch">CCH (for men)</a>
-                                            <a class="nav-menu-item" href="/housing/wcch">WCCH (for women)</a>
+                                    <div class="top-level-dropdown {{ HousingSelected }}">
+                                        <div class="nav-btn {{ HousingSelected }}">Housing</div>
+                                        <div class="nav-dropdown-list">
+                                            <a href="/housing/cch"><div class="nav-dropdown-item">CCH (for men)</div></a>
+                                            <a href="/housing/wcch"><div class="nav-dropdown-item">WCCH (for women)</div></a>
                                         </div>
                                     </div>
-                                    <div class="top-level-dropdown {{ AlumniSelected }}">Alumni
-                                        <div class="nav-menu-list">
-                                            <a class="nav-menu-item" href="/alumni/ministry_happenings">Ministry
-                                                Happenings</a>
-                                            <a class="nav-menu-item" href="/alumni/past_events">Past Events</a>
-                                            <a class="nav-menu-item" href="/alumni/donate">Donate</a>
+                                    <div class="top-level-dropdown {{ AlumniSelected }}">
+                                        <div class="nav-btn {{ AlumniSelected }}">Alumni</div>
+                                        <div class="nav-dropdown-list">
+                                            <a href="/alumni/ministry_happenings"><div class="nav-dropdown-item">Ministry Happenings</div></a>
+                                            <a href="/alumni/past_events"><div class="nav-dropdown-item">Past Events</div></a>
+                                            <a href="/alumni/donate"><div class="nav-dropdown-item">Donate</div></a>
                                         </div>
                                     </div>
-                                    <div class="top-level-dropdown {{ LinksSelected }}">Freshman
-                                        <div class="nav-menu-list">
-                                            <a class="nav-menu-item" href="/resources/resources">Resources</a>
+                                    <div class="top-level-dropdown {{ LinksSelected }}">
+                                        <div class="nav-btn {{ LinksSelected }}">Freshman</div>
+                                        <div class="nav-dropdown-list">
+                                            <a href="/resources/resources"><div class="nav-dropdown-item">Resources</div></a>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            <!-- </div> -->
                         </td>
                 </table>
             </div>
         {% endblock %}
-        <div class="content">
+        <div class="content" style="margin-top: 160px;">
             {% block content %}
                 <h1>CONTENT NOT REPLACED</h1>
             {% endblock %}

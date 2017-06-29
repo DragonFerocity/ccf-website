@@ -5,15 +5,29 @@
 }
 
 .homepage-slideshow {
-    float: left;
-    margin-left: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 960px;
+    height: 540px;
+    /* The width/height values come from taking the ratio: 1920/1080 = 60%/x
+        Thus, if the width is 60%, the height needs to be 33% to maintain 1080p size
+     */
+    position: static;
+    z-index: 100;
 }
 
 .homepage-slideshow-inner {
     border: 1px solid rgb(255, 176, 0);
-    width: 600px;
-    height: 450px;
+    width: 100%;
+    height: 100%;
     text-align: center;
+    z-index: 100;
+}
+
+.slide-image-img {
+  width: 960px;
+  position: absolute;
+  z-index: 100;
 }
 
 .agenda {
@@ -26,7 +40,6 @@
 .homepage-shortcuts {
     width: 300px;
     height: 200px;
-    float: right;
     margin-bottom: 10px;
     margin-right: 20px;
 }
