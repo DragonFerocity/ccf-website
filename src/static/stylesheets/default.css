@@ -29,23 +29,27 @@ img {
 
 div.container {
     min-height: 100%;
-    width: 980px;
+    width: 100%;
     margin: 0 auto;
 }
 
 div.header {
     width: 100%;
-    min-width: 980px;
+    position: absolute;
+    top: 0px;
+    z-index: 998;
 }
 
 table#headerTable {
-    width: 980px;
+    width: 100%;
     padding: 0;
     padding-top: 10px;
     margin-left: auto;
     margin-right: auto;
     border-spacing: 0;
     border-collapse: collapse;
+    background-color: rgba(187, 207, 215, 0.8);
+    box-shadow: 0px 3px 15px rgba(32, 32, 32, 0.5);
 }
 
 table#headerTable tr {
@@ -72,12 +76,13 @@ div.navigation {
 }
 
 div.content {
-    width: 960px;
+    width: 100%;
+    min-height: 60%;
     clear: left;
     margin-left: auto;
     margin-right: auto;
-    background-color: #FFFFFF;
-    padding: 20px 10px 3px 10px;
+    background-color: rgba(64, 64, 64, 0.1);
+    padding: 20px 0px 3px 0px;
     margin-top: 0px;
     /* temporary workaround of crbug.com/117102
        Currently it does not seem to adversly affect any pages
@@ -86,7 +91,7 @@ div.content {
     overflow: auto;
     */
     border-radius: 0px;
-    box-shadow: 1px 1px 20px rgba(160, 160, 160, 0.3) inset, 5px 5px 25px rgba(32, 32, 32, 0.75);
+    z-index: 100;
 }
 
 div.footer {
