@@ -23,14 +23,115 @@ body {
     background-image: url('/images/background.png'), linear-gradient(to bottom left, #6B7D85 10%, #092D35 90%);
 }
 
+p {
+  margin: 4px 0px;
+}
+
 img {
     border: none;
+}
+
+h1 {
+  font-family: 'Slabo 27px', serif;
+  font-size: 42px;
+  margin: 0px 0px 10px 0px;
+  padding: 0px;
+}
+
+h2 {
+  font-family: 'Slabo 27px', serif;
+  font-size: 38px;
+  margin: 0px 0px 10px 0px;
+  padding: 0px;
+}
+
+h3 {
+  font-family: 'Slabo 27px', serif;
+  font-size: 33px;
+  margin: 0px 0px 10px 0px;
+  padding: 0px;
+}
+
+h4 {
+  font-family: 'Slabo 27px', serif;
+  font-size: 27px;
+  margin: 0px 0px 10px 0px;
+  padding: 0px;
+}
+
+h5 {
+  font-family: 'Slabo 27px', serif;
+  font-size: 22px;
+  margin: 0px 0px 10px 0px;
+  padding: 0px;
+}
+
+h6 {
+  font-family: 'Slabo 27px', serif;
+  font-size: 16px;
+  margin: 0px 0px 10px 0px;
+  padding: 0px;
+}
+
+/* TEXT STYLES */
+.bold-text {
+  font-weight: bold;
+}
+
+.handwriting.large-text {
+  font-size: 16px;
+}
+
+.handwriting {
+  font-family: 'Indie Flower', cursive;
+}
+.handwriting.large-text {
+  font-size: 22px;
+}
+
+.josefin {
+  font-family: 'Josefin Sans', sans-serif;
+}
+.josefin.large-text {
+  font-size: 26px;
+}
+.josefin.medium-text {
+  font-size: 20px;
+}
+
+/* SEPARATOR STYLES */
+.separator-brown {
+  background-color: rgb(203, 136, 77);
+  width: 100%;
+  height: 96px;
+  box-shadow: 0px 0px 15px rgba(32, 32, 32, 0.5);
+  z-index: 1;
+  position: relative;
+}
+
+.separator-green {
+  background-color: rgb(77, 203, 151);
+  width: 100%;
+  height: 96px;
+  box-shadow: 0px 0px 15px rgba(32, 32, 32, 0.5);
+  z-index: 1;
+  position: relative;
+}
+
+.separator-blue {
+  background-color: rgb(77, 151, 203);
+  width: 100%;
+  height: 96px;
+  box-shadow: 0px 0px 15px rgba(32, 32, 32, 0.5);
+  z-index: 1;
+  position: relative;
 }
 
 div.container {
     min-height: 100%;
     width: 100%;
     margin: 0 auto;
+    border: 5px solid lime;
 }
 
 div.header {
@@ -38,6 +139,7 @@ div.header {
     position: absolute;
     top: 0px;
     z-index: 998;
+    box-shadow: 0px 0px 15px rgba(32, 32, 32, 0.5);
 }
 
 table#headerTable {
@@ -48,8 +150,7 @@ table#headerTable {
     margin-right: auto;
     border-spacing: 0;
     border-collapse: collapse;
-    background-color: rgba(187, 207, 215, 0.8);
-    box-shadow: 0px 3px 15px rgba(32, 32, 32, 0.5);
+    background-color: rgba(203, 136, 77, 0.9);
 }
 
 table#headerTable tr {
@@ -75,23 +176,9 @@ div.navigation {
 
 }
 
-div.content {
-    width: 100%;
-    min-height: 60%;
-    clear: left;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: rgba(64, 64, 64, 0.1);
-    padding: 20px 0px 3px 0px;
-    margin-top: 0px;
-    /* temporary workaround of crbug.com/117102
-       Currently it does not seem to adversly affect any pages
-       but I might have to make it a per page setting if 117102
-       isn't fixed soon
-    overflow: auto;
-    */
-    border-radius: 0px;
-    z-index: 100;
+.content {
+  background-color: rgba(255, 255, 255, 1);
+  padding: 20px 20%;
 }
 
 div.footer {

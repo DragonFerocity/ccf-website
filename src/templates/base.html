@@ -4,6 +4,7 @@
 <head>
     <title>{% block title %}{{ title }}{% endblock %}</title>
     {% block css %}
+        <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Josefin+Sans|Slabo+27px" rel="stylesheet">
         <link type="text/css" rel="stylesheet" href="/stylesheets/navigation_dropdown.css"/>
         <link type="text/css" rel="stylesheet" href="/stylesheets/default.css"/>
         <link type="text/css" rel="stylesheet" href="/stylesheets/print.css" media="print"/>
@@ -44,9 +45,8 @@
     <script type="text/javascript">
         $(function() {
           $(document).scroll(function() {
-            if ($(this).scrollTop() >= 133) {
-              console.log("A");
-              $("div.header").css({"position": "fixed", "top": "-133px"});
+            if ($(this).scrollTop() >= 135) {
+              $("div.header").css({"position": "fixed", "top": "-135px"});
             }
             else {
               $("div.header").css({"position": "absolute", "top": "0px"});
@@ -60,14 +60,13 @@
 <body>
 <!--<div class="background-gradient">
 <div class="background-image"> -->
-    <div class="container">
         {% block pageHeader %}
             <div class="header">
                 <table id="headerTable">
                     <tr>
                         <td  style="text-align: center;">
-                            <div class="logo" style="display: inline-block; margin: 0px auto;"><a href="/"><img id="logo" src="/images/ccf_logo.png" alt="CCF Logo" height="117" width="109"/></a></div>
-                            <div class="headerText" style="display: inline-block; margin: 0px auto;"><img src="/images/banner.png" alt="Christian Campus Fellowship" height="129" width="837"/></div>
+                            <div class="logo" style="display: inline-block; margin: 0px auto;"><a href="/"><img id="logo" src="/images/ccf_logo.png" alt="CCF Logo" height="120"/></a></div>
+                            <div class="headerText" style="display: inline-block; margin: 0px auto;"><img src="/images/banner.png" alt="Christian Campus Fellowship" height="130"/></div>
                         </td>
                     </tr>
                     <tr>
@@ -113,17 +112,21 @@
                                             <a href="/resources/resources"><div class="nav-dropdown-item">Resources</div></a>
                                         </div>
                                     </div>
+                                    <div class="top-level-dropdown">
+                                        <a href="/alumni/donate"><div class="nav-btn donate-btn">Donate</div></a>
+                                    </div>
                                 </div>
                             <!-- </div> -->
                         </td>
                 </table>
             </div>
         {% endblock %}
-        <div class="content" style="margin-top: 160px;">
+        <div class="spacer" style="width: 100%; height: 168px; margin: 0px;"></div>
+        <!-- <div class="content" style="border: 5px solid red;"> -->
             {% block content %}
                 <h1>CONTENT NOT REPLACED</h1>
             {% endblock %}
-        </div>
+        <!-- </div> -->
         <div class="footer">
             <a target="_blank" style="float:left"
                href="https://facebook.com/pages/Christian-Campus-Fellowship-Rolla/72707359940">
@@ -141,8 +144,8 @@
                 573-341-3567
             </small>
             <!-- webmaster@rollaccf.org -->
+            <!-- https://css-tricks.com/the-blur-up-technique-for-loading-background-images/ -->
         </div>
-    </div>
 <!-- </div>
 </div> -->
 </body>
