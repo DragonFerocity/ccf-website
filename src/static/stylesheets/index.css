@@ -1,19 +1,13 @@
-.ccf-info {
-    font-size: 20px;
-    text-align: center;
-    padding: 0 20px 20px 20px;
-}
-
 .homepage-slideshow {
     margin-left: auto;
     margin-right: auto;
-    width: 960px;
-    height: 540px;
+    width: 100%;
+    height: calc(100% - 160px);
     /* The width/height values come from taking the ratio: 1920/1080 = 60%/x
         Thus, if the width is 60%, the height needs to be 33% to maintain 1080p size
      */
-    position: static;
-    z-index: 100;
+    position: relative;
+    z-index: 2;
 }
 
 .homepage-slideshow-inner {
@@ -21,20 +15,65 @@
     width: 100%;
     height: 100%;
     text-align: center;
-    z-index: 100;
+    z-index: 2;
 }
 
 .slide-image-img {
-  width: 960px;
+  height: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.slide-image-dark {
+  width: 100%;
+  height: 100%;
   position: absolute;
-  z-index: 100;
+  left: 0px;
+  padding: 0px;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 4;
+}
+
+.slide-image-outer {
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0px;
+  padding: 0px;
+}
+
+.slide-image-blur {
+  width: 200%;
+  background-size: cover;
+  filter: blur(12px);
+  -webkit-filter: blur(12px);
+  margin-left: -50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.slide-image-crop {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  padding: 0px;
+  left: 0px;
+  z-index: 0;
+  overflow: hidden;
 }
 
 .agenda {
     width: 300px;
-    height: 240px;
+    height: 350px;
     float: right;
     margin-right: 20px;
+}
+
+.twitter {
+  height: 350px;
+  width: 300px;
+  overflow: auto;
 }
 
 .homepage-shortcuts {
@@ -48,4 +87,10 @@ div.content {
     /* temporary workaround of crbug.com/117102 */
     /* for IE 9 */
     overflow: auto;
+}
+
+.ccf-picture {
+  border: 15px solid rgb(77, 151, 203);
+  transform: rotate(5deg);
+  box-shadow: 3px 3px 15px rgba(32, 32, 32, 0.3);
 }

@@ -42,15 +42,12 @@
 {% endblock %}
 
 {% block content %}
-    <div class="ccf-info"><strong>Christian Campus Fellowship</strong> exists to <strong>reach</strong> non believing
-        students, nurture <strong>fellowship</strong> among believers, <strong>deepen knowledge</strong> of and <strong>love</strong>
-        for our <strong>Lord and Savior Jesus Christ</strong>, and to <strong>encourage</strong> one another to <strong>serve</strong>
-        and <strong>worship</strong> God.
-    </div>
-    <div class="homepage-slideshow">
+    <section class="homepage-slideshow">
         {% for slide in slides %}
             <a href="{{ slide.CompleteURL }}" id="slide-image-{{ loop.index0 }}" class="slide-image{% if loop.first %} slide-image-active{% endif %}">
-                <img class="slide-image-img" src="/image/{{ slide.key.urlsafe() }}" alt="{{ slide.Title }}"/>
+                <div class="slide-image-crop"><img class="slide-image-blur" src="/image/{{ slide.key.urlsafe() }}" alt="{{ slide.Title }}"/></div>
+                <div class="slide-image-dark"></div>
+                <div class="slide-image-outer"><img class="slide-image-img" src="/image/{{ slide.key.urlsafe() }}" alt="{{ slide.Title }}"/></div>
             </a>
         {% else %}
             <div style="width:600px; height:450px;" class="homepage-slideshow-inner">No Slides</div>
@@ -64,28 +61,49 @@
                 <span class="slide-bullet">&bull;</span>
             {% endfor %}
         </div>
-    </div>
-    <div class="homepage-shortcuts">
-        <div style="width:300px; height:106px; text-align:center">
-            <a href="/catalyst/small_groups" style="text-decoration:none">
-                <img src="/images/small_groups.png" height="100px" width="145px">
-            </a>
-            <a href="/alumni/donate" style="text-decoration:none">
-                <img src="/images/donate.png" height="100px" width="145px">
-            </a>
-        </div>
-        <div style="width:300px;height:84px;margin-bottom:10px;">
-            <strong>Subscribe to the CCF Mailing List</strong><br/>
-            <small>The messages that are sent out contain CCF events, prayer requests, and service opportunities.</small>
-            <!-- http://benjaminhurt.com/2010/02/12/howto-allow-subcription-google-groups/ -->
+    </section>
+    <section class="separator-brown" style="position: relative;"></section>
+    <section class="content">
+      <h1>Who We Are</h1>
+      <table>
+        <tr>
+          <td>
+            <p class="large-text handwriting" style="padding: 0px 30px;"><strong>Christian Campus Fellowship</strong> exists to <strong>reach</strong> non believing
+            students, nurture <strong>fellowship</strong> among believers, <strong>deepen knowledge</strong> of and <strong>love</strong>
+            for our <strong>Lord and Savior Jesus Christ</strong>, and to <strong>encourage</strong> one another to <strong>serve</strong>
+            and <strong>worship</strong> God.</p>
+          </td><td>
+            <img src="/images/ccf-group-picture.jpg" style="width: 500px;" class="ccf-picture"/>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <p class="josefin large-text bold-text">Subscribe to the CCF Mailing List</p>
+            <p class="josefin medium-text" style="margin-left: 15px;">The messages that are sent out contain CCF events, prayer requests, and service opportunities.</p>
             <form action="http://groups.google.com/a/mst.edu/group/ccf-list-grp/boxsubscribe">
-                <label for="email">Email:</label>
-                <input type="text" name="email" id="email" style="width:150px;"/>
+                <label for="email" class="josefin medium-text" style="margin-left: 15px;">Email:</label>
+                <input type="text" placeholder="larry@the-cucumber.com" name="email" id="email" style="width:150px;"/>
                 <input type="submit" name="sub" value="Subscribe">
             </form>
-        </div>
-    </div>
-    <div class="agenda">
-        <iframe src="https://www.google.com/calendar/b/0/embed?title=Upcoming%20CCF%20Events&amp;showNav=0&amp;showDate=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;mode=AGENDA&amp;height=300&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=8ocodjbo954qnon06un10ols28%40group.calendar.google.com&amp;color=%23BE6D00&amp;ctz=America%2FChicago" style=" border-width:0 " width="300" height="240" frameborder="0" scrolling="no"></iframe>
-    </div>
+          </td>
+        </tr>
+      </table>
+    </section>
+    <section class="separator-green" style="position: relative;"></section>
+    <section class="content">
+      <h1>Connect With Us</h1>
+      <table>
+        <tr>
+          <td>
+            <div class="agenda">
+                <iframe src="https://www.google.com/calendar/b/0/embed?title=Upcoming%20CCF%20Events&amp;showNav=0&amp;showDate=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;mode=AGENDA&amp;height=350&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=8ocodjbo954qnon06un10ols28%40group.calendar.google.com&amp;color=%23BE6D00&amp;ctz=America%2FChicago" style=" border-width:0 " width="300" height="350" frameborder="0" scrolling="no"></iframe>
+            </div>
+          </td><td>
+            <div class="twitter">
+              <a class="twitter-timeline" data-theme="light" data-link-color="#2B7BB9" href="https://twitter.com/rollaccf">Tweets by rollaccf</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </section>
 {% endblock %}
