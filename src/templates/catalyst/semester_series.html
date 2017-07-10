@@ -9,7 +9,10 @@
 {%- endblock %}
 
 {% block content %}
-    <h1 class="pageTitle">Catalyst Message Schedule</h1>
+<section class="separator-brown" style="position: relative;">
+    <h2>Semester Series</h2>
+</section>
+<section class="content" style="min-height: calc( 100% - 168px - 183px ) !important;">
 
     {% if semester_series %}
         <div style="text-align:center">
@@ -42,4 +45,5 @@
     {% else %}
         <div style="text-align:center">There is no Semester Series scheduled at this time.</div>
     {% endif %}
+</section>
 {% endblock %}

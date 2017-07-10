@@ -22,11 +22,15 @@
 {% endblock %}
 
 {% block content %}
+<section class="separator-brown" style="position: relative;">
+    <h2>What We Believe</h2>
+</section>
+<section class="content" style="min-height: calc( 100% - 168px - 183px ) !important;">
     <h3 style="text-align:center">CCF exists to reach non-believing students,
         to nurture fellowship among believers,
         to deepen knowledge of and love for our Lord Jesus Christ,
         and to encourage one another to serve and worship God.</h3>
-    <ul>
+    <ul class="josefin medium-text">
         <li>
             We Believe Jesus is Lord, Son of the living God ({{ verseLink('Jn1.14', 'John 1:14') }})
             who was sent to earth to die and take upon our sins so we may raise to new life
@@ -66,4 +70,5 @@
             to get to know Him ({{ verseLink('Php3.7-14', 'Phil.3:7-14') }}).
         </li>
     </ul>
+</section>
 {% endblock %}

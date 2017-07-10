@@ -36,6 +36,8 @@ div.nav-btn {
     text-shadow: none;
     cursor: pointer;
     padding: 5px 10px;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 16px;
 }
 
 div.top-level-dropdown:hover > div.nav-btn {
@@ -53,6 +55,8 @@ div.nav-dropdown-item {
     text-shadow: none;
     text-decoration: none;
     cursor: pointer;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 16px;
 }
 
 div.nav-dropdown-item:hover {

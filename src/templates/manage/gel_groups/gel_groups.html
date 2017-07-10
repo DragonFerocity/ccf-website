@@ -37,6 +37,7 @@
 {% endblock %}
 
 {% block content %}
+  <section class="content">
     {% if form.errors %}
         <ul class="errors">
             {% for field_name, field_errors in form.errors|dictsort if field_errors %}
@@ -96,4 +97,5 @@
             <p>No Small Groups Here</p>
         {% endfor %}
     </div>
+  </section>
 {% endblock %}
