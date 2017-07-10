@@ -9,6 +9,10 @@
 {%- endblock %}
 
 {% block content %}
+<section class="separator-brown manage-spacer" style="position: relative;">
+    <h2>Home Page Slides</h2>
+</section>
+<section class="content" style = " min-height: calc( 100% - 168px - 183px - 34px ) !important; overflow: auto;">
     <div style="height:30px;">
         <a href="?tab=onhomepage" class="manageTab {% if tab == 'onhomepage' %}selectedManageTab{% endif %}">HomePage
             Slides</a>
@@ -16,13 +20,12 @@
             Slides</a>
         <a href="?tab=disabled" class="manageTab {% if tab == 'disabled' %}selectedManageTab{% endif %}">Disabled
             Slides</a>
-        <a href="/manage/homepage_slides/new_slide" class="manageTab" style="float:right;"><strong>+</strong>Create Slide</a>
+        <a href="/manage/homepage_slides/new_slide" class="manageTab"><strong>+</strong>Create Slide</a>
     </div>
-    <hr/>
+    <div class="slide-container">
     {% for slide in slides %}
         <div style="overflow:auto">
-            <img width="400px" height="300px" style="float:left; margin-right:10px" src="/image/{{ slide.key.urlsafe() }}"/>
-
+            <img width="400px" style="float:left; margin-right:10px" src="/image/{{ slide.key.urlsafe() }}"/>
             <div>
                 {% if tab == 'onhomepage' %}
                     {% if loop.first %}
@@ -61,4 +64,6 @@
     {% else %}
         <p>No Slides</p>
     {% endfor %}
+    </div>
+</section>
 {% endblock %}

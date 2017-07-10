@@ -155,6 +155,7 @@ class Manage_HousingApplication_ArchiveHandler(Manage_HousingApplications_BaseHa
 class Manage_HousingApplication_LegacyViewHandler(Manage_HousingApplications_BaseHandler):
     def get(self):
         logging.debug("/manage/housing_applications/view_housing_application was used")
+        time.sleep(1)
         self.redirect('/manage/housing_applications/view/%s' % self.request.get('key'), permanent=True)
 
 
@@ -194,6 +195,7 @@ class Manage_HousingApplication_ViewHandler(Manage_HousingApplications_BaseHandl
 
         filled_housingApplication_note = self.process_form(HousingApplicationNote_Form, HousingApplicationNote,
                                                            PostProcessing=post_process_model)
+        time.sleep(1)
         if filled_housingApplication_note:
             self.redirect(self.request.path)
         else:
@@ -245,7 +247,7 @@ class Manage_HousingApplication_StageChangeHandler(Manage_HousingApplications_Ba
         change = HousingApplicationStageChange(NewStage=int(new_stage))
         application.StageChanges.append(change)
         application.put()
-
+        time.sleep(1)
         self.redirect("/manage/housing_applications/view/%s" % key)
 
 

@@ -23,6 +23,10 @@
 {% endblock %}
 
 {% block content %}
+<section class="separator-brown manage-spacer" style="position: relative;">
+    <h2>Manage</h2>
+</section>
+<section class="content" style = " min-height: calc( 100% - 168px - 183px - 34px ) !important; overflow: auto;">
     {% if form.errors %}
         <ul class="errors">
             {% for field_name, field_errors in form.errors|dictsort if field_errors %}
@@ -67,7 +71,7 @@
         {% for officer in existingStaffPositions %}
             <div class="list-item {{ loop.cycle('list-item-odd', 'list-item-even') }}">
                 <div class="list-item-header">
-                    <a href="?edit={{ officer.key.urlsafe() }}">Edit</a>
+                    <a href="?edit={{ officer.key.urlsafe() }}">Edit</a>&nbsp;
                     <a href="/manage/staff_positions/delete/{{ officer.key.urlsafe() }}" title="Delete this officer">Delete</a>
                     {% if loop.first %}
                         <span class="displayOrderArrow" style="color:grey;">&uArr;</span>
@@ -101,4 +105,5 @@
             <p>No Staff Here</p>
         {% endfor %}
     </div>
+</section>
 {% endblock %}

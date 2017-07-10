@@ -37,7 +37,10 @@
 {% endblock %}
 
 {% block content %}
-  <section class="content">
+<section class="separator-brown manage-spacer" style="position: relative;">
+    <h2>Small Groups</h2>
+</section>
+<section class="content" style = " min-height: calc( 100% - 168px - 183px - 34px ) !important; overflow: auto;">
     {% if form.errors %}
         <ul class="errors">
             {% for field_name, field_errors in form.errors|dictsort if field_errors %}
@@ -97,5 +100,5 @@
             <p>No Small Groups Here</p>
         {% endfor %}
     </div>
-  </section>
+</section>
 {% endblock %}

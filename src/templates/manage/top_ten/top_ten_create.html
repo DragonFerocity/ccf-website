@@ -26,6 +26,10 @@
 {%- endmacro %}
 
 {% block content %}
+<section class="separator-brown manage-spacer" style="position: relative;">
+    <h2>Manage</h2>
+</section>
+<section class="content" style = " min-height: calc( 100% - 168px - 183px - 34px ) !important; overflow: auto;">
     {% if form.errors %}
         <ul style="color:red; list-style-type:none;">
             {% for field_name, field_errors in form.errors|dictsort if field_errors %}
@@ -70,4 +74,5 @@
             </tr>
         </table>
     </form>
+</section>
 {% endblock %}

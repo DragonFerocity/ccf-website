@@ -26,16 +26,20 @@
 {%- endmacro %}
 
 {% block content %}
+<section class="separator-brown manage-spacer" style="position: relative;">
+    <h2>Semester Series</h2>
+</section>
+<section class="content" style = " min-height: calc( 100% - 168px - 183px - 34px ) !important; overflow: auto;">
     {% if not form %}
         <div style="font-weight:bold; margin-left:30px">New Semester Series</div>
         <form action="" method="">
             <div>
                 <label for="start">First Thursday of the Semester:</label>
-                <input id="start" type="text" name="start" placeholder="ex: January 23 2012"/>
+                <input id="start" type="text" name="start" placeholder="ex: January 23 2017"/>
             </div>
             <div>
                 <label for="end">Last Thursday of the Semester:</label>
-                <input id="end" type="text" name="end" placeholder="ex: May 5 2012"/>
+                <input id="end" type="text" name="end" placeholder="ex: May 5 2017"/>
             </div>
             <div>
                 <input style="width:100px" type="submit" value="Next"/>
@@ -110,4 +114,5 @@
             </table>
         </form>
     {% endif %}
+</section>
 {% endblock %}

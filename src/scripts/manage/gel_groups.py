@@ -19,6 +19,7 @@ class Manage_GelGroups_Handler(Manage_GelGroups_BaseHandler):
 
     def post(self):
         filled_gel_group = self.process_form(GelGroup_Form, GelGroup)
+        time.sleep(1)
         if filled_gel_group:
             self.redirect(self.request.path)
         else:
@@ -33,6 +34,7 @@ class Manage_GelGroups_DeleteHandler(Manage_GelGroups_BaseHandler):
             key.delete()
         else:
             self.abort(400, "Can only delete kind 'GelGroup'")
+        time.sleep(1)
         self.redirect('/manage/gel_groups')
 
 

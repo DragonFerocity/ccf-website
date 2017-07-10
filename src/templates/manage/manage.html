@@ -1,6 +1,10 @@
 {% extends "manage/manage-base.html" %}
 
 {% block content %}
+<section class="separator-brown manage-spacer" style="position: relative;">
+    <h2>Manage</h2>
+</section>
+<section class="content">
     <strong>Known Issues</strong>
     <ul style="margin-top: 0;">
         <li><tt style="font-size:1.2em">Manage &gt; Housing Applications</tt> will display a maximum of 50 application notes</li>
@@ -10,8 +14,11 @@
     </ul>
 
     <br/>
-
-    <strong>Change Log</strong>
+</section>
+<section class="separator-gray" style="position: relative;">
+    <h2>Changelog</h2>
+</section>
+<section class="content-dark">
     <ul style="margin-top: 0;">
         <li>Jan. 22, 2016
             <ul>
@@ -151,4 +158,5 @@
             </ul>
         </li>
     </ul>
+</section>
 {% endblock %}
