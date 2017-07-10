@@ -23,62 +23,69 @@
 {% endblock %}
 
 {% block content %}
-    <h1 class="pageTitle">Staff</h1>
-    <hr/>
-
+<section class="separator-brown" style="position: relative;">
+    <h2>Our Staff</h2>
+</section>
+<section class="content">
     {% for StaffPosition in StaffPositions %}
         <div style="overflow:auto">
-            <img src="/image/{{ StaffPosition.key.urlsafe() }}" alt="{{ StaffPosition.Name }}" style="float:left; margin:10px 0 10px 10px" height="123" width="147"/>
+            <img src="/image/{{ StaffPosition.key.urlsafe() }}" alt="{{ StaffPosition.Name }}" style="float:left; margin:10px 0 10px 10px"height="123" width="147"/>
 
             <div style="margin-left:170px">
-                <p><span style="font-weight:bold; font-size:22px">{{ StaffPosition.Name }}</span></p>
+                <p><span class="josefin large-text bold-text">{{ StaffPosition.Name }}</span></p>
 
-                <p>{{ StaffPosition.Description }}.</p>
+                <p class="josefin medium-text">{{ StaffPosition.Description }}.</p>
 
-                <p>Email {{ StaffPosition.Name }} at <a href="mailto:{{ StaffPosition.Email }}">{{ StaffPosition.Email }}</a></p>
+                <p class="josefin medium-text">Email {{ StaffPosition.Name }} at <a href="mailto:{{ StaffPosition.Email }}">{{ StaffPosition.Email }}</a></p>
             </div>
         </div>
         <hr/>
     {%  endfor %}
-
+</section>
+<section class="separator-gray" style="position: relative;">
+    <h2>Our Board of Directors</h2>
+</section>
+<section class="content-dark">
     <div id="boardOfDirectors">
-        <h1 style="text-align:center">Board of Directors</h1>
-        <hr/>
         <div style="text-align:center">
-            <p style="padding-left: 100px; padding-right: 100px">
+            <p style="padding-left: 100px; padding-right: 100px" class="josefin medium-text">
             Dan Oerther, Kenny Salts, Jeremy Jamison, Myrlen Troutt, Sherry Duley, Becky Rich, Mike Kleeschulte,
             Scott Robinson, Lon/Janet West, Lowell Winn
             </p>
         </div>
     </div>
-    <hr/>
+    <br/><br/>
+</section>
+<section class="separator-gray" style="position: relative;">
+    <h2>Our Student Officer Team</h2>
+</section>
+<section class="content-dark">
     <div id="studentOfficers">
-        <h1 style="text-align:center">Student Officer Team</h1>
-        <table frame="box" rules="rows" cellpadding="5">
+        <table frame="box" rules="rows" cellpadding="5" style="border: 0px solid transparent;">
             <tr>
                 {% for officer in studentOfficers %}
                     <td>
                         <img src="/image/{{ officer.key.urlsafe() }}" alt="{{ officer.Name }}" width="100" />
                     </td>
                     <td>
-                        <p style="font-weight:bold">{{ officer.Position }}</p>
+                        <p class="josefin medium-text bold-text">{{ officer.Position }}</p>
 
-                        <p>
+                        <p class="josefin medium-text">
                             {{ officer.Name }}<br/>
-                            {{ officer.Grade }}<br/>
+                            <i>{{ officer.Grade }}</i><br/>
                             {{ officer.Major }}<br/>
                         </p>
 
-                        <p>
+                        <p class="josefin medium-text">
                             <a href="mailto:{{ officer.Email }}">{{ officer.Email }}</a>
                         </p>
                     </td>
-                    {% if loop.index % 4 == 0 %}
-                        </tr>
-                        {% if not loop.last %}
-                            <tr>
-                        {% endif %}
-                    {% endif %}
+            {% if loop.index % 4 == 0 %}
+            </tr>
+                {% if not loop.last %}
+                    <tr>
+                {% endif %}
+            {% endif %}
                 {% endfor %}
                 {# Lets insert the rest of the cols in this row #}
                 {% if studentOfficers|length % 4 != 0 %}
@@ -90,4 +97,5 @@
                 {% endif %}
         </table>
     </div>
+</section>
 {% endblock %}

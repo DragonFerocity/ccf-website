@@ -15,9 +15,7 @@
             float: right;
             height: 590px;
             width: 680px;
-            border-radius: 10px;
             font-size: 18px;
-            background-color: #ffdB00;
             padding: 10px;
             margin-bottom: 5px;
         }
@@ -28,7 +26,6 @@
         .happenings-left-boxes {
             height: 160px;
             width: 225px;
-            border-radius: 10px;
             margin: 10px;
             overflow: hidden;
         }
@@ -47,27 +44,30 @@
 {% endblock %}
 
 {% block content %}
-    <h1 class="pageTitle">Ministry Happenings</h1>
+<section class="separator-brown" style="position: relative;">
+    <h2>Ministry Happenings</h2>
+</section>
+<section class="content" style="min-height: calc( 100% - 168px - 183px ) !important; overflow: auto;">
     <div class="happenings">
-        <p style="text-align: center">The ministry of Christian Campus Fellowship on the campus of Missouri University
+        <p style="text-align: center" class="josefin medium-text">The ministry of Christian Campus Fellowship on the campus of Missouri University
             of Science and Technology can only happen with your help. We want to keep you updated on the happenings of
             what God is doing through this ministry with access to our newsletters, information on big events, outreach,
             retreats, and other ministry activities we've got coming up. Please check back here often to be aware of
             what God is doing through this ministry and through your continued prayers for the students here.</p>
-
-        <div class="happenings-right">
+        <br/>
+        <div class="happenings-right list-item-odd">
             <h2 style="text-align:center">Opening Week</h2>
 
-            <p>This is possibly the single biggest week of relationship building and drawing students into our ministry.
+            <p class="josefin medium-text">This is possibly the single biggest week of relationship building and drawing students into our ministry.
                 We literally have hundreds of students come through our doors each fall. We do have a couple of other
                 summer activities - summer retreat/float trip and the National Student Conference in Indiana - however,
                 we feel that O-Week needs your attention.</p>
 
-            <p>We need your prayers. We need financial donations to make the week happen but without prayers asking for
+            <p class="josefin medium-text">We need your prayers. We need financial donations to make the week happen but without prayers asking for
                 the presence of the Holy Spirit in and around these activities and our facilities, we will not be
                 successful.</p>
 
-            <p>We are in full planning mode for this year's O-Week. Please <a href="mailto:andy@rollaccf.org">email</a>
+            <p class="josefin medium-text">We are in full planning mode for this year's O-Week. Please <a href="mailto:andy@rollaccf.org">email</a>
                 or check the <a href="/resources/resources">Freshman page</a> for more details on what is planned for
                 this week.</p>
             <table style="width:100%" class="oWeekPhotos">
@@ -113,4 +113,5 @@
             </div>
         </div>
     </div>
+</section>
 {% endblock %}

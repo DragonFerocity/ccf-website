@@ -25,34 +25,22 @@
         .description {
             padding: 8px;
         }
-
-        .list-item {
-            padding: 5px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-        }
-
-        .list-item-odd {
-            background-color: #EB8F00;
-            background-image: linear-gradient(to right, #EB8F00 0%, white 70%);
-        }
-
-        .list-item-even {
-            background-color: #0093CF;
-            background-image: linear-gradient(to right, #0093CF 0%, white 80%);
-        }
     </style>
 {% endblock %}
 
 {% block content %}
-    <h1 class="pageTitle">CCF Small Groups</h1>
-    <p>These small group gatherings are a way for people to grow closer and have more of a sense of community together.
+<section class="separator-brown" style="position: relative;">
+    <h2>Small Groups</h2>
+</section>
+<section class="content" style="min-height: calc( 100% - 168px - 183px ) !important;">
+    <p class="josefin medium-text">These small group gatherings are a way for people to grow closer and have more of a sense of community together.
         As our ministry grows, we find ourselves with a great opportunity to reach a broader spectrum of students across
         the campus at Missouri S&amp;T, however we do not want to lose the intimacy of gathering together in small
         groups to be a part of each other's lives. This depth in the Scriptures and in each other's lives allows you to
         pass along prayer requests (either as confidential or public requests) and lift up and encourage those who may
         be struggling through life.</p>
-    <p>If you are interested in more information about small groups, contact <a href="mailto:andy@rollaccf.org">Andy</a>.
+    <br/>
+    <p class="josefin medium-text">If you are interested in more information about small groups, contact <a href="mailto:moriah@rollaccf.org">Moriah</a>.
     </p>
     <hr/>
     {% for group in GelGroups %}
@@ -68,4 +56,5 @@
     {% else %}
         <p style="text-align: center">There are currently no active Small Groups</p>
     {% endfor %}
+</section>
 {% endblock %}

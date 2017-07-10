@@ -20,7 +20,7 @@ body {
     background-position: center center;
     background-attachment: fixed;
     background-size: 100% auto;
-    background-image: url('/images/background.png'), linear-gradient(to bottom left, #6B7D85 10%, #092D35 90%);
+    /*background-image: url('/images/background.png'), linear-gradient(to bottom left, #6B7D85 10%, #092D35 90%);*/
 }
 
 p {
@@ -32,42 +32,42 @@ img {
 }
 
 h1 {
-  font-family: 'Slabo 27px', serif;
+  font-family: 'Josefin Sans', sans-serif;
   font-size: 42px;
   margin: 0px 0px 10px 0px;
   padding: 0px;
 }
 
 h2 {
-  font-family: 'Slabo 27px', serif;
+  font-family: 'Josefin Sans', sans-serif;
   font-size: 38px;
   margin: 0px 0px 10px 0px;
   padding: 0px;
 }
 
 h3 {
-  font-family: 'Slabo 27px', serif;
+  font-family: 'Josefin Sans', sans-serif;
   font-size: 33px;
   margin: 0px 0px 10px 0px;
   padding: 0px;
 }
 
 h4 {
-  font-family: 'Slabo 27px', serif;
+  font-family: 'Josefin Sans', sans-serif;
   font-size: 27px;
   margin: 0px 0px 10px 0px;
   padding: 0px;
 }
 
 h5 {
-  font-family: 'Slabo 27px', serif;
+  font-family: 'Josefin Sans', sans-serif;
   font-size: 22px;
   margin: 0px 0px 10px 0px;
   padding: 0px;
 }
 
 h6 {
-  font-family: 'Slabo 27px', serif;
+  font-family: 'Josefin Sans', sans-serif;
   font-size: 16px;
   margin: 0px 0px 10px 0px;
   padding: 0px;
@@ -76,6 +76,9 @@ h6 {
 /* TEXT STYLES */
 .bold-text {
   font-weight: bold;
+}
+.center-text {
+  text-align: center;
 }
 
 .handwriting.large-text {
@@ -98,12 +101,30 @@ h6 {
 .josefin.medium-text {
   font-size: 20px;
 }
+.josefin.small-text {
+  font-size: 16px;
+}
+
+.background-blue {
+  background-color: rgb(77, 151, 203);
+}
+.background-brown {
+  background-color: rgb(203, 136, 77);
+}
+.background-green {
+  background-color: rgb(77, 203, 151);
+}
+.background-light-gray {
+  background-color: rgba(179, 174, 169, 0.8);
+}
 
 /* SEPARATOR STYLES */
 .separator-brown {
   background-color: rgb(203, 136, 77);
+  text-align: center;
+  line-height: 64px;
   width: 100%;
-  height: 96px;
+  height: 64px;
   box-shadow: 0px 0px 15px rgba(32, 32, 32, 0.5);
   z-index: 1;
   position: relative;
@@ -111,8 +132,10 @@ h6 {
 
 .separator-green {
   background-color: rgb(77, 203, 151);
+  text-align: center;
+  line-height: 64px;
   width: 100%;
-  height: 96px;
+  height: 64px;
   box-shadow: 0px 0px 15px rgba(32, 32, 32, 0.5);
   z-index: 1;
   position: relative;
@@ -120,8 +143,21 @@ h6 {
 
 .separator-blue {
   background-color: rgb(77, 151, 203);
+  text-align: center;
+  line-height: 64px;
   width: 100%;
-  height: 96px;
+  height: 64px;
+  box-shadow: 0px 0px 15px rgba(32, 32, 32, 0.5);
+  z-index: 1;
+  position: relative;
+}
+
+.separator-gray {
+  background-color: rgb(109, 106, 102);
+  text-align: center;
+  line-height: 64px;
+  width: 100%;
+  height: 64px;
   box-shadow: 0px 0px 15px rgba(32, 32, 32, 0.5);
   z-index: 1;
   position: relative;
@@ -150,7 +186,7 @@ table#headerTable {
     margin-right: auto;
     border-spacing: 0;
     border-collapse: collapse;
-    background-color: rgba(203, 136, 77, 0.9);
+    background-color: rgba(153, 149, 145, 1);
 }
 
 table#headerTable tr {
@@ -180,6 +216,14 @@ div.navigation {
   background-color: rgba(255, 255, 255, 1);
   padding: 20px 20%;
 }
+.content-dark {
+  background-color: rgba(198, 193, 188, 1);
+  padding: 20px 20%;
+}
+.content-dark-2 {
+  background-color: rgba(179, 174, 169, 1);
+  padding: 20px 20%;
+}
 
 div.footer {
     color: white;
@@ -206,6 +250,10 @@ h1.pageTitle {
     text-decoration: underline;
 }
 
+.dark-link {
+  color: rgb(32, 32, 32) !important;
+}
+
 div.sidebarPicture {
     margin-bottom: 10px;
 }
@@ -217,4 +265,17 @@ div.sidebarPicture div.caption {
 div.sidebarPicture div.subcaption {
     font-size: small;
     text-align: center;
+}
+
+.list-item {
+    padding: 5px;
+    margin-bottom: 0px;
+}
+
+.list-item-odd {
+    background-color: rgba(179, 174, 169, 0.8);
+}
+
+.list-item-even {
+    background-color: rgba(179, 174, 169, 0.4);
 }

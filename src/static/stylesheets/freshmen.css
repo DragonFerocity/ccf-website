@@ -3,9 +3,7 @@ div.left-side {
     padding: 7px;
     margin-bottom: 20px;
     margin-left: 10px;
-    background-color: black;
-    color: white;
-    border-radius: 10px;
+    color: black;
     float: left;
 }
 
@@ -13,7 +11,6 @@ div.right-side {
     margin-right: 10px;
     width: 580px;
     float: right;
-    border-radius: 10px;
 }
 
 div.right-half {
@@ -21,28 +18,26 @@ div.right-half {
     padding: 7px;
     float: left;
     width: 270px;
-    border-radius: 10px;
     font-size: 20px;
     text-align: center;
 }
 
 div.right-full {
-    background-color: orange;
     margin-bottom: 10px;
     padding: 30px 7px;
     text-align: center;
     clear: both;
-    border-radius: 10px;
     font-style: italic;
     font-size: 22px;
 }
 
-h4.oWeekDayHeader {
-    margin-bottom: 0;
-    border-bottom: solid white 1px;
+h5.oWeekDayHeader {
+    margin-bottom: 5px;
+    border-bottom: 1px solid black;
 }
 
 p.oWeekDayDescription {
     margin-top: 1px;
     text-align: center;
+    margin-bottom: 8px;
 }
