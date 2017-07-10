@@ -22,6 +22,10 @@
 {% endmacro %}
 
 {% block content %}
+<section class="separator-brown manage-spacer" style="position: relative;">
+    <h2>Manage</h2>
+</section>
+<section class="content" style = " min-height: calc( 100% - 168px - 183px - 34px ) !important; overflow: auto;">
     <p>This form was filled out by {{ reference_name }} for {{ applicant_name }}.</p>
 
     <table>
@@ -131,4 +135,5 @@
         filled_reference.Comments,
         label_text="Additional Comments"
     ) }}
+</section>
 {% endblock %}

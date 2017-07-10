@@ -49,6 +49,7 @@ class Manage_SemesterSeries_Handler(Manage_SemesterSeries_BaseHandler):
 
         filled_semester_series = self.process_form(SemesterSeries_Form, SemesterSeries,
                                                    PostProcessing=post_process_model)
+        time.sleep(1)
         if filled_semester_series:
             self.redirect(self.request.path)
         else:
@@ -63,6 +64,7 @@ class Manage_SemesterSeriesDelete_Handler(Manage_SemesterSeries_BaseHandler):
             key.delete()
         else:
             self.abort(400, "Can only delete kind 'SemesterSeries'")
+        time.sleep(1)
         self.redirect("/manage/semester_series")
 
 

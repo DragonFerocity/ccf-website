@@ -23,6 +23,10 @@
 {% endblock %}
 
 {% block content %}
+<section class="separator-brown manage-spacer" style="position: relative;">
+    <h2>Manage</h2>
+</section>
+<section class="content" style = " min-height: calc( 100% - 168px - 183px - 34px ) !important; overflow: auto;">
     {% if form.errors %}
         <ul class="errors">
             {% for field_name, field_errors in form.errors|dictsort if field_errors %}
@@ -109,4 +113,5 @@
             <p>No Student Officers Here</p>
         {% endfor %}
     </div>
+</section>
 {% endblock %}

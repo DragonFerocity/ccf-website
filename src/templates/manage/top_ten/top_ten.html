@@ -14,6 +14,10 @@
 {% endblock %}
 
 {% block content %}
+<section class="separator-brown manage-spacer" style="position: relative;">
+    <h2>Manage</h2>
+</section>
+<section class="content" style = " min-height: calc( 100% - 168px - 183px - 34px ) !important; overflow: auto;">
     <a href="/manage/top_ten/create">Create New Top Ten</a>
     <hr />
     <div class="alternating-list">
@@ -33,5 +37,6 @@
             No Top Tens here...Maybe you should look over there.
         {% endfor %}
     </div>
+</section>
 {% endblock %}
 

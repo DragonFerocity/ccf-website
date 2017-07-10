@@ -71,7 +71,10 @@
 {% endblock %}
 
 {% block content %}
-
+<section class="separator-brown manage-spacer" style="position: relative;">
+    <h2>New Slide</h2>
+</section>
+<section class="content" style = " min-height: calc( 100% - 168px - 183px - 34px ) !important; overflow: auto;">
     {% if form.errors %}
         <ul class="errors">
             {% for field_name, field_errors in form.errors|dictsort if field_errors %}
@@ -128,7 +131,7 @@
                     {% endif %}
                     {{ form.Image() }}
                 </td>
-                <td>The image that will be used as the slide<br/>The image should be 600x450px in png format</td>
+                <td>The image that will be used as the slide<br/>The suggested image size is 1920x1080, but the image can be any size.</td>
             </tr>
             <tr>
                 <td colspan="3">
@@ -202,4 +205,5 @@
         {% endif %}
         <div id="html-preview"></div>
     </div>
+</section>
 {% endblock %}

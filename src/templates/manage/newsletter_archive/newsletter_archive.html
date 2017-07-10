@@ -9,6 +9,10 @@
 {%- endblock %}
 
 {% block content %}
+<section class="separator-brown manage-spacer" style="position: relative;">
+    <h2>Newsletter</h2>
+</section>
+<section class="content" style = " min-height: calc( 100% - 168px - 183px - 34px ) !important; overflow: auto;">
     <h1>Upload a Newsletter</h1>
     <form action="{{ uploadURL }}" method="POST" enctype="multipart/form-data">
         <div>Title: <input type="text" name="title"/></div>
@@ -45,4 +49,5 @@
             </tr>
         {% endfor %}
     </table>
+</section>
 {% endblock %}

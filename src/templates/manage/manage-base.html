@@ -13,19 +13,22 @@
     <link type="text/css" rel="stylesheet" href="/stylesheets/manage.css"/>
 {% endblock %}
 
-{% block pageHeader %}
-    {{ super() }}
+{% block manageNav %}
+<tr>
+  <td>
     {% if manage_pages %}
-    <div id="management-navigation" style="background-color:white; margin: 10px 0px; overflow: auto">
+    <div id="management-navigation">
         {% for page_group in manage_pages %}
-            <div class="manage-nav {{ loop.cycle('manage-nav-odd', 'manage-nav-even') }}">
+            <div class="top-level-dropdown">
                 <div>
                     {% for page in page_group %}
-                        <a class="manage-nav-inner" href="{{ page[0] }}">{{ page[1] }}</a>
+                        <a href="{{ page[0] }}"><div class="nav-btn">{{ page[1] }}</div></a>
                     {% endfor %}
                 </div>
             </div>
         {% endfor %}
     </div>
     {% endif %}
+  </td>
+</tr>
 {% endblock %}

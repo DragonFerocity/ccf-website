@@ -6,9 +6,9 @@ from ext.wtforms.form import Form
 
 
 class StaffPosition_Form(Form):
-    Name = fields.TextField(u'Name', validators=[validators.Required()])
-    Image = GaeFileField(u'Image', validators=[validators.data_required()])
-    Email = fields.TextField(u'Email', validators=[validators.Required()])
+    Name = fields.TextField(u'Name ', validators=[validators.Required()])
+    Image = GaeFileField(u'Image ', validators=[validators.data_required()])
+    Email = fields.TextField(u'Email ', validators=[validators.Required()])
     Description = fields.TextAreaField(u'Description', validators=[validators.Required()])
 
 
