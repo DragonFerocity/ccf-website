@@ -1,8 +1,9 @@
 .homepage-slideshow {
     margin-left: auto;
     margin-right: auto;
+    margin-top: -148px;
     width: 100%;
-    height: calc(100% - 160px);
+    height: calc(100%);
     /* The width/height values come from taking the ratio: 1920/1080 = 60%/x
         Thus, if the width is 60%, the height needs to be 33% to maintain 1080p size
      */
@@ -19,7 +20,7 @@
 }
 
 .slide-image-img {
-  height: 100%;
+  width: 100%;
   position: relative;
   z-index: 2;
 }
@@ -41,6 +42,7 @@
   height: 100%;
   left: 0px;
   padding: 0px;
+  overflow: hidden;
 }
 
 .slide-image-blur {

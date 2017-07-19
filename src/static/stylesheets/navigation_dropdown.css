@@ -30,7 +30,7 @@ div.nav-btn {
     background-color: transparent;
     height: 20px;
     width: 100%;
-    color: black;
+    color: white;
     display: inline-block;
     margin: 0px auto;
     text-shadow: none;
@@ -38,6 +38,7 @@ div.nav-btn {
     padding: 5px 10px;
     font-family: 'Josefin Sans', sans-serif;
     font-size: 16px;
+    font-weight: bold;
 }
 
 div.top-level-dropdown:hover > div.nav-btn {

@@ -31,6 +31,18 @@
             goToSlide(currentSlideNumber);
         }
 
+        $(function() {
+          $("div.header").removeClass("header-solid");
+          $(document).scroll(function() {
+            if ($(this).scrollTop() >= 135) {
+              $("div.header").addClass("header-solid");
+            }
+            else {
+              $("div.header").removeClass("header-solid");
+            }
+          });
+        });
+
         intervalID = window.setInterval(advanceSlide, {{HomepageSlideRotationDelay}});
     </script>
 {% endblock %}

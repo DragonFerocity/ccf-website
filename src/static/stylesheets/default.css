@@ -203,7 +203,12 @@ div.header {
     position: absolute;
     top: 0px;
     z-index: 998;
-    box-shadow: 0px 0px 15px rgba(32, 32, 32, 0.5);
+    box-shadow: 0px 0px 15px rgba(32, 32, 32, 0);
+}
+
+div.header-solid {
+  background-color: rgba(153, 149, 145, 1);
+  transition: background-color 0.5s;
 }
 
 table#headerTable {
@@ -214,7 +219,10 @@ table#headerTable {
     margin-right: auto;
     border-spacing: 0;
     border-collapse: collapse;
-    background-color: rgba(153, 149, 145, 1);
+    background-image: linear-gradient(to bottom, rgba(160, 166, 168, 0.8) 0%, rgba(160, 166, 168, 0) 100%);
+    /*background-color: rgba(153, 149, 145, 1);*/
+    background-color: transparent;
+    transition: background-color 0.5s;
 }
 
 table#headerTable tr {
