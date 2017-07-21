@@ -53,8 +53,8 @@
     <section class="homepage-slideshow">
         {% for slide in slides %}
             <a href="{{ slide.CompleteURL }}" id="slide-image-{{ loop.index0 }}" class="slide-image{% if loop.first %} slide-image-active{% endif %}">
-                <div class="slide-image-crop"><img class="slide-image-blur" src="/image/{{ slide.key.urlsafe() }}" alt="{{ slide.Title }}"/></div>
-                <div class="slide-image-dark"></div>
+                <div class="slide-image-crop"><img class="slide-image-blur" src="images/slider-background/bg3.jpg"/></div>
+                <!-- <div class="slide-image-dark"></div>-->
                 <div class="slide-image-outer"><img class="slide-image-img" src="/image/{{ slide.key.urlsafe() }}" alt="{{ slide.Title }}"/></div>
             </a>
         {% else %}

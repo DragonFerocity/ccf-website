@@ -44,13 +44,13 @@
 }
 
 .slide-image-blur {
-  width: 200%;
+  width: 110%;
   background-size: cover;
-  filter: blur(12px);
-  -webkit-filter: blur(12px);
-  margin-left: -50%;
-  -webkit-transform: translateY(-50%);
-  transform: translateY(-50%);
+  filter: blur(1px);
+  -webkit-filter: blur(1px);
+  margin-left: -5%;
+  -webkit-transform: translateY(-5%);
+  transform: translateY(-5%);
 }
 
 .slide-image-crop {
