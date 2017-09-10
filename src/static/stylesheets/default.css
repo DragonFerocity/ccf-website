@@ -191,6 +191,15 @@ a:hover, a:active {
   position: relative;
 }
 
+.parallax {
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  width: 100%;
+  position: relative;
+  box-shadow: 0px 0px 15px rgba(32, 32, 32, 0.5) inset;
+}
+
 div.container {
     min-height: 100%;
     width: 100%;
