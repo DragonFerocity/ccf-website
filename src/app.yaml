@@ -1,5 +1,5 @@
 application: ccf-website
-version: dev-master-test
+version: transparent-header-type-2
 runtime: python27
 api_version: 1
 threadsafe: true

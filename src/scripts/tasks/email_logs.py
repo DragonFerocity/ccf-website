@@ -24,7 +24,7 @@ class EmailLogs(Tasks_BaseHandler):
         if len(errors) > 0:
             message = EmailMessage()
             message.sender = "Rolla CCF Website Errors <admin@rollaccf.org>"
-            message.to = "admin@rollaccf.org"
+            message.to = "admin@rollaccf.org, rtanq9@mst.edu"
             message.subject = "CCF Website Errors (%s)" % len(errors)
             message.body = "\n".join(errors)
             message.send()

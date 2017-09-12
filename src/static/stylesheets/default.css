@@ -80,9 +80,8 @@ h6 {
 .center-text {
   text-align: center;
 }
-
-.handwriting.large-text {
-  font-size: 16px;
+.white-text {
+  color: rgb(240, 240, 240);
 }
 
 .handwriting {
@@ -251,6 +250,9 @@ div.logo {
 
 div.headerText {
     text-align: center;
+     font-size: 80px;
+     vertical-align: 20px;
+     text-shadow: 2px 0px 4px rgba(32, 32, 32, 0.5), 0px 2px 4px rgba(32, 32, 32, 0.5), -2px 0px 4px rgba(32, 32, 32, 0.5), 0px -2px 4px rgba(32, 32, 32, 0.5);
 }
 
 div.navigation {
