@@ -16,7 +16,7 @@ div#navigation {
 div.top-level-dropdown {
     display: inline-block;
     border: 1px solid transparent;
-    width: 150px;
+    width: 200px;
     padding: 0px 10px;
 }
 
@@ -39,6 +39,11 @@ div.nav-btn {
     font-family: 'Josefin Sans', sans-serif;
     font-size: 16px;
     font-weight: bold;
+    line-height: 22px;
+}
+
+div.donate-btn:hover {
+  color: black;
 }
 
 div.top-level-dropdown:hover > div.nav-btn {
@@ -49,7 +54,7 @@ div.nav-dropdown-item {
     border: 1px solid transparent;
     background-color: transparent;
     height: 20px;
-    width: 148px;
+    width: 198px;
     color: black;
     padding: 5px 10px;
     margin: 0px auto;
@@ -58,6 +63,7 @@ div.nav-dropdown-item {
     cursor: pointer;
     font-family: 'Josefin Sans', sans-serif;
     font-size: 16px;
+    line-height: 24px;
 }
 
 div.nav-dropdown-item:hover {
