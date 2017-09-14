@@ -34,7 +34,7 @@
         $(function() {
           $("div.header").removeClass("header-solid");
           $(document).scroll(function() {
-            if ($(this).scrollTop() >= 135) {
+            if ($(this).scrollTop() >= 106) {
               $("div.header").addClass("header-solid");
             }
             else {
@@ -65,20 +65,20 @@
     <section class="homepage-slideshow">
         {% for slide in slides %}
             <a href="{{ slide.CompleteURL }}" id="slide-image-{{ loop.index0 }}" class="slide-image{% if loop.first %} slide-image-active{% endif %}">
-                <div class="slide-image-crop"><img class="slide-image-blur" src="/image/{{ slide.key.urlsafe() }}" alt="{{ slide.Title }}"/></div>
-                <div class="slide-image-dark"></div>
-                <div class="slide-image-outer"><img class="slide-image-img" src="/image/{{ slide.key.urlsafe() }}" alt="{{ slide.Title }}"/></div>
+                <!--<div class="slide-image-crop"><img class="slide-image-blur" src="/image/{{ slide.key.urlsafe() }}" alt="{{ slide.Title }}"/></div>-->
+                <!--<div class="slide-image-dark"></div>-->
+                <div class="slide-image-outer"><div class="slide-image-img" style="background-image: url('/image/{{ slide.key.urlsafe() }}')" alt="{{ slide.Title }}"></div></div>
             </a>
         {% else %}
-            <div style="width:600px; height:450px;" class="homepage-slideshow-inner">No Slides</div>
+
         {% endfor %}
         <div class="homepage-slideshow-nav">
             {% for slide in slides %}
-                <span id="slide-bullet-{{ loop.index0 }}"
+                <div id="slide-bullet-{{ loop.index0 }}"
                       class="slide-bullet {% if loop.first %}slide-bullet-active{% endif %}"
-                      onclick="goToSlide({{ loop.index0 }});">&bull;</span>
+                      onclick="goToSlide({{ loop.index0 }});"></div>
             {% else %}
-                <span class="slide-bullet">&bull;</span>
+                <div class="slide-bullet"></div>
             {% endfor %}
         </div>
     </section>
@@ -120,24 +120,18 @@
       <h2>Connect With Us</h2>
     </section>
     <section class="content-dark" style="text-align: center;">
-      <table style="margin: 0px auto;">
-        <tr>
-          <td>
+
             <div class="agenda">
                 <iframe src="https://www.google.com/calendar/b/0/embed?title=Upcoming%20CCF%20Events&amp;showNav=0&amp;showDate=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;mode=AGENDA&amp;height=500&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=8ocodjbo954qnon06un10ols28%40group.calendar.google.com&amp;color=%23BE6D00&amp;ctz=America%2FChicago" style=" border-width:0 " width="300" height="500" frameborder="0" scrolling="no"></iframe>
             </div>
-          </td><td style="padding-right: 20px;">
+
             <div class="twitter">
               <a class="twitter-timeline" data-theme="light" data-link-color="#2B7BB9" href="https://twitter.com/rollaccf">Tweets by rollaccf</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
             </div>
-          </td><td>
-            <div class="fb-page" data-href="https://www.facebook.com/CCFRolla/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" style="width: 300px;">
+
+            <div class="fb-page" data-href="https://www.facebook.com/CCFRolla/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
               <blockquote cite="https://www.facebook.com/CCFRolla/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/CCFRolla/">Christian Campus Fellowship - Rolla</a></blockquote>
             </div>
-          </td><!--<td>
-            <iframe width="300" height="500" src="https://www.youtube.com/embed/videoseries?list=PLhiW1LYAapWAR7ODtLUy1zkLl5qHDijNZ" frameborder="0" allowfullscreen></iframe>
-          </td>-->
-        </tr>
-      </table>
+
     </section>
 {% endblock %}

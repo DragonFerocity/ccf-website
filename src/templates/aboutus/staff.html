@@ -11,13 +11,20 @@
 {% block css %}
     {{ super() }}
     <style>
-        #studentOfficers table {
+        #studentOfficers {
+          text-align: center;
+        }
+        #studentOfficers > .studentOfficerInfo table {
             font-size: 14px;
             text-align: center;
         }
 
-        #studentOfficers td {
-            width: 12.5%;
+        #studentOfficers > .studentOfficerInfo td {
+            width: 180px;
+        }
+        .studentOfficerInfo {
+            display: inline-block;
+            margin: 0px auto;
         }
     </style>
 {% endblock %}
@@ -61,32 +68,31 @@
 </section>
 <section class="content-dark">
     <div id="studentOfficers">
+      {% for officer in studentOfficers %}
+      <div class="studentOfficerInfo">
         <table frame="box" rules="rows" cellpadding="5" style="border: 0px solid transparent;">
             <tr>
-                {% for officer in studentOfficers %}
-                    <td>
-                        <img src="/image/{{ officer.key.urlsafe() }}" alt="{{ officer.Name }}" width="100" />
-                    </td>
-                    <td>
-                        <p class="josefin medium-text bold-text">{{ officer.Position }}</p>
+                <td>
+                    <img src="/image/{{ officer.key.urlsafe() }}" alt="{{ officer.Name }}" width="100" />
+                </td>
+                <td>
+                    <p class="josefin medium-text bold-text">{{ officer.Position }}</p>
 
-                        <p class="josefin medium-text">
-                            {{ officer.Name }}<br/>
-                            <i>{{ officer.Grade }}</i><br/>
-                            {{ officer.Major }}<br/>
-                        </p>
+                    <p class="josefin medium-text">
+                        {{ officer.Name }}<br/>
+                        <i>{{ officer.Grade }}</i><br/>
+                        {{ officer.Major }}<br/>
+                    </p>
 
-                        <p class="josefin medium-text">
-                            <a href="mailto:{{ officer.Email }}">{{ officer.Email }}</a>
-                        </p>
-                    </td>
-            {% if loop.index % 4 == 0 %}
+                    <p class="josefin medium-text">
+                        <a href="mailto:{{ officer.Email }}">{{ officer.Email }}</a>
+                    </p>
+                </td>
             </tr>
-                {% if not loop.last %}
-                    <tr>
-                {% endif %}
-            {% endif %}
-                {% endfor %}
+        </table>
+    </div>
+    {% endfor %}
+        <!--
                 {# Lets insert the rest of the cols in this row #}
                 {% if studentOfficers|length % 4 != 0 %}
                     {% for n in range(4 - studentOfficers|length % 4) %}
@@ -95,7 +101,7 @@
                     {% endfor %}
                     </tr>
                 {% endif %}
-        </table>
+        </table> -->
     </div>
 </section>
 {% endblock %}

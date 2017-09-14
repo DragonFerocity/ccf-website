@@ -16,21 +16,18 @@ div#navigation {
 div.top-level-dropdown {
     display: inline-block;
     border: 1px solid transparent;
-    width: 200px;
+    max-width: 200px;
+    min-width: 100px;
+    width: 10.5%;
     padding: 0px 10px;
-}
-
-div.nav-btn:hover, div.top-level-dropdown:hover > div.nav-btn {
-  background-color: rgb(255, 255, 255);
-  border: 1px solid rgb(255, 255, 255);
 }
 
 div.nav-btn {
     border: 1px solid transparent;
     background-color: transparent;
-    height: 20px;
+    min-height: 20px;
     width: 100%;
-    color: white;
+    color: rgba(240, 240, 240, 1);
     display: inline-block;
     margin: 0px auto;
     text-shadow: none;
@@ -38,23 +35,28 @@ div.nav-btn {
     padding: 5px 10px;
     font-family: 'Josefin Sans', sans-serif;
     font-size: 16px;
-    font-weight: bold;
     line-height: 22px;
+    text-shadow: 2px 0px 4px rgba(32, 32, 32, 0.5), 0px 2px 4px rgba(32, 32, 32, 0.5), -2px 0px 4px rgba(32, 32, 32, 0.5), 0px -2px 4px rgba(32, 32, 32, 0.5);
 }
 
 div.donate-btn:hover {
   color: black;
+  text-shadow: none;
 }
 
-div.top-level-dropdown:hover > div.nav-btn {
-  color: black;
+div.nav-btn:hover, div.top-level-dropdown:hover > div.nav-btn {
+  background-color: rgb(255, 255, 255);
+  border: 1px solid rgb(255, 255, 255);
+  color: black !important;
+  transition: color 0s !important;
+  text-shadow: none;
 }
 
 div.nav-dropdown-item {
     border: 1px solid transparent;
     background-color: transparent;
-    height: 20px;
-    width: 198px;
+    min-height: 20px;
+    width: calc(100% - 22px);
     color: black;
     padding: 5px 10px;
     margin: 0px auto;
@@ -79,6 +81,9 @@ div.nav-dropdown-list {
     position: absolute;
     background-color: rgba(220, 220, 220, 0.95);
     border: 1px solid rgb(220, 220, 220);
+    max-width: 220px;
+    min-width: 120px;
+    width: calc(10.5% + 20px);
 }
 
 div.top-level-dropdown:hover div.nav-dropdown-list {

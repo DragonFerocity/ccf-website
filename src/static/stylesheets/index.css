@@ -1,9 +1,9 @@
 .homepage-slideshow {
     margin-left: auto;
     margin-right: auto;
-    margin-top: -148px;
+    margin-top: -139px;
     width: 100%;
-    height: calc(100%);
+    height: 100vmin;
     /* The width/height values come from taking the ratio: 1920/1080 = 60%/x
         Thus, if the width is 60%, the height needs to be 33% to maintain 1080p size
      */
@@ -20,9 +20,12 @@
 }
 
 .slide-image-img {
-  width: 100%;
-  position: relative;
+  width: 100vmax;
+  position: absolute;
   z-index: 2;
+  background-position: 50% 0%;
+  background-size: cover;
+  height: 100%;
 }
 
 .slide-image-dark {
@@ -65,27 +68,59 @@
   overflow: hidden;
 }
 
+.homepage-slideshow-nav {
+  position: absolute;
+  z-index: 5;
+  height: 30px;
+  width: 100%;
+  text-align: center;
+  top: calc(100% - 30px);
+  left: 0px;
+}
+
+.slide-bullet {
+  cursor: pointer;
+  border-radius: 1000px;
+  width: 10px;
+  height: 10px;
+  background-color: rgba(240, 240, 240, 0.4);
+  box-shadow: 0px 0px 5px rgba(32, 32, 32, 0.3), 0px 0px 15px rgba(32, 32, 32, 0.3), 0px 0px 15px rgba(32, 32, 32, 0.3);
+  padding: 0px !important;
+  display: inline-block;
+}
+
+.slide-bullet-active {
+  background-color: rgba(240, 240, 240, 1);
+  box-shadow: 0px 0px 5px rgba(32, 32, 32, 0.9), 0px 0px 15px rgba(32, 32, 32, 0.9), 0px 0px 15px rgba(32, 32, 32, 0.9);
+}
+
 .agenda {
     height: 500px;
     width: 300px;
-    float: right;
     margin-right: 20px;
+    display: inline-block;
 }
 
 .twitter {
   height: 500px;
   width: 300px;
   overflow: auto;
+  margin-right: 20px;
+  display: inline-block;
 }
 
 .fb-page {
   height: 500px;
+  width: 300px;
   overflow: auto;
+  margin-right: 20px;
+  display: inline-block;
 }
 
 .homepage-shortcuts {
     width: 300px;
     height: 200px;
+    overflow: auto;
     margin-bottom: 10px;
     margin-right: 20px;
 }
