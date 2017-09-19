@@ -33,8 +33,6 @@ class Manage_StaffPositions_Handler(Manage_StaffPositions_BaseHandler):
 
         filled_staff_position = self.process_form(StaffPosition_Form, StaffPosition, PostProcessing=post_process_model)
 
-        time.sleep(1) #Sleeping 1 second allows the process above to completely finish before reloading the pageTitle
-        #Without the sleep, the page reloads but any new information doesn't show up unless refreshed again
         if filled_staff_position:
             self.redirect(self.request.path)
         else:
@@ -67,7 +65,6 @@ class Manage_StaffPositions_DeleteHandler(Manage_StaffPositions_BaseHandler):
             key.delete()
         else:
             self.abort(400, "Can only delete kind 'StaffPosition'")
-        time.sleep(1)
         self.redirect('/manage/staff_positions')
 
 

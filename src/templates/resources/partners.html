@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title -%}
+    CCF Freshmen Resources
+{%- endblock %}
+
+{% block meta -%}
+    Resources for incoming freshmen about Christian Campus Fellowship
+{%- endblock %}
+
+{% block css %}
+    {{ super() }}
+    <!-- temporary workaround of crbug.com/117102 -->
+    <style>
+        div.content {
+            overflow: auto;
+        }
+    </style>
+    <link type="text/css" rel="stylesheet" href="/stylesheets/freshmen.css"/>
+{% endblock %}
+
+{% block content %}
+<section class="separator-brown" style="position: relative;">
+    <h2>Our Partners</h2>
+</section>
+<section class="content content-full" style="overflow: auto;">
+    {% for partner in existingPartnerships %}
+        <div class="list-item {{ loop.cycle('list-item-odd', 'list-item-even') }}" style="width: 80%; margin: 0px auto;">
+            <div class="list-item-body" style="overflow:auto">
+                <img src="/image/{{ partner.key.urlsafe() }}" style="float: {{ loop.cycle('left', 'right') }}; width: 200px;"/>
+
+                <div style="padding-{{ loop.cycle('left', 'right') }}: 210px; text-align: {{ loop.cycle('left', 'right') }};">
+                    <a href="{{ partner.WebsiteURL }}"><h4>{{ partner.Name }}</h4></a>
+
+                    <p>{{ partner.Description }}</p>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <p>No Partners Here</p>
+    {% endfor %}
+</section>
+{% endblock %}

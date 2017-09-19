@@ -24,7 +24,7 @@
         </div>
 
         <p style="padding-left:25px; padding-right:25px; text-align:center">{{ semester_series.Description }}</p>
-
+        <hr/>
         <table frame="box" rules="rows" cellpadding="10" style="margin:0px auto;">
             <tr>
                 <th>Date</th>
@@ -34,10 +34,10 @@
             </tr>
             {% for week in semester_series.Weeks %}
                 <tr>
-                    <td>{{ week.Date|default("&nbsp;") }}</td>
-                    <td>{{ week.Speaker|default("&nbsp;") }}</td>
-                    <td>{{ week.Topic|default("&nbsp;") }}</td>
-                    <td>{{ week.Location|default("&nbsp;") }}</td>
+                    <td class="{{ loop.cycle('list-item-odd', 'list-item-even') }}">{{ week.Date|default("&nbsp;") }}</td>
+                    <td class="{{ loop.cycle('list-item-odd', 'list-item-even') }}">{{ week.Speaker|default("&nbsp;") }}</td>
+                    <td class="{{ loop.cycle('list-item-odd', 'list-item-even') }}">{{ week.Topic|default("&nbsp;") }}</td>
+                    <td class="{{ loop.cycle('list-item-odd', 'list-item-even') }}">{{ week.Location|default("&nbsp;") }}</td>
                 </tr>
             {% endfor %}
         </table>

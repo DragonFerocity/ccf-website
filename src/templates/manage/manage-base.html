@@ -10,25 +10,5 @@
 
 {% block css %}
     {{ super() }}
-    <link type="text/css" rel="stylesheet" href="/stylesheets/manage.css"/>
-{% endblock %}
-
-{% block manageNav %}
-<tr>
-  <td>
-    {% if manage_pages %}
-    <div id="management-navigation">
-        {% for page_group in manage_pages %}
-            <div class="top-level-dropdown">
-                <div>
-                    {% for page in page_group %}
-                        <a href="{{ page[0] }}"><div class="nav-btn">{{ page[1] }}</div></a>
-                    {% endfor %}
-                </div>
-            </div>
-        {% endfor %}
-    </div>
-    {% endif %}
-  </td>
-</tr>
+    <link type="text/css" rel="stylesheet" href="/stylesheets/manage.css?{{seconds}}"/>
 {% endblock %}

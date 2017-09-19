@@ -16,9 +16,9 @@ div#navigation {
 div.top-level-dropdown {
     display: inline-block;
     border: 1px solid transparent;
-    max-width: 200px;
+    max-width: 180px;
     min-width: 100px;
-    width: 10.5%;
+    width: 9.3%;
     padding: 0px 10px;
 }
 
@@ -81,9 +81,9 @@ div.nav-dropdown-list {
     position: absolute;
     background-color: rgba(220, 220, 220, 0.95);
     border: 1px solid rgb(220, 220, 220);
-    max-width: 220px;
+    max-width: 200px;
     min-width: 120px;
-    width: calc(10.5% + 20px);
+    width: calc(9.3% + 20px);
 }
 
 div.top-level-dropdown:hover div.nav-dropdown-list {

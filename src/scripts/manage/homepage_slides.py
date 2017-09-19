@@ -60,11 +60,10 @@ class Manage_HomePageSlides_CreateHandler(Manage_HomePageSlides_BaseHandler):
                 filled_homepage_slide.DisplayOrder = None
 
             if filled_homepage_slide.Image:
-                    filled_homepage_slide.Image = images.resize(filled_homepage_slide.Image, 600, 450)
+                    filled_homepage_slide.Image = filled_homepage_slide.Image
 
         filled_homepage_slide = self.process_form(HomepageSlide_Form, HomepageSlide,
                                          PreProcessing=pre_formdata_processing, PostProcessing=post_process_model)
-        time.sleep(1)
         if filled_homepage_slide:
             self.redirect("/manage/homepage_slides")
         else:
@@ -85,7 +84,6 @@ class Manage_HomePageSlides_OrderHandler(Manage_HomePageSlides_BaseHandler):
         FirstObject.DisplayOrder, SecondObject.DisplayOrder = SecondObject.DisplayOrder, FirstObject.DisplayOrder
         FirstObject.put()
         SecondObject.put()
-        time.sleep(1)
         self.redirect('/manage/homepage_slides')
 
 
@@ -97,7 +95,6 @@ class Manage_HomePageSlides_DeleteHandler(Manage_HomePageSlides_BaseHandler):
             key.delete()
         else:
             self.abort(400, "Can only delete kind 'HomepageSlide'")
-        time.sleep(1)
         self.redirect('/manage/homepage_slides')
 
 

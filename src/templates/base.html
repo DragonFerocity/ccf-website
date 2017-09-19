@@ -5,8 +5,8 @@
     <title>{% block title %}{{ title }}{% endblock %}</title>
     {% block css %}
         <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Josefin+Sans|Slabo+27px" rel="stylesheet">
-        <link type="text/css" rel="stylesheet" href="/stylesheets/navigation_dropdown.css"/>
-        <link type="text/css" rel="stylesheet" href="/stylesheets/default.css"/>
+        <link type="text/css" rel="stylesheet" href="/stylesheets/navigation_dropdown.css?{{seconds}}"/>
+        <link type="text/css" rel="stylesheet" href="/stylesheets/default.css?{{seconds}}"/>
         <link type="text/css" rel="stylesheet" href="/stylesheets/print.css" media="print"/>
     {% endblock %}
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
@@ -42,6 +42,8 @@
         catch(e){window.attachEvent("onload", $buo_f)}
     </script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <!-- http://ricostacruz.com/jquery.transit/ -->
+    <script src="/javascript/jquery.transit.min.js"></script>
     <script type="text/javascript">
         $(function() {
           $(document).scroll(function() {
@@ -51,6 +53,15 @@
             else {
               $("div.header").css({"position": "absolute", "top": "0px"});
             }
+          });
+          $(".spoiler").click(function() {
+            $(this).children(".spoiler-content").slideToggle();
+
+            var arrow = $(this).children(".spoiler-arrow");
+            if (arrow.data("rotate") == "false" || !jQuery.hasData(arrow) == "")
+              arrow.transition({ rotate: '0deg' }).data("rotate", "true");
+            else
+              arrow.transition({ rotate: '90deg' }).data("rotate", "false");
           });
         });
     </script>
@@ -87,7 +98,7 @@
                                         <div class="nav-btn {{ CatalystSelected }}">Catalyst</div>
                                         <div class="nav-dropdown-list">
                                             <a href="/catalyst/small_groups"><div class="nav-dropdown-item">Small Groups</div></a>
-                                            <a href="/catalyst/semester_series"><div class="nav-dropdown-item">Semester Series</div></a>
+                                            <a href="/catalyst/semester_series"><div class="nav-dropdown-item">Sermon Series</div></a>
                                             <!-- <a href="/catalyst/top_ten"><div class="nav-dropdown-item">Top Ten</div></a> -->
                                         </div>
                                     </div>
@@ -99,28 +110,36 @@
                                         </div>
                                     </div>
                                     <div class="top-level-dropdown {{ AlumniSelected }}">
-                                        <div class="nav-btn {{ AlumniSelected }}">Alumni</div>
+                                        <div class="nav-btn {{ AlumniSelected }}">Resources</div>
                                         <div class="nav-dropdown-list">
-                                            <a href="/alumni/ministry_happenings"><div class="nav-dropdown-item">Ministry Happenings</div></a>
-                                            <a href="/alumni/past_events"><div class="nav-dropdown-item">Past Events</div></a>
-                                            <a href="/alumni/donate"><div class="nav-dropdown-item">Donate</div></a>
+                                            <a href="/resources/freshman"><div class="nav-dropdown-item">Freshman Information</div></a>
+                                            <a href="/alumni/past_events"><div class="nav-dropdown-item">Current Events</div></a>
+                                            <a href="/resources/partners"><div class="nav-dropdown-item">Outreach</div></a>
                                         </div>
                                     </div>
-                                    <div class="top-level-dropdown {{ LinksSelected }}">
-                                        <div class="nav-btn {{ LinksSelected }}">Freshman</div>
-                                        <div class="nav-dropdown-list">
-                                            <a href="/resources/resources"><div class="nav-dropdown-item">Resources</div></a>
-                                        </div>
+                                    <div class="top-level-dropdown">
+                                        <a href="/alumni/ministry_happenings"><div class="nav-btn donate-btn">Alumni</div></a>
                                     </div>
                                     <div class="top-level-dropdown">
                                         <a href="/alumni/donate"><div class="nav-btn donate-btn">Donate</div></a>
                                     </div>
+                                    {% if manage_pages %}
+                                    <!-- {{ manage_pages }} -->
+                                    <div class="top-level-dropdown">
+                                        <div class="nav-btn">Admin</div>
+                                        <div class="nav-dropdown-list">
+                                          {% for page_group in manage_pages %}
+                                            {% for page in page_group %}
+                                                <a href="{{ page[0] }}"><div class="nav-dropdown-item">{{ page[1] }}</div></a>
+                                            {% endfor %}
+                                          {% endfor %}
+                                        </div>
+                                    </div>
+                                    {% endif %}
                                 </div>
                             <!-- </div> -->
                         </td>
                     </tr>
-                    {% block manageNav %}
-                    {% endblock %}
                 </table>
             </div>
         {% endblock %}

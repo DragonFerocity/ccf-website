@@ -9,8 +9,9 @@ from google.appengine.api import memcache, users
 from google.appengine.ext import ndb
 from webapp2_extras import jinja2
 from scripts.database_models.gae_setting import BaseSetting
-from scripts.database_models.user_permission import UserPermission
+from scripts.database_models.user_permission import UserPermission, Manage_Restricted_Pages, Other_Restricted_Pages
 from ext.gaesessions import get_current_session
+from datetime import datetime
 
 class GAESettingDoesNotExist(Exception):
     pass
@@ -27,7 +28,6 @@ def lazy_property(fn):
         return getattr(self, attr_name)
 
     return _lazy_property
-
 
 class global_settings(object):
     def __getattr__(self, name):
@@ -46,9 +46,43 @@ class BaseHandler(webapp.RequestHandler):
         self.template_vars = {}
         self.use_cache = True
         self.restricted = False
+        now = datetime.utcnow()
+        self.template_vars['seconds'] = now.microsecond * now.second * now.minute * now.hour * now.day
 
     def head(self):
         pass
+
+    def generate_manage_bar(self):
+        try:
+            if users.is_current_user_admin():
+                displayed_pages = Manage_Restricted_Pages.keys()
+            else:
+                user_permission = UserPermission.get_by_id(self.current_user.email().lower())
+                displayed_pages = user_permission.PermittedPageClasses
+                if (not displayed_pages):
+                    raise ValueError("No Pages")
+
+            pages = {}
+            for page in displayed_pages:
+                if page in Other_Restricted_Pages:
+                    continue
+
+                group, link = Manage_Restricted_Pages[page]
+                if group in pages:
+                    pages[group].append(link)
+                else:
+                    pages[group] = [link, ]
+
+            final_pages = []
+            for group in sorted(pages.keys()):
+                final_group = []
+                for link in sorted(pages[group], key=lambda x: x[1]):
+                    final_group.append(link)
+                final_pages.append(final_group)
+
+            self.template_vars['manage_pages'] = final_pages
+        except:
+            pass
 
     # I should move to webapp2 sessions
     # http://webapp-improved.appspot.com/api/webapp2_extras/sessions.html
@@ -135,6 +169,7 @@ class BaseHandler(webapp.RequestHandler):
             super(BaseHandler, self).dispatch()
 
     def render_template(self, filename):
+        self.generate_manage_bar()
         rendered_html = self.jinja2.render_template(filename, **self.template_vars)
         self.response.out.write(rendered_html)
 

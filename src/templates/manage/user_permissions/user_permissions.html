@@ -1,0 +1,58 @@
+{% extends "manage/manage-base.html" %}
+
+{% block title -%}
+    User Permissions
+{%- endblock %}
+
+{% block meta -%}
+    User Permissions
+{%- endblock %}
+
+{% block content %}
+<section class="separator-brown" style="position: relative;">
+    <h2>User Permissions</h2>
+</section>
+<section class="content content-full">
+{% if form.errors %}
+    <ul style="color:red; list-style-type:none;">
+        {% for field_name, field_errors in form.errors|dictsort if field_errors %}
+            {% for error in field_errors %}
+                <li>{{ form[field_name].label }}: {{ error }}</li>
+            {% endfor %}
+        {% endfor %}
+    </ul>
+{% endif %}
+
+<form method="POST" action="">
+    {% if editKey %}
+        {{ form.id.label }} {{ form.id(readonly=readonly) }}
+    {% else %}
+        {{ form.id.label }} {{ form.id }}
+    {% endif %}
+<p>
+    {% for page in form.PermittedPageClasses %}
+        {{ page }}{{ page.label }}<br />
+    {% endfor %}
+</p>
+    <input type="submit">
+</form>
+<hr />
+<h2>Existing Users</h2>
+{% for user_permission in user_permissions %}
+    <div class="list-item {{ loop.cycle('list-item-odd', 'list-item-even') }} spoiler">
+      <div class="spoiler-arrow" style="display: inline-block;"></div>
+      <div class="spoiler-header" style="display: inline-block;">
+          <span style="font-weight: bold">{{ user_permission.key.string_id() }}</span>
+          <a href="?edit={{ user_permission.key.urlsafe() }}">Edit</a>
+          <a href="/admin/user_permissions/delete/{{ user_permission.key.urlsafe() }}">Delete</a>
+      </div>
+      <div class="spoiler-content">
+      <hr/>
+        {% for permission in user_permission.HumanReadablePermittedPageClasses %}
+            - {{ permission }}<br />
+        {% endfor %}
+      </div>
+    </div>
+{% endfor %}
+</section>
+{% endblock %}

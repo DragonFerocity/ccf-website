@@ -1,5 +1,5 @@
 application: ccf-website
-version: test-3
+version: release-2017-9-18-2
 runtime: python27
 api_version: 1
 threadsafe: true
@@ -19,7 +19,7 @@ libraries:
 - name: PIL
   version: "1.1.7"
 
-default_expiration: "10d 5h"
+default_expiration: "0d 0h 1m"
 
 admin_console:
   pages:
@@ -45,10 +45,8 @@ handlers:
 - url: /robots\.txt
   static_files: static/robots.txt
   upload: static/robots\.txt
-
 - url: /image.*
   script: scripts.image.application
-
 - url: /aboutus.*
   script: scripts.aboutus.application
 - url: /catalyst.*
@@ -59,7 +57,6 @@ handlers:
   script: scripts.alumni.application
 - url: /resources.*
   script: scripts.resources.application
-
 - url: /rapi.*
   script: scripts.rapi.application
 
@@ -70,7 +67,6 @@ handlers:
 - url: /manage.*
   script: scripts.manage.application
   login: required
-
 - url: /admin/gae_settings.*
   script: scripts.admin.gae_settings.application
   login: admin
@@ -80,13 +76,11 @@ handlers:
 - url: /admin/user_permissions.*
   script: scripts.admin.user_permissions.application
   login: admin
-
 - url: /tasks/errorReport.*
   script: scripts.tasks.email_logs.application
   login: admin
 - url: /tasks/housing_reminder.*
   script: scripts.tasks.housing_reminder.application
   login: admin
-
 - url: .*
   script: scripts.main.application

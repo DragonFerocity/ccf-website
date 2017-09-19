@@ -1,0 +1,107 @@
+{% extends "manage/manage-base.html" %}
+
+{% block title -%}
+    Partnerships
+{%- endblock %}
+
+{% block meta -%}
+    Partnerships
+{%- endblock %}
+
+{% block content %}
+<section class="separator-brown" style="position: relative;">
+    <h2>Partnerships</h2>
+</section>
+<section class="content content-full">
+
+{% if form.errors %}
+    <ul class="errors">
+        {% for field_name, field_errors in form.errors|dictsort if field_errors %}
+            {% for error in field_errors %}
+                <li>{{ form[field_name].label }}: {{ error }}</li>
+            {% endfor %}
+        {% endfor %}
+    </ul>
+{% endif %}
+
+<form action="" method="post" enctype="multipart/form-data">
+<table style="width:100%">
+    <tr>
+        <td class="formlabel">{{ form.Name.label }}
+          <div class="popup-box">?
+            <div class="popup-box-text">
+              Required<hr/>
+              Organization's name
+            </div>
+          </div>
+        </td>
+        <td class="formfield">{{ form.Name(style="width:300px") }}</td>
+        <td class="formlabel">{{ form.WebsiteURL.label }}
+          <div class="popup-box">?
+            <div class="popup-box-text">
+              Not Required<hr/>
+              URL or Link to the organizations website.
+            </div>
+          </div>
+        </td>
+        <td class="formfield">{{ form.WebsiteURL(style="width:300px", placeholder="ex: http://rollaccf.org") }}</td>
+    </tr>
+    <tr>
+        <td class="formlabel">{{ form.Description.label }}
+          <div class="popup-box">?
+            <div class="popup-box-text">
+              Required<hr/>
+              A short description about the organization or what CCF has helped them with in the past.
+            </div>
+          </div>
+        </td>
+        <td class="formfield">{{ form.Description(style="width:600px") }}</td>
+        <td class="formlabel">{{ form.Image.label }}
+          <div class="popup-box">?
+            <div class="popup-box-text">
+              Required<hr/>
+              Suggested Resolution: 150x150px; Supported Formats: JPEG, PNG, GIF (including animated), BMP, TIFF, or ICO
+            </div>
+          </div>
+        </td>
+        <td class="formfield">{{ form.Image(style="width:300px") }}</td>
+    </tr>
+</table>
+    <input type="submit">
+</form>
+<hr />
+<h2>Existing Partnerships</h2>
+{% for partner in existingPartnerships %}
+    <div class="list-item {{ loop.cycle('list-item-odd', 'list-item-even') }}">
+        <div class="list-item-header">
+            <a href="?edit={{ partner.key.urlsafe() }}">Edit</a>&nbsp;
+            <a href="/manage/partnerships/delete/{{ partner.key.urlsafe() }}" title="Delete this organization">Delete</a>
+            {% if loop.first %}
+                <span class="displayOrderArrow" style="color:grey;">&uArr;</span>
+            {% else %}
+                <a href="/manage/partnerships/order/u/{{ partner.DisplayOrder }}"
+                   class="displayOrderArrow">&uArr;</a>
+            {% endif %}
+
+            {% if loop.last %}
+                <span class="displayOrderArrow" style="color:grey;">&dArr;</span>
+            {% else %}
+                <a href="/manage/partnerships/order/d/{{ partner.DisplayOrder }}"
+                   class="displayOrderArrow">&dArr;</a>
+            {% endif %}
+        </div>
+        <div class="list-item-body" style="overflow:auto">
+            <img src="/image/{{ partner.key.urlsafe() }}" style="float: left; width: 200px;"/>
+
+            <div style="padding-left:162px">
+                <a href="{{ partner.Email }}"><h4>{{ partner.Name }}</h4></a>
+
+                <p>{{ partner.Description }}</p>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <p>No Partners Here</p>
+{% endfor %}
+</section>
+{% endblock %}

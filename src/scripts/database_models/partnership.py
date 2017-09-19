@@ -5,14 +5,14 @@ from ext.wtforms import validators, fields
 from ext.wtforms.form import Form
 
 
-class StaffPosition_Form(Form):
-    Name = fields.TextField(u'Name ', validators=[validators.Required()])
-    Email = fields.TextField(u'Email ', validators=[validators.Required()])
+class Partnership_Form(Form):
+    Name = fields.TextField(u'Organization Name ', validators=[validators.Required()])
+    WebsiteURL = fields.TextField(u'Website URL ', validators=[])
     Description = fields.TextAreaField(u'Description', validators=[validators.Required()])
     Image = GaeFileField(u'Image ', validators=[validators.data_required()])
 
 
-class StaffPosition(NdbBaseModel):
+class Partnership(NdbBaseModel):
     relevant_page_urls = ["/aboutus/staff"]
 
     CreatedBy = ndb.UserProperty(auto_current_user_add=True)
@@ -27,7 +27,7 @@ class StaffPosition(NdbBaseModel):
     Image = ndb.BlobProperty(
         required=True,
     )
-    Email = ndb.StringProperty(
+    WebsiteURL = ndb.StringProperty(
     )
     Description = ndb.TextProperty(
         required=True,
