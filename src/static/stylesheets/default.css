@@ -31,46 +31,33 @@ img {
     border: none;
 }
 
-h1 {
-  font-family: 'Josefin Sans', sans-serif;
-  font-size: 42px;
+h1, h2, h3, h4, h5, h6 {
   margin: 0px 0px 10px 0px;
   padding: 0px;
+}
+
+h1 {
+  font-size: 40px;
 }
 
 h2 {
-  font-family: 'Josefin Sans', sans-serif;
-  font-size: 38px;
-  margin: 0px 0px 10px 0px;
-  padding: 0px;
+  font-size: 36px;
 }
 
 h3 {
-  font-family: 'Josefin Sans', sans-serif;
-  font-size: 33px;
-  margin: 0px 0px 10px 0px;
-  padding: 0px;
+  font-size: 31px;
 }
 
 h4 {
-  font-family: 'Josefin Sans', sans-serif;
-  font-size: 27px;
-  margin: 0px 0px 10px 0px;
-  padding: 0px;
+  font-size: 25px;
 }
 
 h5 {
-  font-family: 'Josefin Sans', sans-serif;
-  font-size: 22px;
-  margin: 0px 0px 10px 0px;
-  padding: 0px;
+  font-size: 20px;
 }
 
 h6 {
-  font-family: 'Josefin Sans', sans-serif;
-  font-size: 16px;
-  margin: 0px 0px 10px 0px;
-  padding: 0px;
+  font-size: 14px;
 }
 
 /* TEXT STYLES */
@@ -102,6 +89,24 @@ h6 {
 }
 .josefin.small-text {
   font-size: 16px;
+}
+
+.garamond, h1, h2, h3, h4, h5, h6, .formlabel, p {
+  font-family: 'EB Garamond', serif;
+  text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.6);
+}
+.garamond.large-text, p.large-text {
+  font-size: 28px;
+}
+.garamond.medium-text, p.medium-text {
+  font-size: 22px;
+}
+.garamond.small-text, p.small-text {
+  font-size: 18px;
+}
+
+p, .formlabel {
+  font-size: 18px;
 }
 
 .background-blue {
@@ -136,10 +141,11 @@ h6 {
 /* LINK STYLES */
 a, a:link, a:visited {
   text-decoration: none;
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'EB Garamond', serif;
   font-size: 20px;
   color: rgb(15, 89, 141) !important;
   font-weight: bold;
+  text-shadow: none !important;
 }
 a:hover, a:active {
   text-decoration: underline;
@@ -247,7 +253,6 @@ div.logo {
     text-align: center;
     width: 135px;
 }
-
 /*div.header:hover > table#headerTable > tbody > tr > td > div.headerText {
   color: rgba(240, 240, 240, 1);
   text-shadow: 2px 0px 4px rgba(32, 32, 32, 0.5), 0px 2px 4px rgba(32, 32, 32, 0.5), -2px 0px 4px rgba(32, 32, 32, 0.5), 0px -2px 4px rgba(32, 32, 32, 0.5);
@@ -375,6 +380,9 @@ input[type="text"], textarea {
   box-shadow: 0px 0px 10px rgba(32, 32, 32, 0.1);
   border: 1px solid rgba(32, 32, 32, 0.3);
   margin: 7px 3px;
+  font-family: 'EB Garamond', serif;
+  font-size: 16px;
+  text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.6);
 }
 input[type="text"]:hover, textarea:hover {
   border: 1px solid rgba(32, 32, 32, 0.45);
@@ -383,7 +391,7 @@ input[type="text"]:focus, textarea:focus {
   border: 1px solid rgba(32, 32, 32, 0.6);
 }
 input[type="button"], input[type="submit"] {
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'EB Garamond', serif;
   font-size: 18px;
   padding: 3px 20px;
   box-shadow: 0px 0px 10px rgba(32, 32, 32, 0.1);
@@ -391,6 +399,7 @@ input[type="button"], input[type="submit"] {
   margin: 7px 3px;
   background-image: linear-gradient(to bottom, rgb(255, 255, 255) 0%, rgb(230, 230, 230) 100%);
   outline: none;
+  text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.6);
 }
 input[type="button"]:hover, input[type="submit"]:hover {
   border: 1px solid rgba(32, 32, 32, 0.45);
@@ -407,6 +416,7 @@ input[type="button"]:focus, input[type="submit"]:focus {
   cursor: pointer;
   padding: 2px 7px;
   font-weight: bold;
+  color: rgb(15, 89, 141) !important;
 }
 .popup-box-text {
   display: none;
@@ -418,6 +428,9 @@ input[type="button"]:focus, input[type="submit"]:focus {
   margin-left: -20px;
   margin-top: 10px;
   font-weight: normal;
+  text-align: left !important;
+  color: black;
+  font-size: 18px;
 }
 .popup-box:hover > .popup-box-text {
   display: block;

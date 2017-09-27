@@ -63,7 +63,6 @@ class Manage_SemesterSeriesDelete_Handler(Manage_SemesterSeries_BaseHandler):
             key.delete()
         else:
             self.abort(400, "Can only delete kind 'SemesterSeries'")
-        time.sleep(1)
         self.redirect("/manage/semester_series")
 
 

@@ -47,7 +47,7 @@ class BaseHandler(webapp.RequestHandler):
         self.use_cache = True
         self.restricted = False
         now = datetime.utcnow()
-        self.template_vars['seconds'] = now.microsecond * now.second * now.minute * now.hour * now.day
+        self.template_vars['seconds'] = 2
 
     def head(self):
         pass
@@ -82,6 +82,7 @@ class BaseHandler(webapp.RequestHandler):
 
             self.template_vars['manage_pages'] = final_pages
         except:
+            #self.template_vars['manage_pages'] = false
             pass
 
     # I should move to webapp2 sessions

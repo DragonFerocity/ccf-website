@@ -1,10 +1,27 @@
 .manageTab {
+  font-family: 'EB Garamond', serif;
+  text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.6);
+}
+
+.manageTab {
     border-bottom: 0px solid transparent;
-    padding: 5px 20px;
+    padding: 3px 25px;
     margin-right: 3px;
     background-color: rgba(128, 124, 120, 1);
     text-decoration: none;
-    margin-bottom: -2px;
+    display: inline-block;
+    cursor: pointer;
+    font-size: 20px;
+}
+.manageTab-active {
+  background-color: rgb(77, 151, 203);
+}
+.manageTab-body {
+  display: none;
+  border: 2px solid rgb(77, 151, 203);
+  background-color: rgba(77, 151, 203, 0.2);
+  padding: 3px;
+  margin-top: 2px;
 }
 
 .slide-container {

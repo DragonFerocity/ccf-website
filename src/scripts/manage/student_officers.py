@@ -34,7 +34,6 @@ class Manage_StudentOfficers_Handler(Manage_StudentOfficers_BaseHandler):
 
         filled_student_officer = self.process_form(StudentOfficer_Form, StudentOfficer,
                                                    PostProcessing=post_process_model)
-        time.sleep(1)
         if filled_student_officer:
             self.redirect(self.request.path)
         else:
@@ -55,7 +54,6 @@ class Manage_StudentOfficers_OrderHandler(Manage_StudentOfficers_BaseHandler):
         FirstObject.DisplayOrder, SecondObject.DisplayOrder = SecondObject.DisplayOrder, FirstObject.DisplayOrder
         FirstObject.put()
         SecondObject.put()
-        time.sleep(1)
         self.redirect('/manage/student_officers')
 
 
@@ -67,7 +65,6 @@ class Manage_StudentOfficers_DeleteHandler(Manage_StudentOfficers_BaseHandler):
             key.delete()
         else:
             self.abort(400, "Can only delete kind 'StudentOfficer'")
-        time.sleep(1)
         self.redirect('/manage/student_officers')
 
 

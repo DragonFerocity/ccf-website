@@ -60,7 +60,7 @@ class Manage_HomePageSlides_CreateHandler(Manage_HomePageSlides_BaseHandler):
                 filled_homepage_slide.DisplayOrder = None
 
             if filled_homepage_slide.Image:
-                    filled_homepage_slide.Image = filled_homepage_slide.Image
+                    filled_homepage_slide.Image = images.resize(filled_homepage_slide.Image, 960, 540)
 
         filled_homepage_slide = self.process_form(HomepageSlide_Form, HomepageSlide,
                                          PreProcessing=pre_formdata_processing, PostProcessing=post_process_model)

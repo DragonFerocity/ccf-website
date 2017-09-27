@@ -33,10 +33,11 @@ div.nav-btn {
     text-shadow: none;
     cursor: pointer;
     padding: 5px 10px;
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: 16px;
-    line-height: 22px;
+    font-family: 'EB Garamond', serif;
+    font-size: 20px;
+    line-height: 16px;
     text-shadow: 2px 0px 4px rgba(32, 32, 32, 0.5), 0px 2px 4px rgba(32, 32, 32, 0.5), -2px 0px 4px rgba(32, 32, 32, 0.5), 0px -2px 4px rgba(32, 32, 32, 0.5);
+    font-weight: normal;
 }
 
 div.donate-btn:hover {
@@ -50,6 +51,7 @@ div.nav-btn:hover, div.top-level-dropdown:hover > div.nav-btn {
   color: black !important;
   transition: color 0s !important;
   text-shadow: none;
+  font-weight: bold;
 }
 
 div.nav-dropdown-item {
@@ -63,7 +65,7 @@ div.nav-dropdown-item {
     text-shadow: none;
     text-decoration: none;
     cursor: pointer;
-    font-family: 'Josefin Sans', sans-serif;
+    font-family: 'EB Garamond', serif;
     font-size: 16px;
     line-height: 24px;
 }

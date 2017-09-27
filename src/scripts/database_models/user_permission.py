@@ -13,8 +13,8 @@ Manage_Restricted_Pages = {
     "Manage_GelGroups_BaseHandler": (4, ("/manage/gel_groups", "Small Groups")),
     "Manage_SemesterSeries_BaseHandler": (5, ("/manage/semester_series", "Semester Series")),
     #"Manage_TopTen_BaseHandler": (4, ("/manage/top_ten", "Top Ten")),
-    "Manage_StudentOfficers_BaseHandler": (6, ("/manage/student_officers", "Officers")),
-    "Manage_StaffPositions_BaseHandler": (7, ("/manage/staff_positions", "Staff")),
+    #"Manage_StudentOfficers_BaseHandler": (6, ("/manage/student_officers", "Officers")),
+    "Manage_StaffPositions_BaseHandler": (7, ("/manage/staff_positions", "Staff, Officers, Board Members")),
     "Manage_UserPermissions_BaseHandler": (8, ("/manage/user_permissions", "User Permissions")),
     "Manage_Partnerships_BaseHandler": (8, ("/manage/partnerships", "Partnerships")),
 }

@@ -22,88 +22,281 @@
     </style>
 {% endblock %}
 
+{% block scripts %}
+<script>
+$(function() {
+  var tab = sessionStorage.getItem("tab");
+  if (tab != null) {
+    $("#" + tab).addClass("manageTab-active").siblings("div.manageTab").removeClass("manageTab-active");
+    $("#" + tab + "-body").show().siblings("div.manageTab-body").hide();
+  }
+  $(".manageTab").click(function() {
+    $(this).siblings("div").removeClass("manageTab-active");
+    $(this).addClass("manageTab-active");
+
+    var id = $(this).attr("id");
+    $("#" + id + "-body").siblings("div.manageTab-body").hide();
+    $("#" + id + "-body").show();
+    sessionStorage.setItem("tab", id);
+  });
+});
+</script>
+{% endblock %}
+
 {% block content %}
 <section class="separator-brown manage-spacer" style="position: relative;">
-    <h2>Manage</h2>
+    <h2>Staff Positions</h2>
 </section>
-<section class="content" style = " min-height: calc( 100% - 168px - 183px - 34px ) !important; overflow: auto;">
-    {% if form.errors %}
+<section class="content content-full" style = "overflow: auto;">
+    {% if staff_form.errors %}
         <ul class="errors">
-            {% for field_name, field_errors in form.errors|dictsort if field_errors %}
+            {% for field_name, field_errors in staff_form.errors|dictsort if field_errors %}
                 {% for error in field_errors %}
-                    <li>{{ form[field_name].label }}: {{ error }}</li>
+                    <li>{{ staff_form[field_name].label }}: {{ error }}</li>
                 {% endfor %}
             {% endfor %}
         </ul>
     {% endif %}
+    {% if officer_form.errors %}
+        <ul class="errors">
+            {% for field_name, field_errors in officer_form.errors|dictsort if field_errors %}
+                {% for error in field_errors %}
+                    <li>{{ officer_form[field_name].label }}: {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <div style="height:30px;">
+        <div id="staff-tab" class="manageTab manageTab-active">Staff</div>
+        <div id="officer-tab" class="manageTab">Officers</div>
+        <div id="board-member-tab" class="manageTab">Board Members</div>
+    </div>
+    <div id="staff-tab-body" class="manageTab-body" style="display: block;">
+      <form id="Staff-Form" action="" method="post" enctype="multipart/form-data">
+          <table style="width:100%">
+              <tr>
+                  <td class="formlabel">{{ staff_form.Name.label }}</td>
+                  <td class="formfield">{{ staff_form.Name(style="width:100%") }}</td>
+                  <td class="formlabel">{{ staff_form.Email.label }}</td>
+                  <td class="formfield">{{ staff_form.Email(style="width:100%") }}
+                  {{ staff_form.Type }}</td>
+              </tr>
+              <tr>
+                  <td class="formlabel">{{ staff_form.Image.label }}
+                      <div class="popup-box">?
+                        <div class="popup-box-text">
+                          Required<hr/>
+                          Expected Resolution: 150x150px; Supported Formats: JPEG, PNG, GIF (including animated), BMP, TIFF, or ICO.
+                        </div>
+                      </div>
+                  </td>
+                  <td class="formfield">{{ staff_form.Image(style="width:100%") }}</td>
+              </tr>
+              <tr>
+                  <td class="formlabel">{{ staff_form.Description.label }}</td>
+                  <td colspan="3">{{ staff_form.Description(style="width:100%") }}</td>
+              </tr>
+          </table>
+          {% if editKey %}
+              <input type="submit" value="Save Changes"/>
+          {% else %}
+              <input type="submit" value="Add Staff Position"/>
+          {% endif %}
+      </form>
+      <hr/>
+      <p>The staff are displayed in the staff list in the order they are listed here.</p>
+      <div class="alternating-list">
+          {% for officer in existingStaffPositions %}
+              <div class="list-item {{ loop.cycle('list-item-odd', 'list-item-even') }}">
+                  <div class="list-item-header">
+                      <a href="?edit={{ officer.key.urlsafe() }}">Edit</a>&nbsp;
+                      <a href="/manage/staff_positions/staff/delete/{{ officer.key.urlsafe() }}" title="Delete this officer">Delete</a>
+                      {% if loop.first %}
+                          <span class="displayOrderArrow" style="color:grey;">&uArr;</span>
+                      {% else %}
+                          <a href="/manage/staff_positions/staff/order/u/{{ officer.DisplayOrder }}"
+                             class="displayOrderArrow">&uArr;</a>
+                      {% endif %}
 
-    <form action="" method="post" enctype="multipart/form-data">
-        <table style="width:100%">
-            <tr>
-                <td class="formlabel">{{ form.Name.label }}</td>
-                <td class="formfield">{{ form.Name(style="width:100%") }}</td>
-                <td class="formlabel">{{ form.Email.label }}</td>
-                <td class="formfield">{{ form.Email(style="width:100%") }}</td>
-            </tr>
-            <tr>
-                <td class="formlabel">{{ form.Image.label }}
-                    <a href="#"
-                       title="Expected Resolution: 147x123px; Supported Formats: JPEG, PNG, GIF (including animated), BMP, TIFF, or ICO"
-                       onclick="alert('Expected Resolution: 147x123px; Supported Formats: JPEG, PNG, GIF (including animated), BMP, TIFF, or ICO');"
-                    >?</a>
-                </td>
-                <td class="formfield">{{ form.Image(style="width:100%") }}</td>
-            </tr>
-            <tr>
-                <td class="formlabel">{{ form.Description.label }}</td>
-                <td colspan="3">{{ form.Description(style="width:100%") }}</td>
-            </tr>
-        </table>
-        {% if editKey %}
-            <input type="submit" value="Save Staff Changes"/>
-        {% else %}
-            <input type="submit" value="Add Staff Position"/>
-        {% endif %}
-    </form>
-    <hr/>
-    <p>The staff are displayed in the staff list in the order they are listed here.</p>
-    <div class="alternating-list">
-        {% for officer in existingStaffPositions %}
-            <div class="list-item {{ loop.cycle('list-item-odd', 'list-item-even') }}">
-                <div class="list-item-header">
-                    <a href="?edit={{ officer.key.urlsafe() }}">Edit</a>&nbsp;
-                    <a href="/manage/staff_positions/delete/{{ officer.key.urlsafe() }}" title="Delete this officer">Delete</a>
-                    {% if loop.first %}
-                        <span class="displayOrderArrow" style="color:grey;">&uArr;</span>
-                    {% else %}
-                        <a href="/manage/staff_positions/order/u/{{ officer.DisplayOrder }}"
-                           class="displayOrderArrow">&uArr;</a>
-                    {% endif %}
+                      {% if loop.last %}
+                          <span class="displayOrderArrow" style="color:grey;">&dArr;</span>
+                      {% else %}
+                          <a href="/manage/staff_positions/staff/order/d/{{ officer.DisplayOrder }}"
+                             class="displayOrderArrow">&dArr;</a>
+                      {% endif %}
+                  </div>
+                  <div class="list-item-body" style="overflow:auto">
+                      <img src="/image/{{ officer.key.urlsafe() }}" style="float:left; width: 150px;"/>
 
-                    {% if loop.last %}
-                        <span class="displayOrderArrow" style="color:grey;">&dArr;</span>
-                    {% else %}
-                        <a href="/manage/staff_positions/order/d/{{ officer.DisplayOrder }}"
-                           class="displayOrderArrow">&dArr;</a>
-                    {% endif %}
-                </div>
-                <div class="list-item-body" style="overflow:auto">
-                    <img src="/image/{{ officer.key.urlsafe() }}" style="float:left"/>
+                      <div style="padding-left:162px">
+                          <p class="officerPosition">{{ officer.Name }}</p>
 
-                    <div style="padding-left:162px">
-                        <p class="officerPosition">{{ officer.Name }}</p>
+                          <p>{{ officer.Description }}</p>
 
-                        <p>{{ officer.Description }}</p>
+                          <p>
+                              <a href="mailto:{{ officer.Email }}">{{ officer.Email }}</a>
+                          </p>
+                      </div>
+                  </div>
+              </div>
+          {% else %}
+              <p>No Staff Here</p>
+          {% endfor %}
+      </div>
+    </div>
+    <div id="officer-tab-body" class="manageTab-body">
+      <form id="Officer-Form" action="" method="post" enctype="multipart/form-data">
+          <table style="width:100%">
+              <tr>
+                  <td class="formlabel">{{ officer_form.Position.label }}</td>
+                  <td class="formfield">{{ officer_form.Position(style="width:100%") }}
+                  {{ officer_form.Type }}</td>
+                  <td class="formlabel">{{ officer_form.Name.label }}</td>
+                  <td class="formfield">{{ officer_form.Name(style="width:100%") }}</td>
+              </tr>
+              <tr>
+                  <td class="formlabel">{{ officer_form.Grade.label }}</td>
+                  <td class="formfield">{{ officer_form.Grade(style="width:100%") }}</td>
+                  <td class="formlabel">{{ officer_form.Major.label }}</td>
+                  <td class="formfield">{{ officer_form.Major(style="width:100%") }}</td>
+              </tr>
+              <tr>
+                  <td class="formlabel">{{ officer_form.Email.label }}</td>
+                  <td class="formfield">{{ officer_form.Email(style="width:100%") }}</td>
+                  <td class="formlabel">{{ officer_form.Image.label }}
+                      <div class="popup-box">?
+                        <div class="popup-box-text">
+                          Required<hr/>
+                          Expected Resolution: 108x192px; Supported Formats: JPEG, PNG, GIF (including animated), BMP, TIFF, or ICO.
+                        </div>
+                      </div>
+                  </td>
+                  <td class="formfield">{{ officer_form.Image(style="width:100%") }}</td>
+              </tr>
+          </table>
+          {% if editKey %}
+              <input type="submit" value="Save Officer Changes"/>
+          {% else %}
+              <input type="submit" value="Add Officer"/>
+          {% endif %}
+      </form>
+      <hr/>
+      <p>The officers are displayed in the officers table in the order they are listed here.</p>
+      <div class="alternating-list">
+          {% for officer in existingStudentOfficers %}
+              <div class="list-item {{ loop.cycle('list-item-odd', 'list-item-even') }}">
+                  <div class="list-item-header">
+                      <a href="?edit={{ officer.key.urlsafe() }}">Edit</a>
+                      <a href="/manage/staff_positions/officer/delete/{{ officer.key.urlsafe() }}" title="Delete this officer">Delete</a>
+                      {% if loop.first %}
+                          <span class="displayOrderArrow" style="color:grey;">&uArr;</span>
+                      {% else %}
+                          <a href="/manage/staff_positions/officer/order/u/{{ officer.DisplayOrder }}"
+                             class="displayOrderArrow">&uArr;</a>
+                      {% endif %}
 
-                        <p>
-                            <a href="mailto:{{ officer.Email }}">{{ officer.Email }}</a>
-                        </p>
+                      {% if loop.last %}
+                          <span class="displayOrderArrow" style="color:grey;">&dArr;</span>
+                      {% else %}
+                          <a href="/manage/staff_positions/officer/order/d/{{ officer.DisplayOrder }}"
+                             class="displayOrderArrow">&dArr;</a>
+                      {% endif %}
+                  </div>
+                  <div class="list-item-body" style="overflow:auto">
+                      <img src="/image/{{ officer.key.urlsafe() }}" style="float:left; width: 108px;"/>
+
+                      <div style="padding-left:115px">
+                          <p class="officerPosition">{{ officer.Position }}</p>
+
+                          <p>
+                              {{ officer.Name }}<br/>
+                              {{ officer.Grade }}<br/>
+                              {{ officer.Major }}<br/>
+                          </p>
+
+                          <p>
+                              <a href="mailto:{{ officer.Email }}">{{ officer.Email }}</a>
+                          </p>
+                      </div>
+                  </div>
+              </div>
+          {% else %}
+              <p>No Student Officers Here</p>
+          {% endfor %}
+      </div>
+    </div>
+    <div id="board-member-tab-body" class="manageTab-body">
+      <form id="BoardMember-Form" action="" method="post" enctype="multipart/form-data">
+          <table style="width:100%">
+              <tr>
+                  <td class="formlabel">{{ board_member_form.Name.label }}{{ board_member_form.Type }}</td>
+                  <td class="formfield">{{ board_member_form.Name(style="width:100%") }}</td>
+                  <td class="formlabel" colspan="2">{{ board_member_form.Image.label }}
+                      <div class="popup-box">?
+                        <div class="popup-box-text">
+                          Required<hr/>
+                          Expected Resolution: 108x192px; Supported Formats: JPEG, PNG, GIF (including animated), BMP, TIFF, or ICO.
+                        </div>
+                      </div>
+                  </td>
+                  <td class="formfield">{{ board_member_form.Image(style="width:100%") }}</td>
+              </tr>
+              <tr>
+                  <td class="formlabel">{{ board_member_form.JoinDate.label }}
+                    <div class="popup-box">?
+                      <div class="popup-box-text">
+                        Required<hr/>
+                        This field must be a number, specifically a year.
+                      </div>
                     </div>
-                </div>
-            </div>
-        {% else %}
-            <p>No Staff Here</p>
-        {% endfor %}
+                  </td>
+                  <td class="formfield">{{ board_member_form.JoinDate(style="width:100%") }}</td>
+              </tr>
+          </table>
+          {% if editKey %}
+              <input type="submit" value="Save Changes"/>
+          {% else %}
+              <input type="submit" value="Add Board Member"/>
+          {% endif %}
+      </form>
+      <hr/>
+      <p>The board members are displayed in the board member's list in the order they are listed here.</p>
+      <div class="alternating-list">
+          {% for boardMember in existingBoardMembers %}
+              <div class="list-item {{ loop.cycle('list-item-odd', 'list-item-even') }}">
+                  <div class="list-item-header">
+                      <a href="?edit={{ boardMember.key.urlsafe() }}">Edit</a>
+                      <a href="/manage/staff_positions/board/delete/{{ boardMember.key.urlsafe() }}" title="Delete this officer">Delete</a>
+                      {% if loop.first %}
+                          <span class="displayOrderArrow" style="color:grey;">&uArr;</span>
+                      {% else %}
+                          <a href="/manage/staff_positions/board/order/u/{{ boardMember.DisplayOrder }}"
+                             class="displayOrderArrow">&uArr;</a>
+                      {% endif %}
+
+                      {% if loop.last %}
+                          <span class="displayOrderArrow" style="color:grey;">&dArr;</span>
+                      {% else %}
+                          <a href="/manage/staff_positions/board/order/d/{{ boardMember.DisplayOrder }}"
+                             class="displayOrderArrow">&dArr;</a>
+                      {% endif %}
+                  </div>
+                  <div class="list-item-body" style="overflow:auto">
+                      <img src="/image/{{ boardMember.key.urlsafe() }}" style="float:left; width: 108px;"/>
+
+                      <div style="padding-left:115px">
+                          <p class="boardMemberName large-text">{{ boardMember.Name }}</p>
+
+                          <p>
+                              Board Member since {{ boardMember.JoinDate }}
+                          </p>
+                      </div>
+                  </div>
+              </div>
+          {% else %}
+              <p>No Board Members Here</p>
+          {% endfor %}
+      </div>
     </div>
 </section>
 {% endblock %}

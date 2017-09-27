@@ -50,7 +50,7 @@
 {% block css %}
     {{ super() }}
     <link type="text/css" rel="stylesheet" href="/stylesheets/picture_slideshow.css"/>
-    <link type="text/css" rel="stylesheet" href="/stylesheets/index.css"/>
+    <link type="text/css" rel="stylesheet" href="/stylesheets/index.css?{{seconds}}"/>
 {% endblock %}
 
 {% block content %}
@@ -89,7 +89,7 @@
       <p style="margin-top: 40px;"></p>
       <table>
           <td>
-            <p class="josefin" style="padding: 0px 30px; font-size: 22px;"><strong style="font-size: 26px;">Christian Campus Fellowship</strong> exists to <strong style="font-size: 26px;">reach</strong> non believing
+            <p class="garamond" style="padding: 0px 30px; font-size: 22px;"><strong style="font-size: 26px;">Christian Campus Fellowship</strong> exists to <strong style="font-size: 26px;">reach</strong> non believing
             students, nurture <strong style="font-size: 26px;">fellowship</strong> among believers, <strong style="font-size: 26px;">deepen knowledge</strong> of and <strong style="font-size: 26px;">love</strong>
             for our <strong style="font-size: 26px;">Lord and Savior Jesus Christ</strong>, and to <strong style="font-size: 26px;">encourage</strong> one another to <strong style="font-size: 26px;">serve</strong>
             and <strong style="font-size: 26px;">worship</strong> God.</p>
@@ -103,10 +103,10 @@
         </tr>
         <tr>
           <td colspan="2">
-            <p class="josefin large-text bold-text" style="padding: 0px 30px;">Subscribe to the CCF Mailing List</p>
-            <p class="josefin medium-text" style="margin-left: 15px; padding: 0px 30px;">The messages that are sent out contain CCF events, prayer requests, and service opportunities.</p>
+            <p class="garamond large-text bold-text" style="padding: 0px 30px;">Subscribe to the CCF Mailing List</p>
+            <p class="garamond medium-text" style="margin-left: 15px; padding: 0px 30px;">The messages that are sent out contain CCF events, prayer requests, and service opportunities.</p>
             <form action="http://groups.google.com/a/mst.edu/group/ccf-list-grp/boxsubscribe" style="padding: 0px 30px;">
-                <label for="email" class="josefin medium-text" style="margin-left: 15px;">Email:</label>
+                <label for="email" class="garamond medium-text" style="margin-left: 15px;">Email:</label>
                 <input type="text" placeholder="larry@the-cucumber.com" name="email" id="email" style="width:150px;"/>
                 <input type="submit" name="sub" value="Subscribe">
             </form>

@@ -2,6 +2,7 @@ from google.appengine.ext import webapp
 from scripts import BaseHandler
 from scripts.database_models.staff_position import StaffPosition
 from scripts.database_models.student_officer import StudentOfficer
+from scripts.database_models.board_member import BoardMember
 
 
 class AboutUs_BaseHandler(BaseHandler):
@@ -29,6 +30,7 @@ class StaffHandler(AboutUs_BaseHandler):
     def get(self):
         self.template_vars['StaffPositions'] = StaffPosition.gql("ORDER BY DisplayOrder ASC")
         self.template_vars['studentOfficers'] = StudentOfficer.gql("ORDER BY DisplayOrder ASC").fetch(50)
+        self.template_vars['boardMembers'] = BoardMember.gql("ORDER BY DisplayOrder ASC").fetch(50)
         self.render_template("aboutus/staff.html")
 
 

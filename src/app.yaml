@@ -1,5 +1,5 @@
 application: ccf-website
-version: release-2017-9-18-2
+version: release-2017-9-25
 runtime: python27
 api_version: 1
 threadsafe: true

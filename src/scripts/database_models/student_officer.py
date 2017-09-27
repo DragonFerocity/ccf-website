@@ -12,6 +12,7 @@ class StudentOfficer_Form(Form):
     Major = fields.TextField(u'Officer Major', validators=[validators.Required()])
     Grade = fields.TextField(u'Officer Grade', validators=[validators.Required()])
     Email = fields.TextField(u'Officer Email', validators=[validators.Required()])
+    Type = fields.HiddenField(u'Type');
 
 
 class StudentOfficer(NdbBaseModel):
@@ -40,4 +41,6 @@ class StudentOfficer(NdbBaseModel):
     )
     Email = ndb.StringProperty(
         required=True,
+    )
+    Type = ndb.TextProperty(
     )

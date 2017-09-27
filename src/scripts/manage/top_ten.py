@@ -30,7 +30,6 @@ class Manage_TopTenCreate_Handler(Manage_TopTen_BaseHandler):
 
     def post(self):
         filled_top_ten = self.process_form(TopTen_Form, TopTen)
-        time.sleep(1)
         if filled_top_ten:
             self.redirect("/manage/top_ten")
         else:
@@ -45,7 +44,6 @@ class Manage_TopTenDelete_Handler(Manage_TopTen_BaseHandler):
             key.delete()
         else:
             self.abort(400, "Can only delete kind 'TopTen'")
-        time.sleep(1)
         self.redirect("/manage/top_ten")
 
 

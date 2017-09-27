@@ -27,7 +27,6 @@ class Manage_NewsletterArchive_UploadHandler(blobstore_handlers.BlobstoreUploadH
         displayOrderObject = Newsletter.gql("ORDER BY DisplayOrder DESC").get()
         newNewsletter.DisplayOrder = displayOrderObject.DisplayOrder + 1 if displayOrderObject else 1
         newNewsletter.put()
-        time.sleep(1)
         self.redirect('/manage/newsletter_archive')
 
 
@@ -48,7 +47,6 @@ class Manage_NewsletterArchive_DeleteHandler(Manage_NewsletterArchive_BaseHandle
             key.delete()
         else:
             self.abort(400, "Can only delete kind 'Newsletter'")
-        time.sleep(1)
         self.redirect('/manage/newsletter_archive')
 
 
@@ -65,7 +63,6 @@ class Manage_NewsletterArchive_OrderHandler(Manage_NewsletterArchive_BaseHandler
         FirstObject.DisplayOrder, SecondObject.DisplayOrder = SecondObject.DisplayOrder, FirstObject.DisplayOrder
         FirstObject.put()
         SecondObject.put()
-        time.sleep(1)
         self.redirect('/manage/newsletter_archive')
 
 

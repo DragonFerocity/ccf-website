@@ -11,7 +11,7 @@
 {% block css %}
     {{ super() }}
     <style>
-        #studentOfficers {
+        #studentOfficers, #boardOfDirectors {
           text-align: center;
         }
         #studentOfficers > .studentOfficerInfo table {
@@ -22,7 +22,7 @@
         #studentOfficers > .studentOfficerInfo td {
             width: 180px;
         }
-        .studentOfficerInfo {
+        .studentOfficerInfo, .boardMemberInfo {
             display: inline-block;
             margin: 0px auto;
         }
@@ -39,11 +39,11 @@
             <img src="/image/{{ StaffPosition.key.urlsafe() }}" alt="{{ StaffPosition.Name }}" style="float:left; margin:10px 0 10px 10px"height="123" width="147"/>
 
             <div style="margin-left:170px">
-                <p><span class="josefin large-text bold-text">{{ StaffPosition.Name }}</span></p>
+                <p><span class="garamond large-text bold-text">{{ StaffPosition.Name }}</span></p>
 
-                <p class="josefin medium-text">{{ StaffPosition.Description }}.</p>
+                <p class="garamond medium-text">{{ StaffPosition.Description }}.</p>
 
-                <p class="josefin medium-text">Email {{ StaffPosition.Name }} at <a href="mailto:{{ StaffPosition.Email }}">{{ StaffPosition.Email }}</a></p>
+                <p class="garamond medium-text">Email {{ StaffPosition.Name }} at <a href="mailto:{{ StaffPosition.Email }}">{{ StaffPosition.Email }}</a></p>
             </div>
         </div>
         <hr/>
@@ -54,12 +54,26 @@
 </section>
 <section class="content-dark">
     <div id="boardOfDirectors">
-        <div style="text-align:center">
-            <p style="padding-left: 100px; padding-right: 100px" class="josefin medium-text">
-            Dan Oerther, Kenny Salts, Jeremy Jamison, Myrlen Troutt, Sherry Duley, Becky Rich, Mike Kleeschulte,
-            Scott Robinson, Lon/Janet West, Lowell Winn
-            </p>
+        {% for boardMember in boardMembers %}
+          <div class="boardMemberInfo">
+            <table frame="box" rules="rows" cellpadding="5" style="border: 0px solid transparent;">
+                <tr>
+                    <td>
+                        <img src="/image/{{ boardMember.key.urlsafe() }}" style="float:left; width: 108px;"/>
+                    </td>
+                    <td>
+                        <p class="boardMemberName large-text">{{ boardMember.Name }}</p>
+
+                        <p>
+                            Board Member since {{ boardMember.JoinDate }}
+                        </p>
+                    </td>
+                </tr>
+            </table>
         </div>
+        {% else %}
+            <p>No Board Members Here</p>
+        {% endfor %}
     </div>
     <br/><br/>
 </section>
@@ -73,18 +87,18 @@
         <table frame="box" rules="rows" cellpadding="5" style="border: 0px solid transparent;">
             <tr>
                 <td>
-                    <img src="/image/{{ officer.key.urlsafe() }}" alt="{{ officer.Name }}" width="100" />
+                    <img src="/image/{{ officer.key.urlsafe() }}" alt="{{ officer.Name }}" width="108" />
                 </td>
                 <td>
-                    <p class="josefin medium-text bold-text">{{ officer.Position }}</p>
+                    <p class="garamond medium-text bold-text">{{ officer.Position }}</p>
 
-                    <p class="josefin medium-text">
+                    <p class="garamond medium-text">
                         {{ officer.Name }}<br/>
                         <i>{{ officer.Grade }}</i><br/>
                         {{ officer.Major }}<br/>
                     </p>
 
-                    <p class="josefin medium-text">
+                    <p class="garamond medium-text">
                         <a href="mailto:{{ officer.Email }}">{{ officer.Email }}</a>
                     </p>
                 </td>
