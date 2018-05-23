@@ -65,8 +65,8 @@
     <section class="homepage-slideshow">
         {% for slide in slides %}
             <a href="{{ slide.CompleteURL }}" id="slide-image-{{ loop.index0 }}" class="slide-image{% if loop.first %} slide-image-active{% endif %}">
-                <div class="slide-image-crop"><img class="slide-image-blur" src="/image/{{ slide.key.urlsafe() }}" alt="{{ slide.Title }}"/></div>
-                <div class="slide-image-dark"></div>
+                <!-- <div class="slide-image-crop"><img class="slide-image-blur" src="/image/{{ slide.key.urlsafe() }}" alt="{{ slide.Title }}"/></div> -->
+                <!-- <div class="slide-image-dark"></div> -->
                 <div class="slide-image-outer"><img class="slide-image-img" src="/image/{{ slide.key.urlsafe() }}" alt="{{ slide.Title }}" /></div>
             </a>
         {% else %}
@@ -74,6 +74,9 @@
         {% endfor %}
         <div class="homepage-slideshow-nav">
             {% for slide in slides %}
+                <!-- <div id="slide-bullet-{{ loop.index0 }}" class="slide-bullet {% if loop.first %}slide-bullet-active{% endif %}" onclick="goToSlide({{ loop.index0 }});">
+                  <img id="slide-bullet-image-{{ loop.index0 }}" class="slide-bullet-image" src="/image/{{ slide.key.urlsafe() }}" alt="{{ slide.Title }}" />
+                </div> -->
                 <div id="slide-bullet-{{ loop.index0 }}"
                       class="slide-bullet {% if loop.first %}slide-bullet-active{% endif %}"
                       onclick="goToSlide({{ loop.index0 }});"></div>
@@ -115,7 +118,7 @@
       </table>
       <p style="margin-top: 40px;"></p>
     </section>
-    <section class="parallax" style="background-image: url('/images/ccf-group-picture.jpg'); height: 600px;"></section>
+    <section class="parallax" style="background-image: url('/images/ccf-group-picture-2017.jpg'); height: 600px;"></section>
     <section class="separator-gray" style="position: relative;">
       <h2>Connect With Us</h2>
     </section>

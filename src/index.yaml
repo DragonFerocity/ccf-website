@@ -148,6 +148,12 @@ indexes:
   properties:
   - name: Archived
   - name: SemesterToBeginIndex
+  - name: LastName
+
+- kind: HousingApplication
+  properties:
+  - name: Archived
+  - name: SemesterToBeginIndex
   - name: TimeSubmitted
     direction: desc
 

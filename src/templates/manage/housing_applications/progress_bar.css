@@ -3,10 +3,8 @@
     {% set stage_width = total_width / num_stages - 4 %}
     #progress_bar {
         display: block;
-        width: {{total_width}}px;
         height: 25px;
-        background-color: #747474;
-        border-radius: 5px;
+        background-color: transparent;
         margin-top: 3px;
         margin-bottom: 3px;
         /* typekit futura included */
@@ -17,23 +15,15 @@
         color: white;
         position: relative;
         padding-left: 0;
+        text-decoration: none !important;
     }
-    #progress_bar li {
+    #progress_bar > a > li, #progress_bar > li {
         display: inline-block;
-        width: {{stage_width}}px;
         text-align: center;
-        padding-top: 7px;
-        padding-bottom: 5px;
+        padding: 7px 10px 5px 10px;
         position: relative;
-        height: 13px;
-    }
-    #progress_bar li:first-child {
-        border-top-left-radius: 5px;
-        border-bottom-left-radius: 5px;
-    }
-    #progress_bar li:last-child {
-        border-top-right-radius: 5px;
-        border-bottom-right-radius: 5px;
+        background-color: rgba(109, 106, 102, 1);
+        text-decoration: none !important;
     }
     #progress_bar li:last-child:before {
         border: none;
@@ -41,7 +31,7 @@
     #progress_bar li:last-child:after {
         border: none;
     }
-    #progress_bar li:after {
+    /*#progress_bar li:after {
         width: 0px;
         height: 0px;
         display: block;
@@ -64,6 +54,18 @@
         left: {{stage_width - 2}}px;
         content: "";
         z-index: 300;
+    }*/
+    #progress_bar > li.action-complete, #progress_bar > a > li.action-complete {
+      background-color: rgb(77, 151, 203);
+    }
+    #progress_bar > li.action-inprogress, #progress_bar > a > li.action-inprogress {
+      background-color: rgb(203, 136, 77);
+    }
+
+    .action-item {
+      font-family: 'Arial', serif;
+      font-size: 14px;
+      font-weight: bold;
     }
 
     {% for i in range(1, num_stages + 2) %}

@@ -45,12 +45,12 @@
     <hr/>
     {% for group in GelGroups %}
         <div class="list-item {{ loop.cycle('list-item-odd', 'list-item-even') }}">
-            <div class="list-item-body">
-                <span class="title">{{ group.Title }}</span> - {{ group.FormattedDayAndTime }}<br/>
+            <div class="list-item-body garamond">
+                <span class="title garamond medium-text"><b>{{ group.Title }}</b></span> - <span class="garamond small-text">{{ group.FormattedDayAndTime }}</span><br/>
                 <span class="subtitle" title="{{ group.ContactEmail }}"><a
                         href="mailto:{{ group.ContactEmail }}">{{ group.Leaders }}</a></span><br/>
 
-                <div class="description">{{ group.Description }}</div>
+                <div class="description garamond small-text">{{ group.Description }}</div>
             </div>
         </div>
     {% else %}

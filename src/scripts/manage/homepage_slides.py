@@ -4,6 +4,7 @@ from google.appengine.api import images, capabilities
 from google.appengine.ext import webapp, ndb
 from . import Manage_BaseHandler
 from scripts.database_models.homepage_slide import HomepageSlide, HomepageSlide_Form
+import math
 
 
 class Manage_HomePageSlides_BaseHandler(Manage_BaseHandler):
@@ -46,6 +47,25 @@ class Manage_HomePageSlides_CreateHandler(Manage_HomePageSlides_BaseHandler):
 
     def post(self):
         def pre_formdata_processing(form_data):
+            # Since blob properties can only be up to 1 MB in size,
+            # We need to split the image into multiple parts if the image is
+            # Larger than 1 MB in size.
+            FormImage = form_data["Image"]
+            #NewImage = []
+            ImageSize = int(len(FormImage))
+            i = 0;
+            #NumberOfParts = int(math.ceil(ImageSize / 1048576))
+            #for i in range(0, NumberOfParts):
+            #    _start = 1048576 * i
+            #    _stop = min(ImageSize, 1048576 * (i+1))
+            #    NewImage.append(FormImage[_start:_stop])
+            #form_data["Image"] = NewImage
+            #Loop until the image is smaller than 1MB, each time reducing its size a little more
+            while (ImageSize > 1048487):
+                form_data["Image"] = images.resize(FormImage, int(960 / (1. + i)), int(540 / (1. + i)))
+                ImageSize = int(len(form_data["Image"]))
+                i += 0.1
+
             del form_data['onHomepage']
 
         def post_process_model(filled_homepage_slide):
@@ -59,8 +79,8 @@ class Manage_HomePageSlides_CreateHandler(Manage_HomePageSlides_BaseHandler):
             else:
                 filled_homepage_slide.DisplayOrder = None
 
-            if filled_homepage_slide.Image:
-                    filled_homepage_slide.Image = images.resize(filled_homepage_slide.Image, 960, 540)
+            #if filled_homepage_slide.Image:
+            #        filled_homepage_slide.Image = [filled_homepage_slide.Image]#images.resize(filled_homepage_slide.Image, 960, 540)
 
         filled_homepage_slide = self.process_form(HomepageSlide_Form, HomepageSlide,
                                          PreProcessing=pre_formdata_processing, PostProcessing=post_process_model)

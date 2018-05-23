@@ -64,6 +64,16 @@
               arrow.transition({ rotate: '90deg' }).data("rotate", "false");
           });
         });
+        function showPopupWindow(text) {
+          $(".full-page-popup-background").show();
+          $(".full-page-popup-box").show();
+          $(".full-page-popup-box-text").show().html(text);
+        }
+        function hidePopupWindow(text) {
+          $(".full-page-popup-background").fadeOut();
+          $(".full-page-popup-box").fadeOut();
+          $(".full-page-popup-box-text").fadeOut();
+        }
     </script>
     {% block scripts %}
     {% endblock %}
@@ -105,8 +115,8 @@
                                     <div class="top-level-dropdown {{ HousingSelected }}">
                                         <div class="nav-btn {{ HousingSelected }}">Housing</div>
                                         <div class="nav-dropdown-list">
-                                            <a href="/housing/cch"><div class="nav-dropdown-item">CCH (for men)</div></a>
-                                            <a href="/housing/wcch"><div class="nav-dropdown-item">WCCH (for women)</div></a>
+                                            <a href="/housing/cch"><div class="nav-dropdown-item">CCH<br/>(for men)</div></a>
+                                            <a href="/housing/wcch"><div class="nav-dropdown-item">WCCH</br>(for women)</div></a>
                                         </div>
                                     </div>
                                     <div class="top-level-dropdown {{ AlumniSelected }}">
@@ -114,7 +124,7 @@
                                         <div class="nav-dropdown-list">
                                             <a href="/resources/freshman"><div class="nav-dropdown-item">Freshman Information</div></a>
                                             <a href="/alumni/past_events"><div class="nav-dropdown-item">Current Events</div></a>
-                                            <a href="/resources/partners"><div class="nav-dropdown-item">Outreach</div></a>
+                                            <a href="/resources/partners"><div class="nav-dropdown-item">Our Partners</div></a>
                                         </div>
                                     </div>
                                     <div class="top-level-dropdown">
@@ -150,7 +160,7 @@
                 <h1>CONTENT NOT REPLACED</h1>
             {% endblock %}
         <!-- </div> -->
-        <section class="content-dark-2" style="text-align: center;">
+        <section  id="footer" class="content-dark-2" style="text-align: center;">
             <a target="_blank" style="float:left; padding-right: 5px;"
                href="https://facebook.com/pages/Christian-Campus-Fellowship-Rolla/72707359940">
                 <img src="/images/Facebook_icon.png" height="40" width="40" alt="Rolla CCF Facebook page">
@@ -173,7 +183,7 @@
                href="https://twitter.com/rollaccf?ref_src=twsrc%5Etfw&ref_url=http%3A%2F%2Flocalhost%3A8080%2F">
                 <img src="/images/Twitter_icon.png" height="40" width="40" alt="Rolla CCF Twitter">
             </a>
-            <p class="garamond medium-text">
+            <p class="garamond medium-text" style="position: relative; left: -110px;">
                 <a class="maskedLink garamond medium-text dark-link" style="color:white" target="_blank"
                    href="https://www.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=Christian+Campus+House,+East+12th+Street,+Rolla,+MO&amp;aq=0&amp;oq=christian+campus&amp;sll=37.0625,-95.677068&amp;sspn=59.119059,79.013672&amp;t=m&amp;ie=UTF8&amp;hq=Christian+Campus+House,&amp;hnear=E+12th+St,+Rolla,+Phelps,+Missouri+65401&amp;ll=37.952962,-91.769829&amp;spn=0.008121,0.013733&amp;z=16&amp;iwloc=A">112
                     E 12th Street, Rolla MO, 65401</a>&nbsp;&nbsp;|&nbsp;&nbsp;

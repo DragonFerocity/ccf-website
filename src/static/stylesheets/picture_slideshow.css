@@ -1,7 +1,3 @@
-.homepage-slideshow {
-    width: 100%;
-}
-
 .homepage-slideshow-nav {
     cursor: default;
     text-align: center;
@@ -13,4 +9,129 @@
 
 .slide-image-active {
     display: block;
+}
+
+.homepage-slideshow {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -139px;
+    width: 100%;
+    height: 100vmin;
+    /* The width/height values come from taking the ratio: 1920/1080 = 60%/x
+        Thus, if the width is 60%, the height needs to be 33% to maintain 1080p size
+     */
+    position: relative;
+    z-index: 2;
+}
+
+.homepage-slideshow-inner {
+    border: 1px solid rgb(255, 176, 0);
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    z-index: 2;
+}
+
+.slide-image-img {
+  position: absolute;
+  z-index: 2;
+  width : 100%;
+  height: 100%;
+  max-width: 1920px;
+  max-height: 1080px;
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+
+.slide-image-dark {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0px;
+  padding: 0px;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 4;
+}
+
+.slide-image-outer {
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0px;
+  padding: 0px;
+  overflow: hidden;
+}
+
+.slide-image-blur {
+  width: 200%;
+  background-size: cover;
+  filter: blur(12px);
+  -webkit-filter: blur(12px);
+  margin-left: -50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.slide-image-crop {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  padding: 0px;
+  left: 0px;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.homepage-slideshow-nav {
+  position: absolute;
+  z-index: 5;
+  min-height: 60px;
+  width: 100%;
+  text-align: center;
+  top: calc(100% - 66px); /*50%*/
+  /*transform: translateY(-50%);*/
+  left: 0px;
+}
+
+/*.slide-bullet {
+  cursor: pointer;
+  border-radius: 0px;
+  width: 102px;
+  height: 58px;
+  background-color: rgba(240, 240, 240, 0.3);
+  box-shadow: 0px 0px 5px rgba(32, 32, 32, 0.3), 0px 0px 15px rgba(32, 32, 32, 0.3), 0px 0px 15px rgba(32, 32, 32, 0.3);
+  padding: 3px 0px 0px 0px !important;
+  display: inline-block;
+  margin: 5px 0px !important;
+}
+
+.slide-bullet-image {
+  cursor: pointer;
+  width: 96px;
+  height: 54px;
+}
+
+.slide-bullet-active {
+  background-color: rgba(240, 240, 240, 1);
+  box-shadow: 0px 0px 5px rgba(32, 32, 32, 0.9), 0px 0px 15px rgba(32, 32, 32, 0.9), 0px 0px 15px rgba(32, 32, 32, 0.9);
+}*/
+.slide-bullet {
+  cursor: pointer;
+  border-radius: 1000px;
+  width: 10px;
+  height: 10px;
+  background-color: rgba(240, 240, 240, 0.4);
+  box-shadow: 0px 0px 5px rgba(32, 32, 32, 0.3), 0px 0px 15px rgba(32, 32, 32, 0.3), 0px 0px 15px rgba(32, 32, 32, 0.3);
+  padding: 0px !important;
+  display: inline-block;
+}
+
+.slide-bullet-active {
+  background-color: rgba(240, 240, 240, 1);
+  box-shadow: 0px 0px 5px rgba(32, 32, 32, 0.9), 0px 0px 15px rgba(32, 32, 32, 0.9), 0px 0px 15px rgba(32, 32, 32, 0.9);
 }

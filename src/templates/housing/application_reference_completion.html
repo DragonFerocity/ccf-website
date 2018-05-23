@@ -9,7 +9,10 @@
 {%- endblock %}
 
 {% block content %}
-    <div style="text-align:center">
+<section class="separator-brown" style="position: relative;">
+    <h2>Reference Complete</h2>
+</section>
+<section class="content content-full" style="overflow: auto;">
         <p>
             {% if completion_type == "previously_completed" %}
                 This reference has already been completed.
@@ -19,5 +22,5 @@
             If you have more comments or corrections please email
             <a href="mailto:housing@rollaccf.org">housing@rollaccf.org</a>.
         </p>
-    </div>
+</section>
 {% endblock %}

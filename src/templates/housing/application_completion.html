@@ -9,7 +9,10 @@
 {%- endblock %}
 
 {% block content %}
-    <div style="text-align:center">
+<section class="separator-brown" style="position: relative;">
+    <h2>Application Complete</h2>
+</section>
+<section class="content content-full" style="overflow: auto;">
         <p>Congratulations{% if app_name %}, {{ app_name }}{% endif %}! Your application has been submitted
             successfully!</p>
 
@@ -17,5 +20,5 @@
             around May 1st or December 1st prior to the semester for which they are seeking housing, as to whether or
             not you have been selected to live in the Christian Campus House. If you have any questions please do not
             hesitate to contact us at <a href="mailto:housing@rollaccf.org">housing@rollaccf.org</a></p>
-    </div>
+</section>
 {% endblock %}

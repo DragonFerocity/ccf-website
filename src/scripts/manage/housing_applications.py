@@ -5,10 +5,10 @@ import StringIO
 import datetime
 from google.appengine.ext import webapp, ndb
 from . import Manage_BaseHandler
-from scripts.database_models.housing_application import HousingApplication, HousingApplicationStageChange
+from scripts.database_models.housing_application import HousingApplication, HousingApplicationStageChange, HousingApplicationStageAcknowledged, HousingApplicationStageReferencesSent, HousingApplicationStageInterviewScheduled, HousingApplicationStageInterviewComplete, HousingApplicationStageEvent
 from scripts.database_models.housing_application import HousingApplicationNote, HousingApplicationNote_Form
 from scripts.database_models.housing_reference import HousingReference
-from scripts.database_models.housing_application import get_semester_text_from_index, get_current_semester_index
+from scripts.database_models.housing_application import get_semester_text_from_index, get_current_semester_index, get_semester_text_from_index_by_year
 from ext.wtforms.form import Form
 from ext.wtforms import fields
 
@@ -25,15 +25,21 @@ class HousingApplicationFilter(Form):
                         choices=[
                             ('-TimeSubmitted', 'Time Submitted'),
                             ('FullName', 'Full Name'),
+                            ('LastName', 'Last Name'),
                             ('SemesterToBeginIndex', 'Semester To Begin'),
                         ],
     )
     IncludeArchived = fields.BooleanField(u'Include Archived')
     ShowAllSemesters = fields.BooleanField("Show All Semesters", default='')
-    Semester1 = fields.BooleanField(get_semester_text_from_index(get_current_semester_index() + 1), default='y')
-    Semester2 = fields.BooleanField(get_semester_text_from_index(get_current_semester_index() + 2), default='y')
-    Semester3 = fields.BooleanField(get_semester_text_from_index(get_current_semester_index() + 3), default='y')
-    Semester4 = fields.BooleanField(get_semester_text_from_index(get_current_semester_index() + 4), default='y')
+    Semester1 = fields.BooleanField(get_semester_text_from_index_by_year(get_current_semester_index() + 1), default='y')
+    Semester2 = fields.BooleanField(get_semester_text_from_index_by_year(get_current_semester_index() + 2), default='y')
+    Semester3 = fields.BooleanField(get_semester_text_from_index_by_year(get_current_semester_index() + 3), default='y')
+    Semester4 = fields.BooleanField(get_semester_text_from_index_by_year(get_current_semester_index() + 4), default='y')
+    Semester5 = fields.BooleanField(get_semester_text_from_index_by_year(get_current_semester_index() + 5), default='y')
+
+    Semester0 = fields.BooleanField(get_semester_text_from_index_by_year(get_current_semester_index() + 0), default='')
+    Semester11 = fields.BooleanField(get_semester_text_from_index_by_year(get_current_semester_index() - 1), default='')
+    Semester12 = fields.BooleanField(get_semester_text_from_index_by_year(get_current_semester_index() - 2), default='')
     TimeStamp = fields.HiddenField()
 
     def __init__(self, *args, **kwargs):
@@ -70,9 +76,16 @@ class HousingApplicationFilter(Form):
         if not self.ShowAllSemesters.data:
             current_semester_index = get_current_semester_index()
             # simplifies 4 if statements into a single for loop
-            for semester_num in (1, 2, 3, 4):
+            for semester_num in (0, 1, 2, 3, 4, 5, 11, 12):
                 if getattr(self, "Semester{}".format(semester_num)).data:
-                    semesters.append(current_semester_index + semester_num)
+                    if semester_num < 5:
+                        semesters.append(current_semester_index + semester_num)
+                    elif semester_num == 5:
+                        semesters.append(current_semester_index)
+                    elif semester_num == 11:
+                        semesters.append(current_semester_index - 1)
+                    elif semester_num == 12:
+                        semesters.append(current_semester_index - 2)
             filterFormQuery = filterFormQuery.filter(HousingApplication.SemesterToBeginIndex.IN(semesters))
 
         if not self.IncludeArchived.data:
@@ -84,7 +97,11 @@ class HousingApplicationFilter(Form):
         else:
             reverse = False
             prop_name = self.SortBy.data
-        prop = getattr(HousingApplication, prop_name)
+        if (self.SortBy.data == "LastName"):
+            prop = getattr(HousingApplication, "FirstName")
+        else:
+            prop = getattr(HousingApplication, prop_name)
+
         if reverse:
             filterFormQuery = filterFormQuery.order(-prop)
         else:
@@ -147,8 +164,10 @@ class Manage_HousingApplication_ArchiveHandler(Manage_HousingApplications_BaseHa
         app = ndb.Key(urlsafe=key).get()
         if action == 'archive':
             app.Archived = True
+            app.StageEvent.append(HousingApplicationStageEvent(Note="Application Archived"))
         else:
             app.Archived = False
+            app.StageEvent.append(HousingApplicationStageEvent(Note="Application Unarchived"))
         app.put()
 
 
@@ -185,6 +204,7 @@ class Manage_HousingApplication_ViewHandler(Manage_HousingApplications_BaseHandl
         self.template_vars['noteForm'] = self.generate_form(HousingApplicationNote_Form)
         self.template_vars['host'] = os.environ['HTTP_HOST']
         self.template_vars['num_stages'] = 5
+        self.template_vars['events'] = housing_application.StageEvent
 
         self.render_template("manage/housing_applications/view_housing_application.html")
 
@@ -243,7 +263,64 @@ class Manage_HousingApplication_StageChangeHandler(Manage_HousingApplications_Ba
 
         application = application_key.get()
         change = HousingApplicationStageChange(NewStage=int(new_stage))
-        application.StageChanges.append(change)
+        application.StageChanges = change
+        application.put()
+        self.redirect("/manage/housing_applications/view/%s" % key)
+
+class Manage_HousingApplication_StageAcknowledgedHandler(Manage_HousingApplications_BaseHandler):
+    def get(self, completed, key):
+        application_key = ndb.Key(urlsafe=key)
+        if application_key.kind() != "HousingApplication":
+            self.abort(404, "key must be of kind 'HousingApplication'")
+
+        application = application_key.get()
+        c = (True if completed == "true" else False)
+        change = HousingApplicationStageAcknowledged(Completed=(True if completed == "true" else False))
+        application.StageAcknowledged = change
+        application.StageEvent.append(HousingApplicationStageEvent(Note=("Application Acknowledged" if c else "Application Unacknowledged")))
+        application.put()
+        #self.abort(404, change)
+        self.redirect("/manage/housing_applications/view/%s" % key)
+
+class Manage_HousingApplication_StageReferencesSentHandler(Manage_HousingApplications_BaseHandler):
+    def get(self, completed, key):
+        application_key = ndb.Key(urlsafe=key)
+        if application_key.kind() != "HousingApplication":
+            self.abort(404, "key must be of kind 'HousingApplication'")
+
+        application = application_key.get()
+        c = (True if completed == "true" else False)
+        change = HousingApplicationStageReferencesSent(Completed=(True if completed == "true" else False))
+        application.StageReferencesSent = change
+        application.StageEvent.append(HousingApplicationStageEvent(Note=("References Sent" if c else "References Unsent")))
+        application.put()
+        self.redirect("/manage/housing_applications/view/%s" % key)
+
+class Manage_HousingApplication_StageInterviewScheduled(Manage_HousingApplications_BaseHandler):
+    def get(self, completed, key):
+        application_key = ndb.Key(urlsafe=key)
+        if application_key.kind() != "HousingApplication":
+            self.abort(404, "key must be of kind 'HousingApplication'")
+
+        application = application_key.get()
+        c = (True if completed == "true" else False)
+        change = HousingApplicationStageInterviewScheduled(Completed=(True if completed == "true" else False))
+        application.StageInterviewScheduled = change
+        application.StageEvent.append(HousingApplicationStageEvent(Note=("Interview Scheduled" if c else "Interview Unscheduled")))
+        application.put()
+        self.redirect("/manage/housing_applications/view/%s" % key)
+
+class Manage_HousingApplication_StageInterviewComplete(Manage_HousingApplications_BaseHandler):
+    def get(self, completed, key):
+        application_key = ndb.Key(urlsafe=key)
+        if application_key.kind() != "HousingApplication":
+            self.abort(404, "key must be of kind 'HousingApplication'")
+
+        application = application_key.get()
+        c = (True if completed == "true" else False)
+        change = HousingApplicationStageInterviewComplete(Completed=(True if completed == "true" else False))
+        application.StageInterviewComplete = change
+        application.StageEvent.append(HousingApplicationStageEvent(Note=("Interview Complete" if c else "Interview Incomplete")))
         application.put()
         self.redirect("/manage/housing_applications/view/%s" % key)
 
@@ -284,6 +361,10 @@ application = webapp.WSGIApplication([
     ('/manage/housing_applications/view/([^/]+)', Manage_HousingApplication_ViewHandler),
     ('/manage/housing_applications/ref/(c|o)/([^/]+)', Manage_HousingApplication_ReferenceHandler),
     ('/manage/housing_applications/stage/(\d)/([^/]+)', Manage_HousingApplication_StageChangeHandler),
+    ('/manage/housing_applications/stage/acknowledged/(true|false)/([^/]+)', Manage_HousingApplication_StageAcknowledgedHandler),
+    ('/manage/housing_applications/stage/references/(true|false)/([^/]+)', Manage_HousingApplication_StageReferencesSentHandler),
+    ('/manage/housing_applications/stage/interview_scheduled/(true|false)/([^/]+)', Manage_HousingApplication_StageInterviewScheduled),
+    ('/manage/housing_applications/stage/interview_complete/(true|false)/([^/]+)', Manage_HousingApplication_StageInterviewComplete),
     ('/manage/housing_applications/view_housing_application.*', Manage_HousingApplication_LegacyViewHandler),
     ('/manage/housing_applications/(archive|unarchive)/([^/]+)', Manage_HousingApplication_ArchiveHandler),
     ('/manage/housing_applications/export', Manage_HousingApplications_ExportHandler),

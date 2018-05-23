@@ -52,25 +52,53 @@
     <script type="text/javascript">
         function disableCheckboxes(eventObject) {
             if ($('#ShowAllSemesters').is(':checked')) {
+                $("#Semester12").attr('disabled', 'disabled');
+                $("#Semester11").attr('disabled', 'disabled');
+                $("#Semester0").attr('disabled', 'disabled');
                 $("#Semester1").attr('disabled', 'disabled');
                 $("#Semester2").attr('disabled', 'disabled');
                 $("#Semester3").attr('disabled', 'disabled');
                 $("#Semester4").attr('disabled', 'disabled');
+                $("#Semester5").attr('disabled', 'disabled');
             } else {
+                $("#Semester12").removeAttr('disabled');
+                $("#Semester11").removeAttr('disabled');
+                $("#Semester0").removeAttr('disabled');
                 $("#Semester1").removeAttr('disabled');
                 $("#Semester2").removeAttr('disabled');
                 $("#Semester3").removeAttr('disabled');
                 $("#Semester4").removeAttr('disabled');
+                $("#Semester5").removeAttr('disabled');
             }
         }
         $(document).ready(function () {
             $("#ShowAllSemesters").change(disableCheckboxes);
             $("#ShowAllSemesters").change();
+            $("input[type='checkbox']").change(function() {
+              showPopupWindow("Retrieving applications...");
+              $("#submit").trigger("click");
+            });
+            $("input[type='radio']").change(function() {
+              showPopupWindow("Retrieving applications...");
+              $("#submit").trigger("click");
+            });
+            $("#clear-semesters").click(function() {
+              $("#Semester12").prop('checked', false);
+              $("#Semester11").prop('checked', false);
+              $("#Semester0").prop('checked', false);
+              $("#Semester1").prop('checked', false);
+              $("#Semester2").prop('checked', false);
+              $("#Semester3").prop('checked', false);
+              $("#Semester4").prop('checked', false);
+              $("#Semester5").prop('checked', false);
+              $("#ShowAllSemesters").prop('checked', false);
+            });
         });
     </script>
 {% endblock %}
 
 {% block content %}
+{{ super() }}
 <section class="separator-brown manage-spacer" style="position: relative;">
     <h2>Manage</h2>
 </section>
@@ -80,21 +108,21 @@
             Javascript is required. Please enable javascript.
         </div>
     </noscript>
-    <form action="" method="">
+    <form action="" method="" id="filter-form">
         <div class="filterCatagoryShell">
             <div class="filterCatagory">
                 <div class="filterCatagoryLabel">Options:</div>
                 <div class="filterCatagoryInner">
-                    {{ filterForm.DisplayCchHouse }}{{ filterForm.DisplayCchHouse.label }}<br/>
-                    {{ filterForm.DisplayWcchHouse }}{{ filterForm.DisplayWcchHouse.label }}<br/>
-                    {{ filterForm.IncludeArchived }}{{ filterForm.IncludeArchived.label }}
+                    <label class="checkbox-switch">{{ filterForm.DisplayCchHouse }}<span class="checkbox-slider"></span></label> {{ filterForm.DisplayCchHouse.label }}<br/>
+                    <label class="checkbox-switch">{{ filterForm.DisplayWcchHouse }}<span class="checkbox-slider"></span></label> {{ filterForm.DisplayWcchHouse.label }}<br/>
+                    <label class="checkbox-switch">{{ filterForm.IncludeArchived }}<span class="checkbox-slider"></span></label> {{ filterForm.IncludeArchived.label }}
                 </div>
             </div>
             <div class="filterCatagory">
                 <div class="filterCatagoryLabel">Sorting:</div>
                 <div class="filterCatagoryInner">
                     {% for field in filterForm.SortBy %}
-                        {{ field }}{{ field.label }}<br/>
+                        <label class="checkbox-switch">{{ field }}<span class="checkbox-slider"></span></label> {{ field.label }}<br/>
                     {% endfor %}
                 </div>
             </div>
@@ -103,16 +131,33 @@
                 <div class="filterCatagoryInner">
                     <table style="border-spacing:0">
                         <tr>
-                            <td colspan="2">
-                                {{ filterForm.ShowAllSemesters }}{{ filterForm.ShowAllSemesters.label }}</td>
+                            <td><input id="clear-semesters" class="garamond" type="button" value="Clear All" style="padding: 2px 15px; font-size: 16px;"/>
+                        <tr>
+                            <td><label class="checkbox-switch">{{ filterForm.ShowAllSemesters }}<span class="checkbox-slider"></span></label> {{ filterForm.ShowAllSemesters.label }}</td>
                         </tr>
                         <tr>
-                            <td>{{ filterForm.Semester1 }}{{ filterForm.Semester1.label }}</td>
-                            <td>{{ filterForm.Semester2 }}{{ filterForm.Semester2.label }}</td>
+                            <td><label class="checkbox-switch">{{ filterForm.Semester12 }}<span class="checkbox-slider"></span></label> {{ filterForm.Semester12.label }}</td>
                         </tr>
                         <tr>
-                            <td>{{ filterForm.Semester3 }}{{ filterForm.Semester3.label }}</td>
-                            <td>{{ filterForm.Semester4 }}{{ filterForm.Semester4.label }}</td>
+                            <td><label class="checkbox-switch">{{ filterForm.Semester11 }}<span class="checkbox-slider"></span></label> {{ filterForm.Semester11.label }}</td>
+                        </tr>
+                        <tr>
+                            <td><label class="checkbox-switch">{{ filterForm.Semester0 }}<span class="checkbox-slider"></span></label> {{ filterForm.Semester0.label }} (Current Semester)</td>
+                        </tr>
+                        <tr>
+                            <td><label class="checkbox-switch">{{ filterForm.Semester1 }}<span class="checkbox-slider"></span></label> {{ filterForm.Semester1.label }}</td>
+                        </tr>
+                        <tr>
+                            <td><label class="checkbox-switch">{{ filterForm.Semester2 }}<span class="checkbox-slider"></span></label> {{ filterForm.Semester2.label }}</td>
+                        </tr>
+                        <tr>
+                            <td><label class="checkbox-switch">{{ filterForm.Semester3 }}<span class="checkbox-slider"></span></label> {{ filterForm.Semester3.label }}</td>
+                        </tr>
+                        <tr>
+                            <td><label class="checkbox-switch">{{ filterForm.Semester4 }}<span class="checkbox-slider"></span></label> {{ filterForm.Semester4.label }}</td>
+                        </tr>
+                        <tr>
+                            <td><label class="checkbox-switch">{{ filterForm.Semester5 }}<span class="checkbox-slider"></span></label> {{ filterForm.Semester5.label }}</td>
                         </tr>
                     </table>
                 </div>
@@ -151,7 +196,7 @@
                     {% endif %}
                 </td>
                 <td  style="width: 33%">
-                    <input type="submit" value="Filter" style="float:right; height:30px; width:100px;"/>
+                    <input id="submit" type="submit" value="Filter" style="float:right; height:30px; width:100px; display: none;"/>
                 </td>
             </tr>
         </table>
@@ -165,12 +210,43 @@
         {% for app in applications %}
             <div class="list-item {{ loop.cycle('list-item-odd', 'list-item-even') }}">
                 <div class="list-item-header">
-                <ul id='progress_bar' class='stage_{{ app.Stage }}'>
-                    <li>Acknowledged</li>
-                    <li>References Sent</li>
-                    <li>References Received</li>
-                    <li>Interview Scheduled</li>
-                    <li>Interview Completed</li>
+                <ul id='progress_bar'>
+                  <!-- ACKNOWLEDGED -->
+                    {% if (app.StageAcknowledged.Completed or app.Stage >= 1) %}
+                      <li class="action-complete action-item">Acknowledged</li>
+                    {% else %}
+                      <li class="action-item">Acknowledged</li>
+                    {% endif %}
+                  <!-- REFERENCES SENT AND RECIEVED -->
+                    {% if (app.StageReferencesSent.Completed or app.Stage >= 2) %}
+                      <li class="action-complete action-item">References Sent</li>
+                      {% if (app.HomeChurchReferenceKey) %}
+                        <li class="action-complete action-item">Church Reference Received</li>
+                      {% else %}
+                        <li class="action-inprogress action-item">Church Reference Received</li>
+                      {% endif %}
+                      {% if (app.OtherReferenceKey) %}
+                        <li class="action-complete action-item">Additional Reference Received</li>
+                      {% else %}
+                        <li class="action-inprogress action-item">Additional Reference Received</li>
+                      {% endif %}
+                    {% else %}
+                      <li>References Sent</li>
+                      <li class="action-item">Church Reference Received</li>
+                      <li class="action-item">Additional Reference Received</li>
+                    {% endif %}
+                  <!-- INTERVIEW SCHEDULED AND COMPLETE -->
+                    {% if (app.StageInterviewScheduled.Completed or app.Stage >= 4) %}
+                      <li class="action-complete action-item">Interview Scheduled</li>
+                      {% if (app.StageInterviewComplete.Completed or app.Stage >= 5) %}
+                        <li class="action-complete action-item">Interview Completed</li>
+                      {% else %}
+                        <li class="action-inprogress action-item">Interview Completed</li>
+                      {% endif %}
+                    {% else %}
+                      <li class="action-item">Interview Scheduled</li>
+                      <li class="action-item">Interview Completed</li>
+                    {% endif %}
                 </ul>
                 </div>
                 <div class="list-item-body">

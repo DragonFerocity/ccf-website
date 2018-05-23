@@ -57,6 +57,7 @@ class ApplicationHandler(Housing_BaseHandler):
             filled_housing_application.send_staff_notification_email(self)
             filled_housing_application.send_reference_email('c')
             filled_housing_application.send_reference_email('o')
+            filled_housing_application.send_applicant_notification_email()
 
             self.session["app-name"] = filled_housing_application.FullName
             self.redirect(self.request.path + "/done")

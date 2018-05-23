@@ -29,8 +29,8 @@ class Manage_SemesterSeries_Handler(Manage_SemesterSeries_BaseHandler):
             def custom_strftime(format_string, t):
                 return t.strftime(format_string).replace('{S}', str(t.day) + suffix(t.day))
 
-            start_date = datetime.datetime.strptime(start, "%B %d %Y")
-            end_date = datetime.datetime.strptime(end, "%B %d %Y")
+            start_date = datetime.datetime.strptime(start, "%Y-%m-%d") #%B %d %Y
+            end_date = datetime.datetime.strptime(end, "%Y-%m-%d")
             delta = datetime.timedelta(days=7)
             while start_date <= end_date:
                 form.Weeks.append_entry({'Date': custom_strftime("%B {S}", start_date)})

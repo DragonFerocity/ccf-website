@@ -6,7 +6,7 @@ from ext.wtforms.form import Form
 
 
 class WeekInfo_Form(Form):
-    Date = fields.DateField()
+    Date = fields.TextField()
     Speaker = fields.TextField()
     Topic = fields.TextField()
     Location = fields.TextField()

@@ -18,6 +18,15 @@ def get_semester_text_from_index(index):
 
     return "{semester} {year}".format(semester=semester, year=year)
 
+def get_semester_text_from_index_by_year(index):
+    semester_epoch = 2010  # index of 0 is Spring 2010
+    semesters = ["Spring", "Summer", "Fall"]
+
+    semester = semesters[index % 3]
+    year = semester_epoch + index // 3
+
+    return "{year} {semester}".format(year=year, semester=semester)
+
 
 def get_index_from_semester_text(text):
     semester_epoch = 2010  # index of 0 is Spring 2010
@@ -294,6 +303,61 @@ class HousingApplicationStageChange(NdbBaseModel):
         required=True,
     )
 
+class HousingApplicationStageAcknowledged(NdbBaseModel):
+    CreationDateTime = NdbUtcDateTimeProperty(
+        auto_now_add=True,
+    )
+    ChangedBy = ndb.UserProperty(
+        auto_current_user_add=True,
+    )
+    Completed = ndb.BooleanProperty(
+        required=True,
+    )
+
+class HousingApplicationStageReferencesSent(NdbBaseModel):
+    CreationDateTime = NdbUtcDateTimeProperty(
+        auto_now_add=True,
+    )
+    ChangedBy = ndb.UserProperty(
+        auto_current_user_add=True,
+    )
+    Completed = ndb.BooleanProperty(
+        required=True,
+    )
+
+class HousingApplicationStageInterviewScheduled(NdbBaseModel):
+    CreationDateTime = NdbUtcDateTimeProperty(
+        auto_now_add=True,
+    )
+    ChangedBy = ndb.UserProperty(
+        auto_current_user_add=True,
+    )
+    Completed = ndb.BooleanProperty(
+        required=True,
+    )
+
+class HousingApplicationStageInterviewComplete(NdbBaseModel):
+    CreationDateTime = NdbUtcDateTimeProperty(
+        auto_now_add=True,
+    )
+    ChangedBy = ndb.UserProperty(
+        auto_current_user_add=True,
+    )
+    Completed = ndb.BooleanProperty(
+        required=True,
+    )
+
+class HousingApplicationStageEvent(NdbBaseModel):
+    CreationDateTime = NdbUtcDateTimeProperty(
+        auto_now_add=True,
+    )
+    ChangedBy = ndb.UserProperty(
+        auto_current_user_add=True,
+    )
+    Note = ndb.StringProperty(
+        required=True,
+    )
+
 
 class HousingApplication(NdbBaseModel):
     Archived = ndb.BooleanProperty(default=False)
@@ -308,17 +372,52 @@ class HousingApplication(NdbBaseModel):
         repeated=True,
     )
 
+    StageAcknowledged = ndb.StructuredProperty(
+        HousingApplicationStageAcknowledged,
+    )
+
+    StageReferencesSent = ndb.StructuredProperty(
+        HousingApplicationStageReferencesSent,
+    )
+
+    StageInterviewScheduled = ndb.StructuredProperty(
+        HousingApplicationStageInterviewScheduled,
+    )
+
+    StageInterviewComplete = ndb.StructuredProperty(
+        HousingApplicationStageInterviewComplete,
+    )
+
+    StageEvent = ndb.StructuredProperty(
+        HousingApplicationStageEvent,
+        repeated=True,
+    )
+
     @ndb.ComputedProperty
     def Stage(self):
         if self.StageChanges:
             return self.StageChanges[-1].NewStage
         if self.Acknowledged_Legacy:
             return 1
+        if self.StageAcknowledged:
+            return self.StageAcknowledged.Completed
+        if self.StageReferencesSent:
+            return self.StageReferencesSent.Completed
+        if self.StageInterviewScheduled:
+            return self.StageInterviewScheduled.Completed
+        if self.StageInterviewComplete:
+            return self.StageInterviewComplete.Completed
+        if self.StageEvent:
+            return self.StageEvent[-1].Note
         return 0
 
     FullName = ndb.StringProperty(
         verbose_name="Full Name",
         required=True,
+    )
+    LastName = ndb.StringProperty(
+        verbose_name="Last Name",
+        required=False,
     )
     EmailAddress = ndb.StringProperty(
         verbose_name="Email Address",
@@ -490,6 +589,20 @@ class HousingApplication(NdbBaseModel):
     #    repeated=True,
     #)
 
+    def _generate_applicant_notification_email_html(self):
+        result = '<p>Hey {name}!</p>'.format(name=self.FullName)
+        result += '<p>Thank you for applying to the {house} for the {semester} semester! Your next step is to setup an interview with '.format(house=self.House, semester=self.SemesterToBegin)
+        result += ('Nicholas Lewis (nick@rollaccf.org)' if self.House == "Men's Christian Campus House" else 'Shandi Harris (shandi@rollaccf.org)')
+        result += '.<br/>We will be in contact soon!</p>'
+        return result
+
+    def _generate_applicant_notification_email_text(self):
+        result = 'Hey {name}!\n'.format(name=self.FullName)
+        result += '<p>Thank you for applying to the {house} for the {semester} semester! Your next step is to setup an interview with '.format(house=self.House, semester=self.SemesterToBegin)
+        result += ('Nicholas Lewis (nick@rollaccf.org)' if self.House == "Men's Christian Campus House" else 'Shandi Harris (shandi@rollaccf.org)')
+        result += '.\nWe will be in contact soon!'
+        return result
+
     def _generate_staff_notification_email_html(self):
         url = "{hostname}/manage/housing_applications/view/{key}".format(key=self.key.urlsafe(), hostname=os.environ['HTTP_HOST'])
         result = '<p>A new application has been submitted to the {house}.</p>'.format(house=self.House)
@@ -523,6 +636,21 @@ class HousingApplication(NdbBaseModel):
             message.subject = "WCCH Housing Application (%s)" % self.FullName
         message.html = self._generate_staff_notification_email_html()
         message.body = self._generate_staff_notification_email_text()
+        message.send()
+
+    def send_applicant_notification_email(self):
+        # Super hacky to ask for request_handler but it works for now
+        message = EmailMessage()
+        if self.House == "Men's Christian Campus House":
+            message.sender = "CCH Housing Application <housing@rollaccf.org>"
+            message.to = self.EmailAddress
+            message.subject = "Thank you for applying to the Rolla CCH!"
+        else:
+            message.sender = "WCCH Housing Application <housing@rollaccf.org>"
+            message.to = self.EmailAddress
+            message.subject = "Thank you for applying to the Rolla WCCH!"
+        message.html = self._generate_applicant_notification_email_html()
+        message.body = self._generate_applicant_notification_email_text()
         message.send()
 
     def _generate_staff_ref_notification_html(self, ref_type):

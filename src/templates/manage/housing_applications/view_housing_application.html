@@ -15,12 +15,12 @@
             $.get('/manage/housing_applications/' + type + '/' + key);
             if (type == "archive") {
                 $(element).text('Un-Archive');
-                $(element).attr('href', '#unarchive/' + key);
+                $(element).attr('value', 'Un-archive');
                 $(element).attr('onclick', "toggleArchive(this, 'unarchive', '" + key + "');");
                 $(element).attr('title', 'Add this application back into all queries');
             } else {
                 $(element).text('Archive');
-                $(element).attr('href', '#archive/' + key);
+                $(element).attr('value', 'Archive');
                 $(element).attr('onclick', "toggleArchive(this, 'archive', '" + key + "');");
                 $(element).attr('title', 'Remove this application from all queries');
             }
@@ -42,229 +42,263 @@
             padding: 3px 5px;
             border-radius: 2px;
         }
+        .application-display-label {
+          border-bottom: 1px solid rgba(0, 0, 0, 0.3) !important;
+        }
+        .application-display {
+          padding: 10px 0px;
+        }
+        .application-label {
+          padding-right: 10px;
+          font-weight: bold;
+          width: 220px;
+        }
+        .application-info {
+          width: 220px;
+        }
+        .application-group-label {
+          border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+        }
+        a > li {
+          text-decoration: none !important;
+          color: white;
+          font-weight: normal;
+          font-size: 20px;
+        }
+        @media print {
+          #progress_bar, #progress_bar > li {
+            display: none;
+          }
+          #actions {
+            display: none;
+          }
+          #general_info {
+            width: 3.5in !important;
+            float: left;
+          }
+          #references {
+            width: 3.5in !important;
+            float: right;
+          }
+          .application-events {
+            display: none;
+          }
+        }
     {% include 'manage/housing_applications/progress_bar.css' %}
     </style>
 {% endblock %}
 
 {% block content %}
 <section class="separator-brown manage-spacer" style="position: relative;">
-    <h2>Manage</h2>
+    <h2>{{ app.FullName }} | {{ app.House }}</h2>
 </section>
-<section class="content" style = " min-height: calc( 100% - 168px - 183px - 34px ) !important; overflow: auto;">
+<section class="content" style = "min-height: calc( 100% - 168px - 183px - 34px ) !important; overflow: auto;">
     <div>
-        <ul id='progress_bar' class='stage_{{ app.Stage }}'>
-            <li>Acknowledged</li>
-            <li>References Sent</li>
-            <li>References Received</li>
-            <li>Interview Scheduled</li>
-            <li>Interview Completed</li>
+        <ul id='progress_bar'>
+          <!-- ACKNOWLEDGED -->
+            {% if (app.StageAcknowledged.Completed or app.Stage >= 1) %}
+              <a href="/manage/housing_applications/stage/acknowledged/false/{{ app.key.urlsafe() }}"><li class="action-complete action-item">Acknowledged</li></a>
+            {% else %}
+              <a href="/manage/housing_applications/stage/acknowledged/true/{{ app.key.urlsafe() }}"><li class="action-item">Acknowledged</li></a>
+            {% endif %}
+          <!-- REFERENCES SENT AND RECIEVED -->
+            {% if (app.StageReferencesSent.Completed or app.Stage >= 2) %}
+              <a href="/manage/housing_applications/stage/references/false/{{ app.key.urlsafe() }}"><li class="action-complete action-item">References Sent</li></a>
+              {% if (app.HomeChurchReferenceKey) %}
+                <li class="action-complete action-item">Church Reference Received</li>
+              {% else %}
+                <li class="action-inprogress action-item">Church Reference Received</li>
+              {% endif %}
+              {% if (app.OtherReferenceKey) %}
+                <li class="action-complete action-item">Additional Reference Received</li>
+              {% else %}
+                <li class="action-inprogress action-item">Additional Reference Received</li>
+              {% endif %}
+            {% else %}
+              <a href="/manage/housing_applications/stage/references/true/{{ app.key.urlsafe() }}"><li class="action-item">References Sent</li></a>
+              <li class="action-item">Church Reference Received</li>
+              <li class="action-item">Additional Reference Received</li>
+            {% endif %}
+          <!-- INTERVIEW SCHEDULED AND COMPLETE -->
+            {% if (app.StageInterviewScheduled.Completed or app.Stage >= 4) %}
+              <a href="/manage/housing_applications/stage/interview_scheduled/false/{{ app.key.urlsafe() }}"><li class="action-complete action-item">Interview Scheduled</li></a>
+              {% if (app.StageInterviewComplete.Completed or app.Stage >= 5) %}
+                <a href="/manage/housing_applications/stage/interview_complete/false/{{ app.key.urlsafe() }}"><li class="action-complete action-item">Interview Completed</li></a>
+              {% else %}
+                <a href="/manage/housing_applications/stage/interview_complete/true/{{ app.key.urlsafe() }}"><li class="action-inprogress action-item">Interview Completed</li></a>
+              {% endif %}
+            {% else %}
+              <a href="/manage/housing_applications/stage/interview_scheduled/true/{{ app.key.urlsafe() }}"><li class="action-item">Interview Scheduled</li></a>
+              <a href="/manage/housing_applications/stage/interview_complete/true/{{ app.key.urlsafe() }}"><li class="action-item">Interview Completed</li></a>
+            {% endif %}
         </ul>
     </div>
     <table style="width: 100%">
         <tr>
-            <td style="width: 50%">
-                <strong>Actions:</strong>
-                {% if app.Stage < num_stages + 1  %}
-                    <a href="/manage/housing_applications/stage/{{ app.Stage + 1 }}/{{ app.key.urlsafe() }}">Next Stage</a> |
-                {%  else %}
-                    Next Stage |
-                {% endif %}
-                {% if app.Stage > 0 %}
-                    <a href="/manage/housing_applications/stage/{{ app.Stage - 1 }}/{{ app.key.urlsafe() }}">Previous Stage</a> |
-                {% else %}
-                    Previous Stage |
-                {% endif %}
-                {% if app.Archived %}
-                    <a href="#" onclick="toggleArchive(this, 'unarchive', '{{ app.key.urlsafe() }}');"
-                       title="Add this application back into all queries">Un-Archive</a>
-                {% else %}
-                    <a href="#" onclick="toggleArchive(this, 'archive', '{{ app.key.urlsafe() }}');"
-                       title="Remove this application from all queries">Archive</a>
-                {% endif %}
-            </td>
-            <td style="width: 50%">
+            <td style="width: 50%" class="garamond small-text">
                 <strong>Time Submitted:</strong> {{ app.TimeSubmitted_cdt.strftime('%a %b %d, %Y at %I:%M %p') }}
+                &nbsp;&nbsp;
+                {% if app.Archived %}
+                    <input type="button" onclick="toggleArchive(this, 'unarchive', '{{ app.key.urlsafe() }}');"
+                       title="Add this application back into all queries" value="Un-Archive" />
+                {% else %}
+                    <input type="button" onclick="toggleArchive(this, 'archive', '{{ app.key.urlsafe() }}');"
+                       title="Remove this application from all queries" value="Archive" />
+                {% endif %}
             </td>
         </tr>
     </table>
     <hr/>
 
-    <div style="overflow:auto">
-        <fieldset style="float:left; width:445px;">
+    <div style="overflow:auto" id="general_info_references_container">
+        <fieldset style="float:left; width:445px;" id="general_info">
             <legend>General Info</legend>
             <table>
                 <tr>
-                    <td class="application-display-label">{{ app._properties['House']._verbose_name }}:</td>
+                    <td class="application-label right-text garamond">{{ app._properties['House']._verbose_name }}</td>
+                    <td class="application-info left-text garamond">{{ app.House }}</td>
                 </tr>
                 <tr>
-                    <td>{{ app.House }}</td>
+                    <td class="application-label right-text garamond">{{ app._properties['FullName']._verbose_name }}</td>
+                    <td class="application-info left-text garamond">{{ app.FullName }}</td>
                 </tr>
                 <tr>
-                    <td class="application-display-label">{{ app._properties['FullName']._verbose_name }}:</td>
+                    <td class="application-label right-text garamond">{{ app._properties['EmailAddress']._verbose_name }}</td>
+                    <td class="application-info left-text garamond">{{ app.EmailAddress }}</td>
                 </tr>
                 <tr>
-                    <td>{{ app.FullName }}</td>
+                    <td class="application-label right-text garamond">{{ app._properties['PhoneNumber']._verbose_name }}</td>
+                    <td class="application-info left-text garamond">
+                      {% if app.HomeChurchPhoneNumber|length == 10 %}
+                        ({{ app.PhoneNumber[0] }}{{ app.PhoneNumber[1] }}{{ app.PhoneNumber[2] }}) {{ app.PhoneNumber[3] }}{{ app.PhoneNumber[4] }}{{ app.PhoneNumber[5] }}-{{ app.PhoneNumber[6] }}{{ app.PhoneNumber[7] }}{{ app.PhoneNumber[8] }}{{ app.PhoneNumber[9] }}
+                      {% else %}
+                        {{ app.PhoneNumber }}
+                      {% endif %}
+                    </td>
                 </tr>
                 <tr>
-                    <td class="application-display-label">{{ app._properties['EmailAddress']._verbose_name }}:</td>
+                    <td class="application-label right-text garamond">Date of Birth</td>
+                    <td class="application-info left-text garamond">{{ app.DateOfBirth }}</td>
                 </tr>
                 <tr>
-                    <td>{{ app.EmailAddress }}</td>
+                    <td class="application-label right-text garamond">Home Address</td>
+                    <td class="application-info left-text garamond">{{ app.HomeAddress }}</td>
                 </tr>
                 <tr>
-                    <td class="application-display-label">{{ app._properties['PhoneNumber']._verbose_name }}:</td>
+                    <td class="application-label right-text garamond">{{ app._properties['CurrentGradeLevel']._verbose_name }}</td>
+                    <td class="application-info left-text garamond">{{ app.CurrentGradeLevel }}</td>
                 </tr>
                 <tr>
-                    <td>{{ app.PhoneNumber }}</td>
+                    <td class="application-label right-text garamond">{{ app._properties['ProposedDegree']._verbose_name }}</td>
+                    <td class="application-info left-text garamond">{{ app.ProposedDegree }}</td>
                 </tr>
                 <tr>
-                    <td class="application-display-label">{{ app._properties['DateOfBirth']._verbose_name }}:</td>
-                </tr>
-                <tr>
-                    <td>{{ app.DateOfBirth }}</td>
-                </tr>
-                <tr>
-                    <td class="application-display-label">{{ app._properties['HomeAddress']._verbose_name }}:</td>
-                </tr>
-                <tr>
-                    <td>{{ app.HomeAddress }}</td>
-                </tr>
-                <tr>
-                    <td class="application-display-label">{{ app._properties['CurrentGradeLevel']._verbose_name }}:</td>
-                </tr>
-                <tr>
-                    <td>{{ app.CurrentGradeLevel }}</td>
-                </tr>
-                <tr>
-                    <td class="application-display-label">{{ app._properties['ProposedDegree']._verbose_name }}:</td>
-                </tr>
-                <tr>
-                    <td>{{ app.ProposedDegree }}</td>
-                </tr>
-                <tr>
-                    <td class="application-display-label">{{ app._properties['SemesterToBeginIndex']._verbose_name }}:</td>
-                </tr>
-                <tr>
-                    <td>{{ app.SemesterToBegin }}</td>
+                    <td class="application-label right-text garamond">First Semester of Residence</td>
+                    <td class="application-info left-text garamond">{{ app.SemesterToBegin }}</td>
                 </tr>
             </table>
         </fieldset>
 
-        <fieldset style="float:right; width:445px;">
+        <fieldset style="float:right; width:445px;" id="references">
             <legend>References</legend>
-            <div style="margin-bottom: 5px;">
-                <span>Your Parents</span>
+            <table>
+                <tr>
+                    <th colspan="2" class="application-group-label garamond xmedium-text">Your Parents</th>
+                </tr>
+                <tr>
+                    <td class="application-label right-text garamond">Parent's Names</td>
+                    <td class="application-info left-text garamond">{{ app.ParentNames }}</td>
+                </tr>
+                <tr>
+                    <td class="application-label right-text garamond">{{ app._properties['ParentPhoneNumber']._verbose_name }}</td>
+                    <td class="application-info left-text garamond">
+                      {% if app.HomeChurchPhoneNumber|length == 10 %}
+                        ({{ app.ParentPhoneNumber[0] }}{{ app.ParentPhoneNumber[1] }}{{ app.ParentPhoneNumber[2] }}) {{ app.ParentPhoneNumber[3] }}{{ app.ParentPhoneNumber[4] }}{{ app.ParentPhoneNumber[5] }}-{{ app.ParentPhoneNumber[6] }}{{ app.ParentPhoneNumber[7] }}{{ app.ParentPhoneNumber[8] }}{{ app.ParentPhoneNumber[9] }}
+                      {% else %}
+                        {{ app.ParentPhoneNumber }}
+                      {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="application-label right-text garamond">{{ app._properties['ParentEmail']._verbose_name }}</td>
+                    <td class="application-info left-text garamond">{{ app.ParentEmail }}</td>
+                </tr>
 
-                <div style="margin-left: 10px;">
-                    <table>
-                        <tr>
-                            <td colspan="2">
-                                <span class="application-display-label">{{ app._properties['ParentNames']._verbose_name }}</span>
-                                {{ app.ParentNames }}
-                            </td>
-                        </tr>
+                <tr>
+                    <th colspan="2" class="application-group-label garamond xmedium-text" style="padding-top: 20px;">Home Church Reference</th>
+                </tr>
+                <tr>
+                    <td class="application-label right-text garamond">Home Church</td>
+                    <td class="application-info left-text garamond">{{ app.HomeChurchName }}</td>
+                </tr>
+                <tr>
+                    <td class="application-label right-text garamond">Staff Member's Name</td>
+                    <td class="application-info left-text garamond">{{ app.HomeChurchMinisterName }}</td>
+                </tr>
+                <tr>
+                    <td class="application-label right-text garamond">Staff Member's Phone</td>
+                    <td class="application-info left-text garamond">
+                      {% if app.HomeChurchPhoneNumber|length == 10 %}
+                        ({{ app.HomeChurchPhoneNumber[0] }}{{ app.HomeChurchPhoneNumber[1] }}{{ app.HomeChurchPhoneNumber[2] }}) {{ app.HomeChurchPhoneNumber[3] }}{{ app.HomeChurchPhoneNumber[4] }}{{ app.HomeChurchPhoneNumber[5] }}-{{ app.HomeChurchPhoneNumber[6] }}{{ app.HomeChurchPhoneNumber[7] }}{{ app.HomeChurchPhoneNumber[8] }}{{ app.HomeChurchPhoneNumber[9] }}
+                      {% else %}
+                        {{ app.HomeChurchPhoneNumber }}
+                      {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="application-label right-text garamond">Staff Member's Email</td>
+                    <td class="application-info left-text garamond">{{ app.HomeChurchEmail }}</td>
+                </tr>
 
-                        <tr>
-                            <td>
-                                <span class="application-display-label">{{ app._properties['ParentPhoneNumber']._verbose_name }}</span>
-                                {{ app.ParentPhoneNumber }}
-                            </td>
-                            <td>
-                                <span class="application-display-label">{{ app._properties['ParentEmail']._verbose_name }}</span>
-                                {{ app.ParentEmail }}
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-
-            <div style="margin-bottom: 5px;">
-                <span>The staff member at your home church that knows you best</span>
-
-                <div style="margin-left: 10px;">
-                    <table>
-                        <tr>
-                            <td colspan="2">
-                                <span class="application-display-label">{{ app._properties['HomeChurchName']._verbose_name }}</span>
-                                {{ app.HomeChurchName }}
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td colspan="2">
-                                <span class="application-display-label">{{ app._properties['HomeChurchMinisterName']._verbose_name }}</span>
-                                {{ app.HomeChurchMinisterName }}
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <span class="application-display-label">{{ app._properties['HomeChurchPhoneNumber']._verbose_name }}</span>
-                                {{ app.HomeChurchPhoneNumber }}
-                            </td>
-                            <td>
-                                <span class="application-display-label">{{ app._properties['HomeChurchEmail']._verbose_name }}</span>
-                                {{ app.HomeChurchEmail }}
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-
-            <div>
-                <span>Additional reference</span>
-
-                <div style="margin-left: 10px;">
-                    <table>
-                        <tr>
-                            <td colspan="2">
-                                <span class="application-display-label">{{ app._properties['OtherReferenceRelation']._verbose_name }}</span>
-                                {{ app.OtherReferenceRelation }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <span class="application-display-label">{{ app._properties['OtherReferenceName']._verbose_name }}</span>
-                                {{ app.OtherReferenceName }}
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <span class="application-display-label">{{ app._properties['OtherReferencePhoneNumber']._verbose_name }}</span>
-                                {{ app.OtherReferencePhoneNumber }}
-                            </td>
-                            <td>
-                                <span class="application-display-label">{{ app._properties['OtherReferenceEmail']._verbose_name }}</span>
-                                {{ app.OtherReferenceEmail }}
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
+                <tr>
+                    <th colspan="2" class="application-group-label garamond xmedium-text" style="padding-top: 20px;">Additional Reference</th>
+                </tr>
+                <tr>
+                    <td class="application-label right-text garamond">Relation To Applicant</td>
+                    <td class="application-info left-text garamond">{{ app.OtherReferenceRelation }}</td>
+                </tr>
+                <tr>
+                    <td class="application-label right-text garamond">Reference's Name</td>
+                    <td class="application-info left-text garamond">{{ app.OtherReferenceName }}</td>
+                </tr>
+                <tr>
+                    <td class="application-label right-text garamond">Reference's Phone</td>
+                    <td class="application-info left-text garamond">
+                      {% if app.HomeChurchPhoneNumber|length == 10 %}
+                        ({{ app.OtherReferencePhoneNumber[0] }}{{ app.OtherReferencePhoneNumber[1] }}{{ app.OtherReferencePhoneNumber[2] }}) {{ app.OtherReferencePhoneNumber[3] }}{{ app.OtherReferencePhoneNumber[4] }}{{ app.OtherReferencePhoneNumber[5] }}-{{ app.OtherReferencePhoneNumber[6] }}{{ app.OtherReferencePhoneNumber[7] }}{{ app.OtherReferencePhoneNumber[8] }}{{ app.OtherReferencePhoneNumber[9] }}
+                      {% else %}
+                        {{ app.OtherReferencePhoneNumber }}
+                      {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="application-label right-text garamond">Reference's Email</td>
+                    <td class="application-info left-text garamond">{{ app.OtherReferenceEmail }}</td>
+                </tr>
+            </table>
         </fieldset>
     </div>
 
-    <p><span class="application-display-label">{{ app._properties['HowAndWhy']._verbose_name }}</span>
+    <p class="application-display"><span class="application-display-label">{{ app._properties['HowAndWhy']._verbose_name }}</span>
          {{ app.HowAndWhy|replace('\n', '<br />')|safe }}
     </p>
-    <p><span class="application-display-label">{{ app._properties['LeadershipRoles']._verbose_name }}</span>
+    <p class="application-display"><span class="application-display-label">{{ app._properties['LeadershipRoles']._verbose_name }}</span>
         {{ app.LeadershipRoles|replace('\n', '<br />')|safe }}
     </p>
-    <p><span class="application-display-label">{{ app._properties['TalentsAndInterests']._verbose_name }}</span>
+    <p class="application-display"><span class="application-display-label">{{ app._properties['TalentsAndInterests']._verbose_name }}</span>
         {{ app.TalentsAndInterests|replace('\n', '<br />')|safe }}
     </p>
-    <p><span class="application-display-label">{{ app._properties['CriminalActivity']._verbose_name }}</span>
+    <p class="application-display"><span class="application-display-label">{{ app._properties['CriminalActivity']._verbose_name }}</span>
         {{ app.CriminalActivity|replace('\n', '<br />')|safe }}
     </p>
-    <p><span class="application-display-label">{{ app._properties['MedicalAllergies']._verbose_name }}</span>
+    <p class="application-display"><span class="application-display-label">{{ app._properties['MedicalAllergies']._verbose_name }}</span>
         {% if app.MedicalAllergies %}
             {{ app.MedicalAllergies|replace('\n', '<br />')|safe }}
         {% else %}
             (No response from applicant)
         {% endif %}
     </p>
-    <p><span class="application-display-label">{{ app._properties['Medications']._verbose_name }}</span>
+    <p class="application-display"><span class="application-display-label">{{ app._properties['Medications']._verbose_name }}</span>
         {% if app.Medications %}
             {{ app.Medications|replace('\n', '<br />')|safe }}
         {% else %}
@@ -275,52 +309,66 @@
     <hr/>
     <table>
         <tr>
-            <th class="reference_header">
+            <th class="reference_header garamond xmedium-text">
                 Church Reference:
             </th>
-            <td>
+            <td class="garamond small-text">
                 {% if app.HomeChurchReferenceKey %}
                     Completed on {{ church_reference.CreationDateTime_cdt.strftime('%B %d, %Y at %I:%M %p') }}
                     - <a href="/manage/housing_applications/ref/c/{{ app.key.urlsafe() }}">View Reference</a>
                 {% else %}
                     Not completed
-                    <div class="reference_url">{{ host }}/housing/reference/c/{{ app.key.urlsafe() }}</div>
+                    - <a href="/housing/reference/c/{{ app.key.urlsafe() }}">View Reference</a>
+                    <!--<div class="reference_url">{{ host }}/housing/reference/c/{{ app.key.urlsafe() }}</div>-->
                 {% endif %}
             </td>
         </tr>
         <tr>
-            <th class="reference_header">
+            <th class="reference_header garamond xmedium-text">
                 Additional Reference:
             </th>
-            <td>
+            <td class="garamond small-text">
                 {% if app.OtherReferenceKey %}
                     Completed on {{ other_reference.CreationDateTime_cdt.strftime('%B %d, %Y at %I:%M %p') }}
                     - <a href="/manage/housing_applications/ref/o/{{ app.key.urlsafe() }}">View Reference</a>
                 {% else %}
                     Not completed
-                    <div class="reference_url">{{ host }}/housing/reference/o/{{ app.key.urlsafe() }}</div>
+                    - <a href="/housing/reference/c/{{ app.key.urlsafe() }}">View Reference</a>
                 {% endif %}
             </td>
         </tr>
     </table>
 
     <hr/>
-    <div class="alternating-list">
+    <strong class="garamond medium-text">Notes</strong>
+    <div class="alternating-list" style="padding-top: 10px;">
         {% for note in notes %}
             <div class="list-item {{ loop.cycle('list-item-odd', 'list-item-even') }}">
-                <div class="list-item-header">{{ note.Createdby.nickname() }}
+                <div class="list-item-header garamond small-text bold-text">{{ note.Createdby.nickname() }}
                     at {{ note.CreationDateTime_cdt.strftime('%a %b %d, %Y at %I:%M %p') }}</div>
-                <div class="list-item-body">{{ note.Content|replace('\n', '<br />')|safe }}</div>
+                <div class="list-item-body garamond small-text">{{ note.Content|replace('\n', '<br />')|safe }}</div>
             </div>
         {% else %}
-            <p>No notes have been added to this application</p>
         {% endfor %}
     </div>
 
-    <form id="housing-application-add-comment-form" action="?key={{ app.key.urlsafe() }}" method="POST">
+    <form id="housing-application-add-comment-form" action="?key={{ app.key.urlsafe() }}" class="garamond xmedium-text" style="padding-top: 10px;" method="POST">
         Add Notes:
         {{ noteForm.Content(style="width:100%; height:100px;") }}
         <input type="submit" value="Submit Notes"/>
     </form>
+
+    <hr/>
+    <strong class="garamond medium-text application-events">Events</strong>
+    <div class="alternating-list application-events" style="padding-top: 10px;">
+        {% for event in events %}
+            <div class="list-item {{ loop.cycle('list-item-odd', 'list-item-even') }}">
+                <div class="list-item-header garamond small-text bold-text">{{ event.ChangedBy.nickname() }},
+                    {{ event.CreationDateTime_cdt.strftime('%a %b %d, %Y at %I:%M %p') }}</div>
+                <div class="list-item-body garamond small-text">{{ event.NewStage|replace('\n', '<br />')|safe|replace('1', 'Application Acknowledged')|replace('2', 'References Sent')|replace('3', 'References Recieved')|replace('4', 'Interview Scheduled')|replace('5', 'Interview Complete')|replace('6', 'Application Finished') }}{{ event.Note|replace('\n', '<br />')|safe|replace('1', 'Application Acknowledged')|replace('2', 'References Sent')|replace('3', 'References Recieved')|replace('4', 'Interview Scheduled')|replace('5', 'Interview Complete')|replace('6', 'Application Finished') }}</div>
+            </div>
+        {% else %}
+        {% endfor %}
+    </div>
 </section>
 {% endblock %}

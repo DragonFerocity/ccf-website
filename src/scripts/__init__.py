@@ -59,8 +59,6 @@ class BaseHandler(webapp.RequestHandler):
             else:
                 user_permission = UserPermission.get_by_id(self.current_user.email().lower())
                 displayed_pages = user_permission.PermittedPageClasses
-                if (not displayed_pages):
-                    raise ValueError("No Pages")
 
             pages = {}
             for page in displayed_pages:
@@ -170,7 +168,7 @@ class BaseHandler(webapp.RequestHandler):
             super(BaseHandler, self).dispatch()
 
     def render_template(self, filename):
-        self.generate_manage_bar()
+        #self.generate_manage_bar()
         rendered_html = self.jinja2.render_template(filename, **self.template_vars)
         self.response.out.write(rendered_html)
 

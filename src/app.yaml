@@ -1,5 +1,5 @@
 application: ccf-website
-version: release-2017-9-25
+version: release-stable
 runtime: python27
 api_version: 1
 threadsafe: true
@@ -84,3 +84,4 @@ handlers:
   login: admin
 - url: .*
   script: scripts.main.application
+  secure: always

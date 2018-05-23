@@ -28,6 +28,7 @@ class HomepageSlide(NdbBaseModel):
 
     Image = ndb.BlobProperty(
         verbose_name="Carousel Image",
+        #repeated=True,
     )
     Link = ndb.StringProperty(
         verbose_name="URL",

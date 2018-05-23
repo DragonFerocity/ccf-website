@@ -27,7 +27,11 @@
 {% endmacro %}
 
 {% block content %}
-    <p>This form is for {{ reference_name }}.</p>
+<section class="separator-brown" style="position: relative;">
+    <h2>Reference For {{ applicant_name }}</h2>
+</section>
+<section class="content content-full" style="overflow: auto;">
+    <!-- <p>This form is for {{ reference_name }}.</p> -->
     <p>{{ applicant_name }} has named you as a reference on {{ applicant_gender[2] }} application for housing at the Christian
         Campus Fellowship House. Your candid evaluation of {{ applicant_gender[1] }} as a potential resident in the
         Campus House is appreciated. Your prompt completion of this form will be helpful to {{ applicant_gender[1] }}
@@ -180,4 +184,5 @@
             <input style="width:256px; height:40px;" type="submit" value="Submit Reference"/>
         </div>
     </form>
+</section>
 {% endblock %}

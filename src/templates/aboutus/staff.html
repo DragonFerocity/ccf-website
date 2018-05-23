@@ -54,7 +54,7 @@
 </section>
 <section class="content-dark">
     <div id="boardOfDirectors">
-        {% for boardMember in boardMembers %}
+        <!-- {% for boardMember in boardMembers %}
           <div class="boardMemberInfo">
             <table frame="box" rules="rows" cellpadding="5" style="border: 0px solid transparent;">
                 <tr>
@@ -73,7 +73,25 @@
         </div>
         {% else %}
             <p>No Board Members Here</p>
-        {% endfor %}
+        {% endfor %} -->
+      <!-- <div style="text-align:center">
+            <p style="padding-left: 100px; padding-right: 100px" class="josefin medium-text">
+            Dan Oerther, Kenny Salts, Jeremy Jamison, Myrlen Troutt, Sherry Duley, Becky Rich, Mike Kleeschulte,
+            Scott Robinson, Lon/Janet West, Lowell Winn
+            </p>
+      </div> -->
+      <div style="text-align:center">
+        <p style="padding-left: 100px; padding-right: 100px" class="josefin medium-text">
+          {% for boardMember in boardMembers %}
+          {{boardMember.Name}} ({{ boardMember.JoinDate }})
+          {% if not loop.last %}
+,
+          {% endif %}
+          {% else %}
+              No Board Members Here
+          {% endfor %}
+        </p>
+      </div>
     </div>
     <br/><br/>
 </section>
